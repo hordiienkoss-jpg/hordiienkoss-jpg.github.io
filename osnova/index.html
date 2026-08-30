@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Osnova · архітектурне бюро</title>
+<meta name="description" content="Приватні будинки від ескізу до авторського нагляду. Ми починаємо не з вашого опису, а з питань про те, як ви живете.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#E9E7E1">
+<meta name="color-scheme" content="light">
+
+<!-- DEPLOY STEP: адреса на GitHub Pages. Після покупки домену замінити тут і в CNAME. -->
+<link rel="canonical" href="https://hordiienkoss-jpg.github.io/osnova/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Osnova">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Osnova · архітектурне бюро">
+<meta property="og:description" content="Будинок, який ви ще не вмієте описати. Ми починаємо з питань про те, як ви живете.">
+<meta property="og:url" content="https://hordiienkoss-jpg.github.io/osnova/">
+<meta property="og:image" content="https://hordiienkoss-jpg.github.io/osnova/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Аксонометричний план приватного будинку, накреслений лініями">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Osnova · архітектурне бюро">
+<meta name="twitter:description" content="Будинок, який ви ще не вмієте описати.">
+<meta name="twitter:image" content="https://hordiienkoss-jpg.github.io/osnova/assets/og.jpg">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23E9E7E1'/%3E%3Cpath d='M5 20.5 16 6l11 14.5' fill='none' stroke='%23171A19' stroke-width='2.4' stroke-linejoin='round'/%3E%3Cpath d='M5 26h22' stroke='%232743C4' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<link rel="preload" href="assets/fonts/geologica-700-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/commissioner-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Перейти до змісту</a>
+<div class="paper" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Головна навігація">
+  <a class="nav__brand" href="#top">Osnova</a>
+  <div class="nav__links">
+    <a href="#method">Метод</a>
+    <a href="#projects">Проєкти</a>
+    <a href="#try">Спробувати</a>
+    <a href="#stages">Стадії</a>
+    <a href="#price">Ціна</a>
+  </div>
+  <a class="btn btn--sm" href="#talk">Обговорити</a>
+</nav>
+
+<main id="main" tabindex="-1">
+
+<!-- ================= ГЕРОЙ ================= -->
+<section class="hero" id="top">
+  <div class="stage">
+    <div class="stage__media">
+      <div class="stage__poster" aria-hidden="true"></div>
+      <video id="hero" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+      <svg class="ring" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)"/>
+      </svg>
+    </div>
+
+    <div class="bands">
+      <div class="band" data-a="0" data-b="0.16" data-ent="scatter">
+        <p class="sheet">01 / 05</p>
+        <h1 class="band__h">Ви не мусите знати заздалегідь.</h1>
+        <p class="band__s">Більшість людей не вміє описати свій дім. Це нормально.</p>
+      </div>
+      <div class="band" data-a="0.20" data-b="0.36" data-ent="drift">
+        <p class="sheet">02 / 05</p>
+        <p class="band__h">Спершу питання. Потім лінія.</p>
+        <p class="band__s">Ми питаємо про ваш день, а не про стиль фасаду.</p>
+      </div>
+      <div class="band" data-a="0.44" data-b="0.60" data-ent="grid">
+        <p class="sheet">03 / 05</p>
+        <p class="band__h">Кожна стіна має причину.</p>
+        <p class="band__s">І ми можемо назвати її вголос. Для кожної.</p>
+      </div>
+      <div class="band" data-a="0.64" data-b="0.80" data-ent="depth">
+        <p class="sheet">04 / 05</p>
+        <p class="band__h">Креслення стає обʼємом.</p>
+        <p class="band__s">Ви бачите будинок до того, як покладено перший блок.</p>
+      </div>
+      <div class="band band--settle" data-a="0.86" data-b="1" data-ent="rise">
+        <p class="sheet">05 / 05</p>
+        <p class="band__h">Osnova</p>
+        <p class="band__s">Архітектурне бюро. Приватні будинки від ескізу до авторського нагляду.</p>
+        <p class="band__cta">
+          <a class="btn" href="#projects">Подивитись проєкти</a>
+          <a class="btn btn--ghost" href="#talk">Обговорити</a>
+        </p>
+      </div>
+    </div>
+
+    <p class="cue" aria-hidden="true">гортайте</p>
+  </div>
+</section>
+
+<!-- ============ СТАТИЧНИЙ ГЕРОЙ ============ -->
+<section class="hero-static">
+  <div class="hero-static__media">
+    <picture>
+      <source srcset="assets/hero-ending.webp" type="image/webp">
+      <img src="assets/hero-ending.jpg" width="1280" height="900" alt="Аксонометричний обʼєм будинку, накреслений лініями, зі світлом на підлозі" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+  <div class="hero-static__copy">
+    <p class="sheet">Osnova · архітектурне бюро</p>
+    <h1>Будинок, який ви ще не вмієте описати.</h1>
+    <p class="lede">Osnova. Архітектурне бюро. Ми починаємо не з вашого опису, а з питань про те, як ви живете.</p>
+    <p class="band__cta">
+      <a class="btn" href="#projects">Подивитись проєкти</a>
+      <a class="btn btn--ghost" href="#talk">Обговорити</a>
+    </p>
+  </div>
+</section>
+
+<!-- ================= ПОСАДКА ================= -->
+<section class="sec settle">
+  <div class="wrap">
+    <h2 class="settle__h">Ви приходите з відчуттям. Ідете з кресленням.</h2>
+    <p class="settle__p">Між цими двома станами лежить наша робота. Нижче видно, з чого вона складається.</p>
+  </div>
+</section>
+
+<!-- ================= МЕТОД ================= -->
+<section class="sec method" id="method">
+  <div class="wrap">
+    <p class="sheet reveal">01 / метод</p>
+    <h2 class="reveal">Ми питаємо не про будинок. Ми питаємо про вас.</h2>
+    <ol class="qs">
+      <li class="q reveal">
+        <h3>Коли ви прокидаєтесь?</h3>
+        <p>Від цього залежить, куди дивляться вікна спальні. Не від сторін світу в довіднику, а від вашої години.</p>
+      </li>
+      <li class="q reveal">
+        <h3>Де ви їсте щодня?</h3>
+        <p>У більшості проєктів їдальня велика й порожня, а живуть на кухні. Ми зʼясовуємо це до креслення, а не після новосілля.</p>
+      </li>
+      <li class="q reveal">
+        <h3>Скільки вас буває на Різдво?</h3>
+        <p>Дім проєктують під буденність, а ламається він на святах. Найбільший стіл у році вирішує ширину однієї стіни.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= ПРОЄКТИ ================= -->
+<section class="sec projects" id="projects">
+  <div class="wrap">
+    <p class="sheet reveal">02 / проєкти</p>
+    <h2 class="reveal">Три будинки і по одному рішенню в кожному.</h2>
+
+    <article class="proj reveal">
+      <div class="proj__media">
+        <picture>
+          <source srcset="assets/plan-00.webp" type="image/webp">
+          <img src="assets/plan-00.jpg" width="1120" height="788" alt="Аксонометричний план будинку на схилі, розкладеного на два рівні" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="proj__body">
+        <h3>Дім на схилі</h3>
+        <p class="proj__meta"><span>148 м²</span><span>4 кімнати</span></p>
+        <p>Ділянка падала на чотири метри. Замість вирівнювати її бульдозером, розклали будинок на два рівні по схилу. Земляні роботи дешевші за півтора місяця.</p>
+      </div>
+    </article>
+
+    <article class="proj proj--flip reveal">
+      <div class="proj__media">
+        <picture>
+          <source srcset="assets/plan-01.webp" type="image/webp">
+          <img src="assets/plan-01.jpg" width="1120" height="788" alt="Аксонометричний план компактного будинку з однією великою кімнатою" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="proj__body">
+        <h3>Дім для двох</h3>
+        <p class="proj__meta"><span>96 м²</span><span>2 кімнати</span></p>
+        <p>Замовники сказали «нам не потрібно багато». Ми повірили. Одна велика кімната замість трьох маленьких, і вікно на всю східну стіну.</p>
+      </div>
+    </article>
+
+    <article class="proj reveal">
+      <div class="proj__media">
+        <picture>
+          <source srcset="assets/plan-02.webp" type="image/webp">
+          <img src="assets/plan-02.jpg" width="1120" height="788" alt="Аксонометричний план будинку, розвернутого навколо власного двору" loading="lazy" decoding="async">
+        </picture>
+      </div>
+      <div class="proj__body">
+        <h3>Дім із двором</h3>
+        <p class="proj__meta"><span>172 м²</span><span>5 кімнат</span></p>
+        <p>Три сусіди з трьох боків. Розвернули будинок усередину себе: глухі стіни назовні, весь дім дивиться у власний двір.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= СПРОБУЙТЕ САМІ ================= -->
+<section class="sec try" id="try">
+  <div class="wrap try__wrap">
+    <div class="try__copy">
+      <p class="sheet reveal">03 / спробуйте</p>
+      <h2 class="reveal">Три питання. Один план.</h2>
+      <p class="reveal">Ви щойно прочитали, що ми питаємо про життя, а не про фасад. Ось як це працює. Дайте три відповіді, і сторінка накреслить план, який з них випливає. Це не проєкт, це демонстрація логіки.</p>
+
+      <div class="qa-set" id="qaset">
+        <fieldset class="qa-row" data-q="0">
+          <legend>Ви рання людина чи вечірня?</legend>
+          <button type="button" data-v="0">Рання</button>
+          <button type="button" data-v="1">Вечірня</button>
+        </fieldset>
+        <fieldset class="qa-row" data-q="1">
+          <legend>Гості у вас часто чи зрідка?</legend>
+          <button type="button" data-v="0">Часто</button>
+          <button type="button" data-v="1">Зрідка</button>
+        </fieldset>
+        <fieldset class="qa-row" data-q="2">
+          <legend>Ви працюєте вдома?</legend>
+          <button type="button" data-v="0">Так</button>
+          <button type="button" data-v="1">Ні</button>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="try__out">
+      <canvas id="plan" width="1120" height="720" role="img"
+              aria-label="План будинку, що змінюється залежно від ваших відповідей"></canvas>
+      <p class="try__read" id="planread" aria-live="polite">Дайте три відповіді, і план зʼявиться тут.</p>
+      <p class="try__note">Це вісім можливих планів на три питання. У справжній роботі питань близько сорока.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= СТАДІЇ ================= -->
+<section class="sec stages" id="stages">
+  <div class="wrap">
+    <p class="sheet reveal">04 / стадії</p>
+    <h2 class="reveal">Три стадії і одна послуга після них.</h2>
+    <div class="cards">
+      <div class="card reveal"><h3>Ескізний проєкт</h3><p>Плани, фасади, посадка на ділянку. Тут ще дешево передумати.</p></div>
+      <div class="card reveal"><h3>Архітектурний проєкт</h3><p>Розрізи, вузли, специфікації. З цим ідуть по дозвіл.</p></div>
+      <div class="card reveal"><h3>Робочий проєкт</h3><p>Усе, за чим будують: конструкції, мережі, відомості матеріалів.</p></div>
+      <div class="card card--mark reveal"><h3>Авторський нагляд</h3><p>Ми приїжджаємо на будівництво і звіряємо збудоване з кресленням. Це та послуга, через яку намальоване і збудоване збігаються.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ЦІНА ================= -->
+<section class="sec price" id="price">
+  <div class="wrap">
+    <p class="sheet reveal">05 / ціна</p>
+    <h2 class="reveal">Рахуємо за квадратний метр, і цифру називаємо до початку.</h2>
+    <table class="rate reveal">
+      <caption class="sr">Ціни за стадіями проєктування</caption>
+      <thead><tr><th scope="col">Стадія</th><th scope="col">За квадратний метр</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Ескізний проєкт</th><td>180 грн</td></tr>
+        <tr><th scope="row">Архітектурний проєкт</th><td>320 грн</td></tr>
+        <tr><th scope="row">Робочий проєкт</th><td>520 грн</td></tr>
+      </tbody>
+    </table>
+    <p class="price__note reveal">Авторський нагляд рахується помісячно, від початку робіт до здачі.<br>
+    Точну суму називаємо після першої розмови, коли відома площа й складність ділянки.</p>
+  </div>
+</section>
+
+<!-- ================= ПИТАННЯ ================= -->
+<section class="sec faq" id="faq">
+  <div class="wrap">
+    <p class="sheet reveal">06 / питання</p>
+    <h2 class="reveal">Те, що питають найчастіше.</h2>
+    <dl class="qa">
+      <div class="qa__item reveal"><dt>«Чим індивідуальний проєкт кращий за типовий, якщо типовий дешевший?»</dt><dd>Нічим, якщо ваша ділянка рівна, сусідів немає, а сімʼя збігається з тією, під яку креслили типовий. Так буває. Тоді ми чесно скажемо взяти типовий.</dd></div>
+      <div class="qa__item reveal"><dt>«Скільки часу це займає?»</dt><dd>Ескіз два до трьох тижнів. Повний комплект два до трьох місяців. Строк називаємо в перший день.</dd></div>
+      <div class="qa__item reveal"><dt>«А якщо мені не сподобається перший варіант?»</dt><dd>Так майже завжди й буває, це частина роботи. Ескізна стадія існує саме для того, щоб передумувати, поки це нічого не коштує.</dd></div>
+      <div class="qa__item reveal"><dt>«Ви ведете будівництво?»</dt><dd>Ні. Ми проєктуємо і наглядаємо. Будує ваш підрядник, а ми стежимо, щоб він будував за кресленням.</dd></div>
+      <div class="qa__item reveal"><dt>«У мене ще немає ділянки.»</dt><dd>Тоді почніть з нас, а не з ділянки. Ми подивимось варіанти й скажемо, що на якій з них узагалі можна поставити.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ================= ФОРМА ================= -->
+<section class="sec talk" id="talk">
+  <div class="wrap talk__wrap">
+    <div class="talk__copy">
+      <p class="sheet">07 / розмова</p>
+      <h2>Розкажіть, що у вас є на сьогодні.</h2>
+      <p>Ділянка, площа, скільки вас. Якщо чогось із цього ще немає, так і напишіть, це нормальний початок.</p>
+    </div>
+    <form class="form" id="form" novalidate>
+      <div class="field">
+        <label for="f-name">Як до вас звертатися</label>
+        <input id="f-name" name="name" type="text" autocomplete="given-name" required>
+        <p class="err" id="e-name" hidden>Напишіть, будь ласка, імʼя.</p>
+      </div>
+      <div class="field">
+        <label for="f-contact">Телефон або пошта</label>
+        <input id="f-contact" name="contact" type="text" inputmode="tel" autocomplete="tel" required>
+        <p class="err" id="e-contact" hidden>Лишіть контакт, інакше ми не зможемо відповісти.</p>
+      </div>
+      <div class="field">
+        <label for="f-note">Що є на сьогодні</label>
+        <textarea id="f-note" name="note" rows="4"></textarea>
+      </div>
+      <button class="btn btn--wide" type="submit">Надіслати</button>
+      <p class="form__ok" id="form-ok" hidden>Отримали. Відповімо завтра до обіду.</p>
+      <p class="form__where">Це демонстраційний сайт, тому форма нікуди не надсилається: вона лише показує стан успіху. У справжньому проєкті сюди підключають пошту або сервіс форм.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__wrap">
+    <p class="foot__brand">Osnova</p>
+    <p class="foot__note"><strong>Osnova це вигаданий бренд.</strong> Сайт зроблено як демонстраційну роботу, бюро з такою назвою не існує. Автор: Serhii Hordiienko.</p>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Osnova",
+  "description": "Демонстраційний сайт вигаданого архітектурного бюро. Зроблено як портфоліо-роботу.",
+  "inLanguage": "uk",
+  "url": "https://hordiienkoss-jpg.github.io/osnova/",
+  "creator": { "@type": "Person", "name": "Serhii Hordiienko", "url": "https://hordiienkoss-jpg.github.io/" },
+  "isBasedOn": "https://hordiienkoss-jpg.github.io/",
+  "genre": "Концепт"
+}
+</script>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
