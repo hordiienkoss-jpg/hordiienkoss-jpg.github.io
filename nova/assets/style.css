@@ -1,0 +1,781 @@
+/* ===========================================================
+   NOVA DENT · імплантація та естетика
+   Один файл стилів. Без збірки, без залежностей.
+   Премиса: прозорість. Видно суму, видно крок, видно зуб.
+   =========================================================== */
+
+:root{
+  /* --- полотно і поверхні, зняті зі світу кадру після інверсії --- */
+  --canvas:#070B12;
+  --canvas-2:#0A101C;
+  --panel:#0E1726;
+  --panel-2:#132033;
+
+  /* --- акцент, рідкісними дозами --- */
+  --accent:#3FD8EE;
+  --accent-hover:#71E6F6;
+  --accent-muted:rgba(63,216,238,.14);
+  --accent-ink:#06121A;          /* текст на акцентній кнопці */
+  --warm:#F2C879;                /* друге золото, тільки на підсумковій сумі */
+
+  --text-primary:#E8F0F8;
+  --text-secondary:#93A6BC;
+  --line:rgba(147,166,188,.16);
+  --line-strong:rgba(147,166,188,.34);
+
+  /* --- тінь під текстом поверх кадру: край, ореол, розліт --- */
+  --tshadow:
+    0 1px 2px rgba(2,5,10,.95),
+    0 3px 12px rgba(2,5,10,.8),
+    0 10px 44px rgba(2,5,10,.82);
+
+  --e-out:cubic-bezier(.16,.84,.3,1);
+  --e-soft:cubic-bezier(.42,0,.28,1);
+
+  --d:'Unbounded','Trebuchet MS',sans-serif;
+  --b:'Onest',system-ui,-apple-system,sans-serif;
+  --m:'IBM Plex Mono',ui-monospace,'Courier New',monospace;
+
+  --gut:clamp(20px,5vw,80px);
+  --maxw:1280px;
+  --nav-h:72px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  color-scheme:dark;
+  overflow-x:hidden;
+  overflow-x:clip;
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+body{
+  overflow-x:hidden;
+  overflow-x:clip;
+  margin:0;
+  background:var(--canvas);
+  color:var(--text-primary);
+  font:400 clamp(16px,1.05vw,17.5px)/1.62 var(--b);
+  letter-spacing:.002em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-family:var(--d);font-weight:300;line-height:1.06;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+ul,ol{margin:0;padding:0;list-style:none}
+button,input,textarea,select{font:inherit;color:inherit}
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:4px;
+}
+::selection{background:var(--accent);color:var(--accent-ink)}
+
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+}
+.skip{
+  position:absolute;left:var(--gut);top:-100px;z-index:200;
+  padding:12px 18px;border-radius:10px;
+  background:var(--accent);color:var(--accent-ink);
+  font:500 14px/1 var(--b);text-decoration:none;
+  transition:top .24s var(--e-out);
+}
+.skip:focus{top:14px}
+
+/* ===========================================================
+   ФІКСОВАНЕ СЕРЕДОВИЩЕ
+   Один шар за всім, щоб сторінка читалась як одне місце.
+   =========================================================== */
+.env{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.env::before{
+  content:"";position:absolute;left:50%;top:38%;
+  width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;
+  background:radial-gradient(circle,rgba(63,216,238,.075) 0%,rgba(63,216,238,.028) 34%,rgba(63,216,238,0) 66%);
+  animation:envDrift 96s var(--e-soft) -18s infinite;
+}
+.env::after{
+  content:"";position:absolute;inset:-40px;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes envDrift{
+  0%,100%{transform:translate3d(-5%,-3%,0) scale(1)}
+  50%{transform:translate3d(6%,4%,0) scale(1.12)}
+}
+
+/* пил світла, шепотом */
+.motes{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.motes i{
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:var(--accent);opacity:.0;
+  animation:mote 90s linear infinite;
+}
+@keyframes mote{
+  0%{transform:translate3d(0,10vh,0);opacity:0}
+  12%{opacity:.16}
+  88%{opacity:.13}
+  100%{transform:translate3d(4vw,-104vh,0);opacity:0}
+}
+
+/* ===========================================================
+   ЗНАК «NOVA»: шість пелюсток, що складають отвір
+   Розкриття це чистий transform, тому воно дешеве.
+   =========================================================== */
+.mark{display:block;overflow:visible;color:var(--accent)}
+.mark path{
+  fill:none;stroke:currentColor;stroke-width:6;stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+}
+.mark .bl{
+  transform-box:view-box;
+  transform-origin:50px 15.36px;
+  transform:translateY(calc(var(--o,0) * -10px)) rotate(calc(var(--o,0) * 18deg));
+  transition:transform .9s var(--e-out);
+}
+.settle-mark .bl,.step .mark .bl{transition:none}
+
+/* ===========================================================
+   НАВІГАЦІЯ
+   =========================================================== */
+.nav{
+  position:sticky;top:0;z-index:60;
+  display:flex;align-items:center;gap:clamp(16px,3vw,44px);
+  height:var(--nav-h);
+  padding:0 var(--gut);
+  padding-left:max(var(--gut),env(safe-area-inset-left));
+  padding-right:max(var(--gut),env(safe-area-inset-right));
+  background:rgba(7,11,18,.72);
+  backdrop-filter:blur(14px) saturate(1.2);
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:inline-flex;align-items:center;gap:11px;
+  text-decoration:none;flex:0 0 auto;
+}
+.brand .mark{width:24px;height:24px}
+.brand .mark path{stroke-width:8}
+.brand b{
+  font:500 15px/1 var(--d);letter-spacing:.10em;
+  color:var(--text-primary);
+}
+.brand b span{color:var(--text-secondary);font-weight:300}
+.brand:hover .mark{--o:1}
+
+.nav-links{display:flex;gap:clamp(14px,2vw,30px);margin-left:auto}
+.nav-links a{
+  font:400 14.5px/1 var(--b);color:var(--text-secondary);
+  text-decoration:none;padding:6px 0;position:relative;
+  transition:color .28s var(--e-out);
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+  background:var(--accent);transition:right .34s var(--e-out);
+}
+.nav-links a:hover{color:var(--text-primary)}
+.nav-links a:hover::after{right:0}
+.nav .btn-sm{margin-left:clamp(12px,2vw,26px)}
+@media (max-width:900px){
+  .nav-links{display:none}
+  .nav .btn-sm{margin-left:auto}
+}
+
+/* ===========================================================
+   КНОПКИ
+   =========================================================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 26px;border:0;border-radius:999px;
+  background:var(--accent);color:var(--accent-ink);
+  font:500 15px/1 var(--b);letter-spacing:.005em;
+  text-decoration:none;cursor:pointer;
+  touch-action:manipulation;-webkit-tap-highlight-color:rgba(63,216,238,.2);
+  transition:background-color .3s var(--e-out),transform .3s var(--e-out),box-shadow .3s var(--e-out);
+  text-shadow:none;
+}
+.btn:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 10px 30px rgba(63,216,238,.22)}
+.btn:active{transform:translateY(0)}
+.btn-sm{padding:11px 19px;font-size:14px}
+.btn-ghost{
+  background:transparent;color:var(--text-primary);
+  border:1px solid var(--line-strong);
+}
+.btn-ghost:hover{background:rgba(63,216,238,.09);border-color:var(--accent);color:var(--text-primary);box-shadow:none}
+@media (pointer:coarse){
+  .btn{min-height:44px}
+  .nav-links a,.foot-nav a{min-height:44px;display:inline-flex;align-items:center}
+  .brand{min-height:44px}
+  .fact a,.fact span{min-height:44px;display:inline-flex;align-items:center}
+  .skip{min-height:44px;display:inline-flex;align-items:center}
+}
+
+/* ===========================================================
+   ГЕРОЙ
+   =========================================================== */
+.hero{position:relative;z-index:1;height:600vh;margin-top:calc(var(--nav-h) * -1)}
+.stage{
+  position:sticky;top:0;height:100vh;height:100svh;
+  overflow:hidden;isolation:isolate;
+  background:var(--canvas);
+  padding:max(0px,env(safe-area-inset-top)) max(0px,env(safe-area-inset-right))
+          max(0px,env(safe-area-inset-bottom)) max(0px,env(safe-area-inset-left));
+}
+/* Локальне середовище героя, бо шар .env за непрозорою сценою не видно.
+   Лежить НАД кадром: тло кадру вже пофарбоване в колір полотна, тому
+   під ним підсвітки не було б видно взагалі. */
+.stage-glow{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 62% 54% at 50% 46%,rgba(63,216,238,.085) 0%,rgba(63,216,238,0) 70%),
+    radial-gradient(ellipse 90% 70% at 50% 118%,rgba(63,216,238,.05) 0%,rgba(63,216,238,0) 60%);
+}
+.stage-glow::after{
+  content:"";position:absolute;inset:0;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Зуб гойдається з боку в бік слідом за історією, а на фініші
+   від'їжджає вглиб і звільняє місце назві. Це можливо лише тому,
+   що після інверсії тло кадру чорне, а чорне в режимі screen
+   невидиме: краю кадру просто немає, тож рух нічим не видає себе. */
+.plate{
+  position:absolute;inset:0;z-index:1;
+  transform:
+    translate(calc(var(--px,0) * 1%),calc(var(--settle,0) * -13%))
+    scale(calc(.84 - var(--settle,0) * .40));
+  will-change:transform;
+}
+.poster{
+  position:absolute;inset:0;
+  background-position:center;background-size:contain;background-repeat:no-repeat;
+  opacity:0;transition:opacity .7s var(--e-soft);
+}
+.stage.has-still .poster,.stage.video-failed .poster{opacity:1}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;
+  opacity:0;transition:opacity .8s var(--e-soft);
+  transform:translateZ(0);
+  pointer-events:none;
+}
+.stage.video-ready .hero-video{opacity:1}
+.stage.video-ready .poster{opacity:0}
+
+/* базове затемнення, завжди на місці, щоб жоден кадр не був сирим */
+.scrim{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse 124% 92% at 50% 44%,rgba(3,6,12,0) 34%,rgba(3,6,12,.66) 100%);
+}
+
+/* кільце завантаження */
+.ring{
+  position:absolute;right:clamp(20px,4vw,44px);bottom:clamp(20px,4vw,44px);
+  z-index:6;width:34px;height:34px;color:var(--accent);opacity:.5;
+}
+.ring circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .2s linear}
+.stage.video-ready .ring,.stage.video-failed .ring,.stage.has-still .ring{opacity:0;transition:opacity .5s var(--e-soft)}
+
+/* підказка про скрол */
+.cue{
+  position:absolute;left:50%;bottom:clamp(18px,3.4vh,34px);transform:translateX(-50%);
+  z-index:6;display:flex;flex-direction:column;align-items:center;gap:8px;
+  font:400 11px/1 var(--m);letter-spacing:.24em;color:var(--text-secondary);
+  transition:opacity .5s var(--e-out);text-transform:uppercase;
+}
+.cue i{display:block;width:1px;height:26px;background:linear-gradient(var(--accent),transparent);animation:cueRun 2.6s var(--e-soft) infinite}
+@keyframes cueRun{0%{transform:scaleY(.2);transform-origin:top;opacity:0}30%{opacity:1}100%{transform:scaleY(1);transform-origin:top;opacity:0}}
+.hero.scrolled .cue{opacity:0}
+
+/* ---- смуги ---- */
+.bands{position:absolute;inset:0;z-index:4}
+.band{
+  position:absolute;inset:0;
+  display:grid;align-content:center;
+  padding:0 var(--gut);
+  pointer-events:none;
+  text-shadow:var(--tshadow);
+}
+.band.band-hidden{visibility:hidden}
+.band a,.band button{pointer-events:auto}
+
+/* двостороннє затемнення: окремий еліпс під кожну колонку,
+   центр із зубом не чіпаємо взагалі */
+.band::before{
+  content:"";position:absolute;top:-4%;bottom:-4%;width:56%;
+  pointer-events:none;
+  opacity:calc(.28 + .72 * var(--k,1));
+  transition:opacity .001s linear;
+}
+.band-l::before{left:-6%;background:radial-gradient(ellipse 76% 60% at 46% 50%,rgba(2,5,11,.7) 0%,rgba(2,5,11,.46) 44%,rgba(2,5,11,0) 76%)}
+.band-r::before{right:-6%;background:radial-gradient(ellipse 76% 60% at 54% 50%,rgba(2,5,11,.7) 0%,rgba(2,5,11,.46) 44%,rgba(2,5,11,0) 76%)}
+.band-c::before{left:50%;transform:translateX(-50%);width:96%;top:auto;bottom:-8%;height:66%;
+  background:radial-gradient(ellipse 62% 74% at 50% 62%,rgba(2,5,11,.78) 0%,rgba(2,5,11,.52) 46%,rgba(2,5,11,0) 78%)}
+
+.band-l{justify-items:start}
+.band-r{justify-items:end;text-align:right}
+.band-c{align-content:end;justify-items:center;text-align:center;padding-bottom:clamp(26px,6.5vh,74px)}
+.band-in{position:relative;width:min(430px,33%)}
+.band-c .band-in{width:min(660px,88%)}
+
+.kicker{
+  display:block;font:400 11px/1.5 var(--m);letter-spacing:.26em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:18px;
+}
+.band h1,.band .bh{
+  font-family:var(--d);font-weight:300;
+  font-size:clamp(30px,3.5vw,58px);line-height:1.02;letter-spacing:-.018em;
+  margin:0;
+}
+.band .bsub{
+  margin-top:16px;max-width:34ch;
+  font-size:clamp(15px,1.15vw,18px);line-height:1.5;color:var(--text-primary);
+}
+.band-r .bsub{margin-left:auto}
+.band-c .bsub{margin-left:auto;margin-right:auto;max-width:44ch;text-wrap:balance}
+
+/* фінальна смуга */
+.settle-mark{width:38px;height:38px;margin:0 auto 18px;
+  --o:clamp(0,(var(--k,1) - .04) * 1.6,1)}
+.band-c .bh{font-size:clamp(34px,5vw,76px);letter-spacing:.06em;font-weight:500}
+.band-c .bh .lt{font-weight:300;color:var(--text-secondary)}
+.band-c .bh .w.lt{font-weight:300;color:var(--text-secondary)}
+.settle-sub{opacity:clamp(0,(var(--k,1) - .58) * 3,1)}
+.settle-cta{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  margin-top:26px;opacity:clamp(0,(var(--k,1) - .74) * 4,1);
+}
+@media (max-height:780px){
+  .band-c .bh{font-size:clamp(28px,3.6vw,46px)}
+  .settle-mark{width:30px;height:30px;margin-bottom:12px}
+  .settle-cta{margin-top:18px}
+  .band-c .bsub{font-size:15px}
+}
+
+/* ---- ВХОДИ ТЕКСТУ, тільки transform і opacity ---- */
+.vis{display:inline-block}
+.w{display:inline-block;white-space:nowrap}
+.c{display:inline-block;will-change:transform,opacity}
+
+/* (a) мла розходиться: дві копії, різкість приходить непрозорістю */
+.e-blur .vis{opacity:var(--k,0)}
+.e-blur .soft{
+  position:absolute;left:0;top:0;right:0;
+  filter:blur(11px);opacity:calc(1 - var(--k,0));
+  pointer-events:none;
+}
+.band-r .e-blur .soft{left:auto;right:0}
+
+/* (d) удар: слово перескакує ціль і сідає назад */
+.e-punch .w{
+  --kc:clamp(0,(var(--k,0) - var(--th,0)) * 3,1);
+  --ks2:clamp(0,(var(--k,0) - var(--th,0) - var(--sd,.1)) * var(--ss,3.2),1);
+  opacity:var(--kc);
+  transform:scale(calc(.62 + (.38 + var(--ov,.13)) * var(--kc) - var(--ov,.13) * var(--ks2)));
+}
+.e-punch .w.em{--ov:.24;--sd:.16;--ss:2.6}
+
+/* (f) спад: слова падають на місце згори */
+.e-drift .w{
+  --kc:clamp(0,(var(--k,0) - var(--th,0)) * 2.8,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc)) * -26px));
+}
+
+/* (e) підйом: слова встають у порядку читання */
+.e-rise .w{
+  --kc:clamp(0,(var(--k,0) - var(--th,0)) * 2.6,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc)) * 22px));
+}
+
+/* ---- нерухомий герой ---- */
+.hero-static{
+  position:absolute;inset:0;z-index:5;display:none;
+  align-content:end;justify-items:start;
+  padding:0 var(--gut) clamp(38px,9vh,86px);
+  text-shadow:var(--tshadow);
+}
+.hero-static::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(3,6,12,.9) 0%,rgba(3,6,12,.72) 34%,rgba(3,6,12,.1) 72%,rgba(3,6,12,0) 100%);
+}
+.static-in{position:relative;width:min(560px,100%)}
+.hero-static .bh{font-size:clamp(30px,7.4vw,44px);letter-spacing:-.015em}
+.hero-static .bsub{margin-top:14px;max-width:30ch;color:var(--text-primary);font-size:16px}
+.hero-static .settle-cta{justify-content:flex-start;margin-top:22px}
+
+/* ===========================================================
+   СЕКЦІЇ, спільне
+   =========================================================== */
+main{position:relative;z-index:1}
+:target,section[id],[id]{scroll-margin-top:calc(var(--nav-h) + 14px)}
+a,button,input,textarea,summary,details{scroll-margin-top:calc(var(--nav-h) + 20px)}
+.sec{position:relative;padding:clamp(80px,11vh,148px) var(--gut)}
+.sec-wrap{max-width:var(--maxw);margin:0 auto}
+.sec-tint{background:var(--canvas-2)}
+
+.divider{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;align-items:center;gap:22px;
+  padding:0 var(--gut);
+}
+.divider .ln{flex:1;height:1px;background:var(--line);transform-origin:var(--from,left);transform:scaleX(0);transition:transform 1.1s var(--e-out)}
+.divider .ln.r{--from:right}
+.divider .mark{width:22px;height:22px;flex:0 0 auto;opacity:.55}
+.divider.in .ln{transform:scaleX(1)}
+
+.sec-k{
+  display:block;font:400 11px/1.5 var(--m);letter-spacing:.26em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:20px;
+}
+.sec-h{
+  font-size:clamp(28px,4vw,54px);letter-spacing:-.02em;max-width:20ch;
+}
+.sec-lede{
+  margin-top:20px;max-width:56ch;font-size:clamp(16px,1.2vw,19px);
+  color:var(--text-secondary);line-height:1.6;
+}
+
+/* спільний вхід секцій */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--e-out),transform .8s var(--e-out)}
+.sec.in .reveal,.foot.in .reveal{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 90ms)}
+/* після приходу знімаємо затримки, щоб наведення не запізнювалось */
+.sec.settled .reveal,.foot.settled .reveal{transition-delay:0ms !important}
+
+/* ===========================================================
+   1. ТРИ РЕЧІ, ЯКІ ХОВАЮТЬ
+   Скелет: нумерований список на всю ширину, лінійки між рядками.
+   =========================================================== */
+.truth-list{margin-top:clamp(44px,6vw,74px);border-top:1px solid var(--line)}
+.truth{
+  display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1.35fr);
+  gap:clamp(18px,4vw,58px);align-items:baseline;
+  padding:clamp(24px,3.4vw,40px) 0;border-bottom:1px solid var(--line);
+}
+.truth-n{font:400 12px/1 var(--m);color:var(--accent);letter-spacing:.16em;padding-top:.5em}
+.truth h3{font-size:clamp(19px,1.9vw,27px);font-weight:300;letter-spacing:-.012em;line-height:1.16}
+.truth p{color:var(--text-secondary);font-size:clamp(15px,1.05vw,16.5px)}
+.truth-end{
+  margin-top:clamp(34px,4.6vw,54px);
+  font-family:var(--d);font-weight:300;
+  font-size:clamp(19px,2.3vw,31px);line-height:1.28;letter-spacing:-.012em;
+  max-width:26ch;
+}
+.truth-end b{font-weight:300;color:var(--accent)}
+@media (max-width:860px){
+  .truth{grid-template-columns:auto minmax(0,1fr);gap:14px 20px}
+  .truth p{grid-column:2}
+}
+
+/* ===========================================================
+   2. КАЛЬКУЛЯТОР, інтерактивний момент
+   Скелет: одна скляна панель по центру.
+   =========================================================== */
+.calc-head{text-align:center;max-width:660px;margin:0 auto}
+.calc-head .sec-h{margin:0 auto;max-width:16ch}
+.calc-head .sec-lede{margin-left:auto;margin-right:auto;text-align:center;max-width:44ch}
+.calc{
+  max-width:1000px;margin:clamp(40px,5.5vw,64px) auto 0;
+  background:linear-gradient(180deg,rgba(19,32,51,.86),rgba(14,23,38,.86));
+  border:1px solid var(--line);border-radius:22px;
+  padding:clamp(22px,3.4vw,44px);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.cgroup{border:0;padding:0;margin:0 0 clamp(24px,3vw,34px)}
+.cgroup legend{
+  padding:0;margin-bottom:14px;
+  font:400 11px/1 var(--m);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.copts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.copt{position:relative;display:block;cursor:pointer}
+.copt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.copt-box{
+  display:block;height:100%;
+  padding:16px 18px;border-radius:14px;
+  border:1px solid var(--line);background:rgba(7,11,18,.5);
+  transition:border-color .3s var(--e-out),background-color .3s var(--e-out),transform .3s var(--e-out);
+}
+.copt:hover .copt-box{border-color:var(--line-strong);transform:translateY(-2px)}
+.copt input:focus-visible + .copt-box{outline:2px solid var(--accent);outline-offset:3px}
+.copt input:checked + .copt-box{border-color:var(--accent);background:var(--accent-muted)}
+.copt-t{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.copt-t b{font:500 16px/1.3 var(--b);letter-spacing:.002em}
+.copt-t i{font:500 13px/1 var(--m);font-style:normal;color:var(--accent);white-space:nowrap}
+.copt input:checked + .copt-box .copt-t i{color:var(--accent-hover)}
+.copt-d{display:block;margin-top:7px;font-size:13.5px;line-height:1.5;color:var(--text-secondary)}
+
+.cinc{
+  border-top:1px solid var(--line);padding-top:clamp(20px,2.6vw,28px);
+}
+.cinc-h{font:400 11px/1 var(--m);letter-spacing:.22em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:14px}
+.cinc ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:8px 26px}
+.cinc li{display:flex;justify-content:space-between;gap:14px;align-items:baseline;font-size:14.5px;color:var(--text-secondary);padding:3px 0}
+.cinc li i{font:400 12.5px/1 var(--m);font-style:normal;color:var(--accent);opacity:.75}
+
+.ctotal{
+  margin-top:clamp(24px,3vw,34px);padding-top:clamp(22px,2.8vw,30px);
+  border-top:1px solid var(--line-strong);
+  display:flex;align-items:center;gap:clamp(16px,3vw,34px);flex-wrap:wrap;
+}
+.ctotal-mark{width:44px;height:44px;flex:0 0 auto;opacity:.5;transition:opacity .8s var(--e-out)}
+/* нагорода за дію: знак розкривається і пропускає світло */
+.calc.ready .ctotal-mark{opacity:1;--o:1}
+.ctotal-l{flex:1 1 200px;min-width:0}
+.ctotal-l b{display:block;font:400 11px/1 var(--m);letter-spacing:.22em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:9px}
+.ctotal-v{
+  font-family:var(--d);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(30px,4.6vw,54px);line-height:1;color:var(--warm);
+  font-variant-numeric:tabular-nums;
+}
+.ctotal-v.empty{color:var(--text-secondary);opacity:.45}
+.ctotal .btn{flex:0 0 auto}
+.cnote{
+  margin-top:16px;font-size:14.5px;color:var(--text-secondary);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .7s var(--e-out) .25s,transform .7s var(--e-out) .25s;
+}
+.calc.ready .cnote{opacity:1;transform:none}
+.cnote b{color:var(--text-primary);font-weight:500}
+
+/* ===========================================================
+   3. ЯК ЦЕ БУДЕ
+   Скелет: горизонтальна рейка кроків, знак розкривається вздовж неї.
+   =========================================================== */
+.steps{
+  margin-top:clamp(46px,6vw,76px);
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.4vw,32px);
+  position:relative;
+}
+.steps::before{
+  content:"";position:absolute;left:0;right:0;top:22px;height:1px;
+  background:linear-gradient(90deg,var(--accent-muted),var(--line),transparent);
+}
+.step{position:relative;padding-top:60px}
+.step .mark{position:absolute;left:0;top:0;width:44px;height:44px;background:var(--canvas);padding:2px}
+.sec-tint .step .mark{background:var(--canvas-2)}
+.step-n{display:block;font:400 11.5px/1 var(--m);letter-spacing:.2em;color:var(--accent);margin-bottom:12px}
+.step h3{font-size:clamp(17px,1.5vw,21px);font-weight:300;letter-spacing:-.01em;line-height:1.2}
+.step p{margin-top:11px;font-size:14.5px;line-height:1.58;color:var(--text-secondary)}
+@media (max-width:900px){
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 22px}
+  .steps::before{display:none}
+}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* ===========================================================
+   4. ПОСЛУГИ
+   Скелет: три картки з фото, рівне ставлення.
+   =========================================================== */
+.serv{
+  margin-top:clamp(44px,6vw,72px);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.4vw,30px);
+}
+.card{
+  position:relative;overflow:hidden;border-radius:18px;
+  border:1px solid var(--line);background:var(--panel);
+  display:flex;flex-direction:column;
+  transition:border-color .4s var(--e-out),transform .4s var(--e-out);
+}
+.card:hover{border-color:var(--line-strong);transform:translateY(-4px)}
+.card-fig{position:relative;margin:0;overflow:hidden;background:var(--canvas)}
+.card-fig::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(7,11,18,.72),rgba(7,11,18,.06) 62%),
+             linear-gradient(rgba(63,216,238,.07),rgba(63,216,238,0));
+}
+.card-fig img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1s var(--e-out)}
+.card:hover .card-fig img{transform:scale(1.045)}
+.card-b{padding:clamp(20px,2.2vw,28px);flex:1}
+.card h3{font-size:clamp(18px,1.7vw,24px);font-weight:300;letter-spacing:-.012em}
+.card p{margin-top:11px;font-size:14.5px;line-height:1.58;color:var(--text-secondary)}
+@media (max-width:900px){.serv{grid-template-columns:1fr;max-width:520px}}
+
+/* ===========================================================
+   5. ВІДГУКИ
+   Скелет: колонка цитат на лінійках, портрет маленький і збоку.
+   =========================================================== */
+.quotes{margin-top:clamp(40px,5vw,64px);border-top:1px solid var(--line)}
+.quote{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  gap:clamp(20px,4vw,56px);align-items:center;
+  padding:clamp(26px,3.4vw,42px) 0;border-bottom:1px solid var(--line);
+}
+.quote blockquote{
+  margin:0;font-family:var(--d);font-weight:300;
+  font-size:clamp(17px,1.9vw,27px);line-height:1.34;letter-spacing:-.012em;
+  text-wrap:pretty;
+}
+.quote-who{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+.quote-who img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:1px solid var(--line-strong)}
+.quote-who span{font:400 13px/1.45 var(--m);color:var(--text-secondary);white-space:nowrap}
+.quote-who span b{display:block;font:500 14px/1.4 var(--b);color:var(--text-primary)}
+@media (max-width:760px){
+  .quote{grid-template-columns:1fr;gap:20px}
+  .quote-who{order:-1}
+}
+
+/* ===========================================================
+   6. ПИТАННЯ
+   Скелет: акордеон в одну колонку.
+   =========================================================== */
+.faq{margin-top:clamp(38px,5vw,60px);max-width:900px;border-top:1px solid var(--line)}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{
+  list-style:none;cursor:pointer;position:relative;
+  padding:clamp(20px,2.4vw,26px) 52px clamp(20px,2.4vw,26px) 0;
+  font-family:var(--d);font-weight:300;
+  font-size:clamp(16px,1.5vw,21px);line-height:1.32;letter-spacing:-.01em;
+  transition:color .3s var(--e-out);
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:hover{color:var(--accent)}
+.qa summary::after,.qa summary::before{
+  content:"";position:absolute;right:14px;top:50%;
+  width:15px;height:1px;background:var(--accent);
+  transition:transform .4s var(--e-out),opacity .4s var(--e-out);
+}
+.qa summary::before{transform:rotate(90deg)}
+.qa[open] summary::before{transform:rotate(0);opacity:0}
+.qa-a{padding:0 clamp(0px,6vw,72px) clamp(22px,2.6vw,28px) 0;color:var(--text-secondary);font-size:15.5px;line-height:1.66;max-width:64ch}
+
+/* ===========================================================
+   7. ФОРМА, єдина кнопка сторінки
+   Скелет: дві колонки, ліворуч поля, праворуч фото і контакти.
+   =========================================================== */
+.book{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(30px,5vw,72px);align-items:start;
+}
+.book-form{margin-top:clamp(30px,3.4vw,42px);display:grid;gap:16px;max-width:520px}
+.field{display:grid;gap:7px}
+.field label{font:400 11px/1 var(--m);letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary)}
+.field input,.field textarea{
+  width:100%;padding:14px 16px;border-radius:12px;
+  background:var(--panel-2);border:1px solid var(--line);
+  color:var(--text-primary);font:400 16px/1.5 var(--b);
+  transition:border-color .3s var(--e-out),background-color .3s var(--e-out);
+}
+.field textarea{resize:vertical;min-height:96px}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-secondary);opacity:.6}
+.field input:hover,.field textarea:hover{border-color:var(--line-strong)}
+.field.invalid input,.field.invalid textarea{border-color:#FF8A8A}
+.err{min-height:0;font-size:13.5px;color:#FF9A9A;line-height:1.4}
+.err:empty{display:none}
+.book-form .btn{justify-self:start;margin-top:6px}
+.form-fine{margin-top:4px;font-size:13.5px;color:var(--text-secondary)}
+.form-done{
+  margin-top:22px;padding:20px 22px;border-radius:14px;
+  border:1px solid var(--accent);background:var(--accent-muted);
+  font-size:15.5px;line-height:1.6;
+}
+.form-done:focus{outline:none}
+.book-side{margin-top:clamp(30px,3.4vw,42px)}
+.book-fig{margin:0;border-radius:18px;overflow:hidden;border:1px solid var(--line);position:relative}
+.book-fig::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(7,11,18,.6),rgba(7,11,18,0) 60%)}
+.book-fig img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.facts{margin-top:24px;display:grid;gap:2px}
+.fact{display:flex;gap:16px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line)}
+.fact b{flex:0 0 108px;font:400 11px/1.5 var(--m);letter-spacing:.18em;text-transform:uppercase;color:var(--text-secondary);font-weight:400}
+.fact span{flex:1;font-size:15.5px}
+.fact a{color:var(--text-primary);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:border-color .3s var(--e-out),color .3s var(--e-out)}
+.fact a:hover{color:var(--accent);border-color:var(--accent)}
+@media (max-width:900px){.book{grid-template-columns:1fr}}
+
+/* ===========================================================
+   ПІДВАЛ
+   =========================================================== */
+.foot{
+  position:relative;z-index:1;
+  padding:clamp(56px,7vh,88px) var(--gut) clamp(34px,4vh,48px);
+  border-top:1px solid var(--line);background:var(--canvas-2);
+}
+.foot-top{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;justify-content:space-between;gap:34px;flex-wrap:wrap;align-items:flex-start;
+}
+.foot .brand .mark{width:30px;height:30px}
+.foot .brand b{font-size:17px}
+.foot-nav{display:flex;flex-wrap:wrap;gap:10px 26px}
+.foot-nav a{font-size:14.5px;color:var(--text-secondary);text-decoration:none;transition:color .3s var(--e-out)}
+.foot-nav a:hover{color:var(--accent)}
+.foot-fine{
+  max-width:var(--maxw);margin:clamp(38px,5vh,58px) auto 0;
+  padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:13.5px;color:var(--text-secondary);line-height:1.6;
+}
+.foot-fine p{max-width:72ch}
+
+/* ===========================================================
+   ЖИВІ ЕЛЕМЕНТИ, шепотом. Одне на секцію, довше за 4 секунди.
+   Крутяться тільки коли секція в кадрі.
+   =========================================================== */
+.sec.in .truth-n{animation:pulseK 7s var(--e-soft) -2s infinite}
+.sec.in .ctotal-mark{animation:breathe 9s var(--e-soft) -3s infinite}
+.sec.in .step .mark{animation:breathe 11s var(--e-soft) -4s infinite}
+@keyframes pulseK{0%,100%{opacity:1}50%{opacity:.55}}
+@keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused !important}
+
+/* ===========================================================
+   П'ЯТЬ ВОРІТ НЕРУХОМОГО ГЕРОЯ
+   Ці рядки мусять збігатися символ у символ із масивом GATES
+   у assets/app.js. Інакше один бік вантажить те, що другий ховає.
+   =========================================================== */
+@media (max-width:720px),
+       (orientation:portrait) and (max-width:1024px),
+       (orientation:portrait) and (pointer:coarse),
+       (orientation:landscape) and (pointer:coarse) and (max-height:560px),
+       (prefers-reduced-motion:reduce){
+  .hero{height:auto;margin-top:0}
+  .stage{position:relative;height:auto;display:block;
+    padding-bottom:clamp(30px,6vh,54px);overflow:visible}
+  .stage-glow{position:absolute;inset:0}
+  /* кадр у власній смузі: висота задана, ширина обрізається по краях,
+     а там і так лише колір полотна, тож обрізу не видно */
+  .plate{position:relative;inset:auto;height:min(46vh,420px);min-height:250px;transform:none}
+  .hero-video,.ring,.cue,.bands{display:none}
+  .poster{opacity:1;background-size:auto 94%}
+  .hero-static{position:relative;inset:auto;display:block;
+    padding:clamp(14px,3vh,26px) var(--gut) 0}
+  .hero-static::before{display:none}
+  .hero-static .kicker{margin-bottom:14px}
+}
+/* низькі, але «мишачі» вікна: скрол лишається, дрібні накладки йдуть */
+@media (max-height:560px) and (pointer:fine){
+  .cue{display:none}
+}
+
+/* ===========================================================
+   ЗМЕНШЕНИЙ РУХ, повністю
+   =========================================================== */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    transition-delay:0ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1;transform:none}
+  .divider .ln{transform:scaleX(1)}
+  .mark .bl{transform:translateY(-10px) rotate(18deg)}
+  .brand .mark .bl,.divider .mark .bl{transform:none}
+  .calc .cnote{opacity:1;transform:none}
+  .env::before{animation:none}
+  .motes{display:none}
+}
+/* те саме, але живим перемиканням посеред сеансу */
+body.pinned .reveal{opacity:1;transform:none;transition-delay:0ms}
+body.pinned .divider .ln{transform:scaleX(1)}
+body.pinned .cnote{opacity:1;transform:none}
+body.pinned .motes{display:none}
+body.pinned .env::before{animation:none}
