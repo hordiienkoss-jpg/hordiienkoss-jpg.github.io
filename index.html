@@ -469,6 +469,21 @@ video.addEventListener('seeked', function () {
 }
 </script>
 
+<!-- Подяка після відправки. Нативний dialog, бо він сам дає замикання
+     фокуса, закриття на Esc і підкладку, і робить це надійніше, ніж
+     саморобний код. Лежить поза формою навмисно. -->
+<dialog class="thanks" id="thanks" aria-labelledby="thanks-h">
+  <p class="thanks__k">заявка</p>
+  <h2 class="thanks__h" id="thanks-h">Дякую, отримав.</h2>
+  <p class="thanks__p">Лист із вашими контактами відкрився у поштовій програмі. Натисніть у ній «надіслати», і він прийде мені.</p>
+  <p class="thanks__p thanks__p--quiet">Відповім того ж дня. Якщо не візьмусь, скажу чесно і поясню чому.</p>
+  <div class="thanks__mail">
+    <span id="thanks-addr">hordiienkoss@gmail.com</span>
+    <button class="thanks__copy" type="button" id="thanks-copy">Копіювати</button>
+  </div>
+  <button class="btn thanks__close" type="button" id="thanks-close" autofocus>Зрозуміло</button>
+</dialog>
+
 <script src="assets/app.js"></script>
 </body>
 </html>

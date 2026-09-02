@@ -377,6 +377,7 @@
 
   /* ---------------- форма ---------------- */
   var form = document.getElementById('form');
+  var thanks = document.getElementById('thanks');
   if (form) {
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -396,11 +397,77 @@
       var contact = document.getElementById('f-contact').value.trim();
       var note = document.getElementById('f-note').value.trim();
       var body = 'Імʼя: ' + name + '\nКонтакт: ' + contact + '\n\n' + note;
-      document.getElementById('form-ok').hidden = false;
-      window.location.href = 'mailto:hordiienkoss@gmail.com'
+      var mail = 'mailto:hordiienkoss@gmail.com'
         + '?subject=' + encodeURIComponent('Заявка з сайту: ' + name)
         + '&body=' + encodeURIComponent(body);
+
+      // Вікно показуємо першим, і лише потім відкриваємо пошту. Інакше
+      // поштова програма забирає фокус до того, як вікно встигне
+      // намалюватись, і людина його просто не побачить.
+      if (thanks && thanks.showModal) {
+        try { thanks.showModal(); } catch (e) { fallbackOk(); }
+      } else {
+        fallbackOk();
+      }
+      setTimeout(function () { window.location.href = mail; }, 140);
     });
+  }
+
+  /* ---------------- вікно подяки ---------------- */
+  // Дуже старий браузер без dialog. Сторінка не мовчить: під формою
+  // з'являється той самий рядок, що стояв тут раніше.
+  function fallbackOk() {
+    var ok = document.getElementById('form-ok');
+    if (ok) ok.hidden = false;
+  }
+
+  // Запасний варіант, коли буфер обміну недоступний: виділяємо адресу,
+  // і людина копіює звично, руками.
+  function selectText(node) {
+    try {
+      var r = document.createRange();
+      r.selectNodeContents(node);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(r);
+    } catch (e) {}
+  }
+
+  if (thanks) {
+    var closeBtn = document.getElementById('thanks-close');
+    var copyBtn = document.getElementById('thanks-copy');
+    var addr = document.getElementById('thanks-addr');
+
+    if (closeBtn) closeBtn.addEventListener('click', function () { thanks.close(); });
+
+    // Клік повз вікно закриває. Ціль події збігається з самим dialog
+    // лише тоді, коли натиснули в підкладку: вміст лежить у дочірніх вузлах.
+    thanks.addEventListener('click', function (ev) {
+      if (ev.target === thanks) thanks.close();
+    });
+
+    thanks.addEventListener('close', function () {
+      if (copyBtn) copyBtn.textContent = 'Копіювати';
+    });
+
+    if (copyBtn && addr) {
+      copyBtn.addEventListener('click', function () {
+        var text = addr.textContent.trim();
+        var say = function (word) {
+          copyBtn.textContent = word;
+          setTimeout(function () { copyBtn.textContent = 'Копіювати'; }, 2600);
+        };
+        // Буфер обміну доступний не завжди: без https, без дозволу, у
+        // старому браузері. Тоді виділяємо адресу і кажемо про це вголос,
+        // бо кнопка, яка мовчки нічого не зробила, гірша за відсутню.
+        var byHand = function () { selectText(addr); say('Виділив, Ctrl+C'); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { say('Скопійовано'); }, byHand);
+        } else {
+          byHand();
+        }
+      });
+    }
   }
 
   /* ---------------- пауза, коли вкладку сховали ---------------- */

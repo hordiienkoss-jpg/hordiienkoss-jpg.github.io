@@ -444,6 +444,55 @@ h1.band__h{margin-top:0}
   margin:16px 0 0 !important;font-size:13px;color:var(--text-secondary);opacity:.8;line-height:1.6
 }
 
+/* ---------------- вікно подяки ---------------- */
+/* Нативний dialog: замикання фокуса, Esc і підкладка вже вбудовані,
+   тому саморобної модалки тут немає. */
+.thanks{
+  width:min(452px,calc(100vw - 28px));
+  margin:auto;padding:30px 28px 26px;
+  background:var(--panel);color:var(--text-primary);
+  border:1px solid var(--hair-strong);border-radius:14px;
+  box-shadow:0 24px 70px rgba(8,6,4,.6);
+  font-family:var(--f-body)
+}
+.thanks::backdrop{background:rgba(10,8,5,.72)}
+.thanks__k{
+  margin:0 0 10px;font-family:var(--f-mono);font-size:11.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--accent)
+}
+.thanks__h{
+  margin:0 0 12px;font-family:var(--f-display);font-weight:700;
+  font-size:26px;line-height:1.16;letter-spacing:-.01em
+}
+.thanks__p{margin:0 0 12px;font-size:15.5px;line-height:1.62;color:var(--text-secondary)}
+.thanks__p--quiet{font-size:14px;opacity:.85}
+.thanks__mail{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin:18px 0 22px;padding:11px 13px;
+  background:rgba(0,0,0,.22);border:1px solid var(--hair);border-radius:8px;
+  font-family:var(--f-mono);font-size:13.5px
+}
+.thanks__mail span{overflow-wrap:anywhere}
+.thanks__copy{
+  margin-left:auto;padding:6px 11px;cursor:pointer;
+  background:transparent;color:var(--accent);
+  border:1px solid var(--hair-strong);border-radius:6px;
+  font-family:var(--f-mono);font-size:12.5px;touch-action:manipulation;
+  transition:border-color .22s var(--ease-soft),color .22s var(--ease-soft)
+}
+.thanks__copy:hover{border-color:var(--accent);color:var(--accent-hover)}
+.thanks__close{width:100%}
+@media (pointer:coarse),(max-width:720px){.thanks__copy{min-height:44px}}
+
+/* Вхід. Під зменшеним рухом глобальне правило вище зводить його до нуля. */
+.thanks[open]{animation:thanksIn .34s var(--ease) both}
+.thanks[open]::backdrop{animation:thanksFade .34s var(--ease) both}
+@keyframes thanksIn{
+  from{opacity:0;transform:translateY(12px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+@keyframes thanksFade{from{opacity:0}to{opacity:1}}
+
 /* ---------------- підвал ---------------- */
 .foot{padding:44px 0;border-top:1px solid var(--hair);position:relative;z-index:1}
 .foot__wrap{display:flex;flex-wrap:wrap;gap:14px 32px;align-items:baseline}
