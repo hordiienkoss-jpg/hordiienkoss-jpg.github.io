@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARCUS · ортодонтія та елайнери у Львові</title>
+<meta name="description" content="Курс елайнерів, у якому ретенція вже в сумі. Зійтися в ряд це півтора року, розійтися назад це вісім місяців. Ми рахуємо обидві половини.">
+<meta name="theme-color" content="#E7EAF0">
+<meta name="color-scheme" content="light">
+<!-- Показова робота вигаданої клініки. Пошуку віддавати її не треба,
+     щоб вона не конкурувала за запити справжніх клінік. -->
+<meta name="robots" content="noindex, follow">
+
+<!-- DEPLOY STEP: адреса на GitHub Pages. Після покупки домену замінити тут і в CNAME. -->
+<link rel="canonical" href="https://hordiienkoss-jpg.github.io/arcus/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ARCUS">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="ARCUS · ортодонтія та елайнери у Львові">
+<meta property="og:description" content="Зійтися в ряд це півтора року. Розійтися назад це вісім місяців. Ретенція вже в сумі курсу.">
+<meta property="og:url" content="https://hordiienkoss-jpg.github.io/arcus/">
+<meta property="og:image" content="https://hordiienkoss-jpg.github.io/arcus/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Скляні зуби, що стоять рівною дугою на холодному сірому тлі, і назва ARCUS">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ARCUS · ортодонтія та елайнери у Львові">
+<meta name="twitter:description" content="Курс елайнерів, у якому ретенція вже в сумі.">
+<meta name="twitter:image" content="https://hordiienkoss-jpg.github.io/arcus/assets/og.jpg">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M16 66C16 36 34 22 50 22s34 14 34 44' fill='none' stroke='%234B4CE6' stroke-width='9' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='66' r='9' fill='%234B4CE6'/%3E%3Ccircle cx='84' cy='66' r='9' fill='%234B4CE6'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;600&family=Arsenal:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<div class="env" aria-hidden="true"></div>
+<div class="motes" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Головна навігація">
+  <a class="brand" href="#top">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <path class="arc" d="M16 66C16 36 34 22 50 22s34 14 34 44"/>
+      <circle class="pin" cx="16" cy="66" r="8"/>
+      <circle class="pin" cx="84" cy="66" r="8"/>
+    </svg>
+    <b>ARCUS</b>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#rukh">Рух</a></li>
+    <li><a href="#trymay">Втримати</a></li>
+    <li><a href="#kurs">Курс</a></li>
+    <li><a href="#tsina">Ціни</a></li>
+    <li><a href="#vidhuky">Відгуки</a></li>
+    <li><a href="#pytannia">Питання</a></li>
+  </ul>
+  <a class="btn btn-sm" href="#zapys">Записатися</a>
+</nav>
+
+<main id="main" tabindex="-1">
+
+<!-- ===================== ГЕРОЙ ===================== -->
+<section class="hero" id="top">
+  <div class="stage">
+
+    <!-- Розмита копія кадру під самим кадром. Відео йде через contain,
+         щоб дуга ніде не обрізалась, і без цього шару по краях було б
+         видно прямокутну межу кадру, особливо коли він сідає у фіналі.
+         Шарів два, бо кадр по ходу відео світлішає з #9DA6B1 до #A5AFBA:
+         одна нерухома підкладка до фіналу відставала на вісім рівнів,
+         і край ставав видним. Другий шар проступає разом із прокрутом. -->
+    <!-- Кадр і його підкладки живуть в окремому шарі. Це не косметика:
+         --zoom і --lift міняються на кожному кроці прокрутки, а зміна
+         змінної перераховує стилі всьому піддереву. Коли вони стояли на
+         сцені, під перерахунок потрапляли ще й сотні символьних спанів
+         тексту, і на це йшло 1760 мс із 3763 за один прохід героя. -->
+    <div class="surround" aria-hidden="true">
+      <div class="stage-fill"></div>
+      <div class="stage-fill stage-fill-end"></div>
+
+      <div class="plate">
+        <div class="poster"></div>
+        <video class="hero-video" id="hero-video" preload="none" muted playsinline
+               aria-hidden="true" tabindex="-1"></video>
+      </div>
+    </div>
+
+    <div class="scrim" aria-hidden="true"></div>
+
+    <svg class="ring" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+      <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"
+              stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)"/>
+    </svg>
+
+    <div class="bands">
+
+      <div class="band band-top e-scatter" data-a="0" data-b="0.26" data-first="1" data-entrance="scatter">
+        <div class="band-in">
+          <span class="kicker">Ортодонтія · Елайнери · Львів</span>
+          <h1 class="split bh">Зуби рухаються все життя</h1>
+          <p class="bsub">Це і лікує вас, і повертає все назад.</p>
+        </div>
+      </div>
+
+      <div class="band band-bot e-drift" data-a="0.24" data-b="0.52" data-entrance="drift">
+        <div class="band-in">
+          <p class="split bh">Зійтися в ряд це півтора року.</p>
+          <p class="bsub">Саме це показують у рекламі.</p>
+        </div>
+      </div>
+
+      <div class="band band-top e-punch" data-a="0.50" data-b="0.78" data-entrance="punch" data-em="2,3">
+        <div class="band-in">
+          <p class="split bh">Розійтися назад це вісім місяців.</p>
+          <p class="bsub">Пацієнтка зняла капи раніше. Через рік різці стояли на три міліметри криво.</p>
+        </div>
+      </div>
+
+      <div class="band band-bowl e-rise" data-a="0.76" data-b="1" data-entrance="rise" data-ramp="0.2">
+        <div class="band-in">
+          <svg class="mark settle-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <path class="arc" d="M16 66C16 36 34 22 50 22s34 14 34 44"/>
+            <circle class="pin" cx="16" cy="66" r="8"/>
+            <circle class="pin" cx="84" cy="66" r="8"/>
+          </svg>
+          <p class="split bh">ARCUS</p>
+          <p class="bsub settle-sub">Довести ряд до місця. І втримати його там.</p>
+          <div class="settle-cta">
+            <a class="btn" href="#zapys">Записатися на консультацію</a>
+            <a class="btn btn-ghost" href="#tsina">Порахувати свій курс</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- нерухомий герой: телефони, портретні планшети, зменшений рух -->
+    <div class="hero-static">
+      <div class="static-shot" aria-hidden="true"></div>
+      <div class="static-in">
+        <span class="kicker">Ортодонтія · Елайнери · Львів</span>
+        <p class="bh">Зуби рухаються все життя. Питання лише куди.</p>
+        <p class="bsub">Ми доводимо ряд до місця і тримаємо його там. Ретейнери й перший рік нагляду вже в сумі курсу.</p>
+        <div class="settle-cta">
+          <a class="btn" href="#zapys">Записатися на консультацію</a>
+          <a class="btn btn-ghost" href="#tsina">Порахувати свій курс</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cue" aria-hidden="true"><span>гортайте</span><i></i></div>
+  </div>
+</section>
+
+<!-- ===================== 1. ЯК РУХАЄТЬСЯ ЗУБ ===================== -->
+<section class="sec sec-rukh" id="rukh">
+  <div class="wrap">
+    <span class="kicker reveal">Як рухається зуб</span>
+    <h2 class="h2 reveal">Зуб не стоїть у кістці. Він у ній пливе</h2>
+
+    <div class="rail" role="list">
+      <svg class="rail-line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path class="rl" d="M4 20H996"/>
+      </svg>
+      <div class="rail-items">
+        <article class="rail-it reveal" role="listitem">
+          <span class="rail-dot" aria-hidden="true"></span>
+          <p class="num">0,25 мм<i>на тиждень</i></p>
+          <p class="body">Приблизно з такою швидкістю зуб іде крізь кістку. Швидше не можна: зв'язка не встигає перебудуватись, і корінь починає розсмоктуватись.</p>
+        </article>
+        <article class="rail-it reveal" role="listitem">
+          <span class="rail-dot" aria-hidden="true"></span>
+          <p class="num">6 до 9<i>місяців твердне кістка</i></p>
+          <p class="body">Зуб уже стоїть рівно, а кістка навколо нього ще м'яка. У цей момент курс виглядає завершеним, і саме в цей момент він найкрихкіший.</p>
+        </article>
+        <article class="rail-it reveal" role="listitem">
+          <span class="rail-dot" aria-hidden="true"></span>
+          <p class="num">Роками<i>пам'ятає зв'язка</i></p>
+          <p class="body">Волокна навколо кореня розтягнуті й тягнуть зуб назад. Вони заспокоюються останніми, і не в усіх.</p>
+        </article>
+      </div>
+    </div>
+
+    <p class="close-line reveal">Ось чому ретейнер це не додаткова послуга. Це друга половина того самого лікування.</p>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 400 60" preserveAspectRatio="xMidYMid meet" focusable="false">
+    <path class="dv" d="M20 46C20 20 110 10 200 10s180 10 180 36"/>
+  </svg>
+</div>
+
+<!-- ===================== 2. ІНТЕРАКТИВ ===================== -->
+<section class="sec sec-hold" id="trymay">
+  <div class="wrap">
+    <span class="kicker reveal">Спробуйте</span>
+    <h2 class="h2 reveal">Втримайте ряд самі</h2>
+    <p class="lede reveal">Затисніть і не відпускайте. Відпустите раніше, побачите, що буде.</p>
+
+    <div class="hold reveal" id="hold">
+      <div class="hold-stage">
+        <svg class="row" viewBox="0 0 900 300" aria-hidden="true" focusable="false">
+          <g class="teeth"></g>
+          <path class="wire" d="M98 212Q450 -68 802 212"/>
+        </svg>
+      </div>
+
+      <div class="hold-read">
+        <p class="hold-count"><b id="hold-num">0</b><i>місяців ретенції</i></p>
+        <p class="hold-state" id="hold-state">Ряд стоїть рівно. Поки що.</p>
+        <p class="sr-only" id="hold-live" role="status" aria-live="polite"></p>
+      </div>
+
+      <ol class="hold-marks">
+        <li data-at="6"><b>6 місяців</b><span>Кістка починає твердіти. Зуби ще легко зрушити пальцем.</span></li>
+        <li data-at="12"><b>12 місяців</b><span>Зв'язка заспокоюється. Ретейнер уночі, і цього досить.</span></li>
+        <li data-at="24"><b>24 місяці</b><span>Далі ретейнер стає звичкою, як нитка. Ряд ваш.</span></li>
+      </ol>
+
+      <button class="btn hold-btn" id="hold-btn" type="button"
+              aria-describedby="hold-state">Тримати</button>
+      <p class="hold-hint">Мишею, пальцем або пробілом на клавіатурі.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. КУРС ===================== -->
+<section class="sec sec-kurs" id="kurs">
+  <div class="wrap kurs-grid">
+    <div class="kurs-head">
+      <span class="kicker reveal">Курс</span>
+      <h2 class="h2 reveal">Дві половини, і друга довша</h2>
+    </div>
+
+    <ol class="stages">
+      <li class="stage-it reveal">
+        <svg class="stage-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="--draw:.25">
+          <path class="arc" d="M16 66C16 36 34 22 50 22s34 14 34 44"/>
+        </svg>
+        <p class="st-n">01</p>
+        <h3 class="st-h">Скан і план. Одна година.</h3>
+        <p class="body">Сканер замість ложки з масою. Того самого дня ви бачите на екрані, куди поїде кожен зуб і скільки кап на це піде. Число кап це і є термін, іншого таймера тут немає.</p>
+      </li>
+      <li class="stage-it reveal">
+        <svg class="stage-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="--draw:.5">
+          <path class="arc" d="M16 66C16 36 34 22 50 22s34 14 34 44"/>
+        </svg>
+        <p class="st-n">02</p>
+        <h3 class="st-h">Капи. Від 6 до 24 місяців.</h3>
+        <p class="body">Кожні 7 до 10 днів наступна пара. Приходите раз на два місяці, дивимось, чи ряд іде за планом. Якщо не йде, переробляємо капи, і це вже в сумі.</p>
+      </li>
+      <li class="stage-it reveal">
+        <svg class="stage-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="--draw:.75">
+          <path class="arc" d="M16 66C16 36 34 22 50 22s34 14 34 44"/>
+        </svg>
+        <p class="st-n">03</p>
+        <h3 class="st-h">Ретенція, перший рік. Цілодобово, потім уночі.</h3>
+        <p class="body">Найважливіший рік з усіх. Тонкий дріт зсередини на нижні різці плюс нічна капа. Оглядаємо чотири рази за рік, це теж у сумі.</p>
+      </li>
+      <li class="stage-it reveal">
+        <svg class="stage-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false" style="--draw:1">
+          <path class="arc" d="M16 66C16 36 34 22 50 22s34 14 34 44"/>
+        </svg>
+        <p class="st-n">04</p>
+        <h3 class="st-h">Ретенція далі. Уночі, довго.</h3>
+        <p class="body">Скільки саме, чесна відповідь: у більшості людей довше, ніж хочеться. Ми скажемо це на першій зустрічі, а не на останній.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== 4. РЕТЕНЦІЯ ===================== -->
+<section class="sec sec-ret" id="retentsia">
+  <img class="ret-bg" src="assets/photos/svitlo.jpg" width="1920" height="1072" loading="lazy"
+       alt="Скляні зуби, що стоять рівною дугою, залиті глибоким фіолетовим світлом">
+  <div class="wrap ret-wrap">
+    <div class="ret-card reveal">
+      <span class="kicker">Ретенція</span>
+      <h2 class="h2">Курс не закінчується, коли знімають останню капу</h2>
+      <p class="body">У більшості клінік ретейнер це рядок у прайсі після лікування. Його ставлять, якщо пацієнт спитає.</p>
+      <p class="body">У нас він у сумі курсу з першого дня, разом із чотирма оглядами першого року, бо без нього все попереднє не має сенсу.</p>
+      <p class="body">Якщо ретейнер відклеївся або загубився, перший рік ми переставляємо його безкоштовно. Не тому що добрі, а тому що інакше ми зробили половину роботи й узяли за цілу.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5. НАПРЯМКИ ===================== -->
+<section class="sec sec-serv" id="poslugy">
+  <div class="wrap">
+    <span class="kicker reveal">Напрямки</span>
+    <h2 class="h2 reveal">Тільки ортодонтія</h2>
+    <p class="lede reveal">Ми не лікуємо все. Ми ставимо ряд і тримаємо його, і робимо це щодня.</p>
+
+    <div class="cards">
+      <article class="card reveal">
+        <img src="assets/photos/kapa.jpg" width="1400" height="1050" loading="lazy"
+             alt="Прозорий елайнер у пальцях на світлому тлі">
+        <h3 class="c-h">Елайнери</h3>
+        <p class="body">Прозорі капи, від 10 до 40 з гаком на курс. Знімаються на їжу, не видно на відео, дикцію чіпають перші три дні.</p>
+      </article>
+      <article class="card reveal">
+        <img src="assets/photos/skaner.jpg" width="1400" height="1050" loading="lazy"
+             alt="Інтраоральний сканер у руці лікаря, наконечник світиться фіолетовим">
+        <h3 class="c-h">Цифровий план</h3>
+        <p class="body">Сканер знімає рот за десять хвилин. Далі ви дивитесь на екран і бачите кінцеве положення до того, як щось почалось.</p>
+      </article>
+      <article class="card reveal">
+        <img src="assets/photos/plan.jpg" width="1400" height="1050" loading="lazy"
+             alt="Лікар і пацієнт дивляться на екран із тривимірним скановим планом щелепи">
+        <h3 class="c-h">Ретенція</h3>
+        <p class="body">Дріт зсередини, нічна капа, огляди. Половина роботи, про яку зазвичай згадують останньою.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 400 60" preserveAspectRatio="xMidYMid meet" focusable="false">
+    <path class="dv" d="M20 46C20 20 110 10 200 10s180 10 180 36"/>
+  </svg>
+</div>
+
+<!-- ===================== 6. ВІДГУКИ ===================== -->
+<section class="sec sec-quotes" id="vidhuky">
+  <div class="wrap">
+    <span class="kicker reveal">Відгуки</span>
+    <h2 class="h2 reveal">Що кажуть через рік і далі</h2>
+
+    <div class="quotes">
+      <figure class="q reveal">
+        <img src="assets/photos/p-1.jpg" width="900" height="1126" loading="lazy"
+             alt="Портрет жінки у сірому светрі біля вікна">
+        <figcaption class="q-who">Оксана Р.<i>36 років</i></figcaption>
+        <blockquote class="q-t">Мене одразу попередили, що ретейнер це надовго, і показали на екрані, як зуби поїдуть, якщо його не носити. Мене це радше заспокоїло, ніж злякало. Я знала, на що йду.</blockquote>
+      </figure>
+      <figure class="q reveal">
+        <img src="assets/photos/p-2.jpg" width="900" height="1126" loading="lazy"
+             alt="Портрет чоловіка з бородою у темно-синьому светрі біля вікна">
+        <figcaption class="q-who">Андрій С.<i>38 років</i></figcaption>
+        <blockquote class="q-t">Носив капи одинадцять місяців. Найдивніше було те, що на роботі ніхто не помітив. Помітили вже потім, коли все закінчилось.</blockquote>
+      </figure>
+      <figure class="q reveal">
+        <img src="assets/photos/p-3.jpg" width="900" height="1126" loading="lazy"
+             alt="Портрет жінки із сивим волоссям у синьому светрі біля вікна">
+        <figcaption class="q-who">Леся М.<i>52 роки</i></figcaption>
+        <blockquote class="q-t">Мені сорок років казали, що вже пізно. Виявилось, не пізно, просто довше. Другий рік ношу ретейнер уночі, і ряд стоїть так само, як у день, коли зняли останню капу.</blockquote>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7. ЦІНИ ===================== -->
+<section class="sec sec-price" id="tsina">
+  <div class="wrap">
+    <span class="kicker reveal">Курси</span>
+    <h2 class="h2 reveal">Три курси, і ретенція в кожному</h2>
+    <p class="lede reveal">Курс визначає не бажання, а скільки кап треба, щоб довести ряд. Це видно на скані в перший день.</p>
+
+    <div class="prices">
+      <article class="price reveal">
+        <h3 class="p-h">Легкий</h3>
+        <p class="p-v">58 000<span class="uah">₴</span></p>
+        <p class="p-m">10 до 14 кап · до 6 місяців</p>
+        <p class="body">Невеликий поворот кількох зубів або щілина.</p>
+      </article>
+      <article class="price reveal">
+        <h3 class="p-h">Середній</h3>
+        <p class="p-v">89 000<span class="uah">₴</span></p>
+        <p class="p-m">20 до 30 кап · 9 до 14 місяців</p>
+        <p class="body">Скупчення різців, помірний прикус.</p>
+      </article>
+      <article class="price reveal">
+        <h3 class="p-h">Складний</h3>
+        <p class="p-v">128 000<span class="uah">₴</span></p>
+        <p class="p-m">40 і більше кап · 18 до 24 місяців</p>
+        <p class="body">Виражений прикус, коли зуби треба вести довго й по черзі.</p>
+      </article>
+    </div>
+
+    <div class="incl reveal">
+      <p class="incl-h">Уже в сумі, у кожному курсі</p>
+      <ul class="incl-list">
+        <li>Консультація і 3D-скан</li>
+        <li>План на екрані</li>
+        <li>Усі капи курсу</li>
+        <li>Переробка кап, якщо ряд пішов не за планом</li>
+        <li>Усі візити</li>
+        <li><b>Дріт-ретейнер і нічна капа</b></li>
+        <li><b>Чотири огляди першого року ретенції</b></li>
+      </ul>
+      <p class="close-line">Ретенція не окремим рядком. Курс без неї ми не продаємо.</p>
+      <a class="btn" href="#zapys">Записатися на консультацію</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8. ПИТАННЯ ===================== -->
+<section class="sec sec-faq" id="pytannia">
+  <div class="wrap">
+    <span class="kicker reveal">Незручні питання</span>
+    <h2 class="h2 reveal">Питання, які ставлять не одразу</h2>
+
+    <div class="faq">
+      <div class="fq reveal">
+        <h3 class="fq-q">«Скільки це триває насправді?»</h3>
+        <p class="body">Число кап множимо на 7 до 10 днів, і це термін. Він стоїть у плані з першого дня. Якщо ряд іде повільніше, ніж планували, ми переробляємо капи за свій рахунок, а не продовжуємо рахунок.</p>
+      </div>
+      <div class="fq reveal">
+        <h3 class="fq-q">«А якщо зуби все одно поїдуть назад?»</h3>
+        <p class="body">Перші два роки це наша відповідальність. Якщо ряд зрушив, а ви носили ретейнер і приходили на огляди, ми повертаємо його на місце безкоштовно. Це в договорі.</p>
+      </div>
+      <div class="fq reveal">
+        <h3 class="fq-q">«Ретейнер це назавжди?»</h3>
+        <p class="body">Чесно: у більшості людей так, уночі. Зв'язка навколо кореня заспокоюється роками, а в частини людей не заспокоюється зовсім. Той, хто обіцяє вам рік і свободу, обіцяє те, чого не контролює.</p>
+      </div>
+      <div class="fq reveal">
+        <h3 class="fq-q">«Що як я не носитиму 22 години?»</h3>
+        <p class="body">Ряд піде повільніше, і це буде видно на огляді за два місяці. Ми скажемо прямо, а не мовчки продовжимо курс. Капи працюють лише в роті.</p>
+      </div>
+      <div class="fq reveal">
+        <h3 class="fq-q">«Брекети чи елайнери?»</h3>
+        <p class="body">Для більшості випадків різниця в зручності, а не в результаті. Складний прикус іноді швидше й дешевше веде брекет. Ми скажемо це, навіть коли елайнер дорожчий для нас.</p>
+      </div>
+      <div class="fq reveal">
+        <h3 class="fq-q">«Мені 50, вже пізно?»</h3>
+        <p class="body">Ні. Зуб рухається в будь-якому віці, поки тримається кістка. Довше, обережніше, з ретенцією ще серйознішою, але рухається.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9. ФОРМА ===================== -->
+<section class="sec sec-book" id="zapys">
+  <div class="wrap book-wrap">
+    <span class="kicker reveal">Перший крок</span>
+    <h2 class="h2 reveal">Приходьте на скан</h2>
+    <p class="lede reveal">Десять хвилин сканера, і ви бачите на екрані, куди поїде кожен зуб. Це триває годину разом із розмовою і ні до чого не зобов'язує.</p>
+
+    <form class="form reveal" id="book-form" novalidate>
+      <div class="field">
+        <label for="f-name">Як вас звати</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" required>
+        <p class="err" data-for="f-name" role="alert"></p>
+      </div>
+      <div class="field">
+        <label for="f-phone">Телефон</label>
+        <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required>
+        <p class="err" data-for="f-phone" role="alert"></p>
+      </div>
+      <div class="field field-wide">
+        <label for="f-note">Що вас турбує <i>необов'язково</i></label>
+        <textarea id="f-note" name="note" rows="3"></textarea>
+      </div>
+      <button class="btn btn-wide" type="submit">Записатися на консультацію</button>
+      <p class="fine">Ми не надсилаємо розсилок і нікуди не передаємо ваш номер.</p>
+
+      <div class="form-done" hidden>
+        <p class="form-done-t"></p>
+      </div>
+    </form>
+
+    <div class="contacts reveal">
+      <p><b>Львів</b>, вул. Городоцька 120</p>
+      <p><a href="tel:+380322450450">+380 32 245 04 50</a></p>
+      <p>Щодня з 9:00 до 20:00</p>
+    </div>
+  </div>
+  <img class="book-shot" src="assets/photos/kabinet.jpg" width="1920" height="1080" loading="lazy"
+       alt="Світлий мінімалістичний кабінет із великим вікном і стоматологічним кріслом">
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="brand reveal" href="#top">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <path class="arc" d="M16 66C16 36 34 22 50 22s34 14 34 44"/>
+        <circle class="pin" cx="16" cy="66" r="8"/>
+        <circle class="pin" cx="84" cy="66" r="8"/>
+      </svg>
+      <b>ARCUS</b>
+    </a>
+    <ul class="foot-links reveal">
+      <li><a href="#rukh">Рух</a></li>
+      <li><a href="#trymay">Втримати</a></li>
+      <li><a href="#kurs">Курс</a></li>
+      <li><a href="#tsina">Ціни</a></li>
+      <li><a href="#pytannia">Питання</a></li>
+      <li><a href="#zapys">Записатися</a></li>
+    </ul>
+    <p class="foot-note reveal">ARCUS це вигаданий бренд. Сайт зроблено як приклад роботи. Клініки з такою назвою не існує, ціни, відгуки й адреса вигадані.</p>
+  </div>
+</footer>
+
+<script src="assets/media.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

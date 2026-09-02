@@ -1,0 +1,971 @@
+/* ===========================================================
+   ARCUS · ортодонтія та елайнери
+   Простий CSS, без збірки і без фреймворків.
+   =========================================================== */
+
+:root{
+  --canvas:#E7EAF0;
+  --canvas-2:#DCE1E9;
+  --panel:#F4F6FA;
+  --panel-2:#FBFCFE;
+  /* Тло сцени героя. Значення зняті піпеткою з кутів самого кадру.
+     Привід переписує їх по ходу прокруту, бо кадр світлішає. */
+  --stage-top:#89939C;
+  --stage-mid:#9EA8AE;
+  --stage-bot:#B7C2C9;
+  --accent:#4B4CE6;
+  --accent-hover:#3E3FD8;
+  --accent-muted:rgba(75,76,230,.12);
+  --glow:#696BFE;
+  --text-primary:#12161E;
+  --text-secondary:#565E6C;
+  --line:rgba(18,22,30,.14);
+  --line-strong:rgba(18,22,30,.30);
+
+  /* Кадр світлий, тому тінь тексту теж світла: це дзеркало
+     тришарової тіні з довідника, а не спрощення. */
+  --tshadow:0 1px 2px rgba(246,248,251,.96),0 3px 12px rgba(246,248,251,.88),0 10px 44px rgba(246,248,251,.92);
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-soft:cubic-bezier(.33,.02,.24,1);
+  --wrap:1180px;
+  --nav-h:64px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  overflow-x:hidden;      /* запасний варіант першим */
+  overflow-x:clip;
+  color-scheme:light;
+  scroll-behavior:smooth;
+}
+body{
+  overflow-x:hidden;
+  overflow-x:clip;
+  margin:0;
+  background:var(--canvas);
+  color:var(--text-primary);
+  font:400 17px/1.62 'Arsenal',Georgia,serif;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(75,76,230,.18);
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+.skip{
+  position:fixed;top:-100px;left:14px;z-index:60;
+  padding:11px 16px;border-radius:10px;
+  background:var(--accent);color:#fff;text-decoration:none;
+  font:500 14px/1 'Fira Code',ui-monospace,monospace;
+  transition:top .2s var(--ease);
+}
+.skip:focus{top:12px}
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* ===========================================================
+   ФІКСОВАНЕ СЕРЕДОВИЩЕ
+   Один шар за всім, щоб сторінка читалась як одне місце.
+   =========================================================== */
+.env{
+  position:fixed;inset:-6%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60% 44% at 22% 12%,rgba(105,107,254,.10),transparent 70%),
+    radial-gradient(52% 40% at 84% 78%,rgba(105,107,254,.085),transparent 72%);
+  animation:envdrift 96s var(--ease-soft) -22s infinite alternate;
+  will-change:transform;
+}
+.env::after{
+  content:"";position:absolute;inset:0;opacity:.42;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+}
+/* Тільки зсув, без масштабу. Шар несе зерно з feTurbulence, і поки в
+   анімації був scale, зерно перемальовувалось наново на кожному кадрі.
+   Запас у 6 відсотків з боків дає місце для дрейфу без порожніх країв. */
+@keyframes envdrift{
+  from{transform:translate3d(-2.2%,-1.6%,0)}
+  to{transform:translate3d(2.6%,2%,0)}
+}
+
+.motes{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.motes i{
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:var(--glow);opacity:.075;
+  animation:mote linear infinite;
+}
+@keyframes mote{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(26px,-190px,0)}
+}
+
+/* ===========================================================
+   НАВІГАЦІЯ
+   =========================================================== */
+.nav{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;gap:22px;
+  min-height:var(--nav-h);
+  padding:10px max(20px,env(safe-area-inset-right)) 10px max(20px,env(safe-area-inset-left));
+  background:rgba(231,234,240,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  display:inline-flex;align-items:center;gap:10px;
+  text-decoration:none;flex:0 0 auto;
+}
+.brand b{
+  font:600 16px/1 'Manrope',system-ui,sans-serif;
+  letter-spacing:.14em;
+}
+.mark{width:26px;height:26px;flex:0 0 auto;overflow:visible}
+.mark .arc{fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:round}
+.mark .pin{fill:var(--accent)}
+
+.nav-links{
+  display:flex;gap:22px;list-style:none;margin:0;padding:0;
+  margin-left:auto;
+}
+.nav-links a{
+  text-decoration:none;color:var(--text-secondary);
+  font:500 13px/1 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.02em;
+  transition:color .22s var(--ease);
+}
+.nav-links a:hover{color:var(--text-primary)}
+
+/* ===========================================================
+   КНОПКИ
+   =========================================================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 24px;border:0;border-radius:11px;
+  background:var(--accent);color:#fff;text-decoration:none;cursor:pointer;
+  font:500 15px/1 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.01em;
+  touch-action:manipulation;
+  transition:background-color .24s var(--ease),transform .24s var(--ease);
+}
+.btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-sm{padding:10px 16px;font-size:13px;flex:0 0 auto}
+.btn-wide{width:100%;padding:16px 24px}
+.btn-ghost{
+  background:transparent;color:var(--text-primary);
+  border:1px solid var(--line-strong);
+}
+.btn-ghost:hover{background:rgba(18,22,30,.05);border-color:var(--text-secondary)}
+.band .btn{text-shadow:none}
+
+/* Палець це не курсор. Ціль мусить бути щонайменше 44px, і додати їх
+   треба не зсуваючи розкладку, тому росте лише висота рядка. */
+@media (pointer:coarse){
+  .btn{min-height:44px}
+  .nav-links a,.foot-links a,.contacts a{
+    display:inline-flex;align-items:center;min-height:44px;
+  }
+  .brand{min-height:44px}
+  .skip{min-height:44px;align-items:center}
+}
+
+/* Вузькі екрани: список розділів не влазить у рядок і виїжджає за край.
+   Лишаються знак і єдина кнопка, решта живе у футері. */
+@media (max-width:900px){
+  .nav-links{display:none}
+  /* margin-left:auto жив на списку, тож без нього кнопка прилипала
+     до знака замість того, щоб стояти праворуч. */
+  .nav .btn-sm{margin-left:auto}
+}
+
+/* ===========================================================
+   ГЕРОЙ
+   Висота в vh, бо сайт читають гортанням, а не секундами.
+   =========================================================== */
+.hero{position:relative;height:560vh;z-index:1}
+/* Кінці градієнта пише привід, бо кадр по ходу відео світлішає.
+   Це остання лінія оборони: на дуже широкому вікні розмита підкладка
+   не дотягується до самого краю, і там видно вже цей градієнт. */
+.stage{
+  position:sticky;top:0;height:100vh;overflow:hidden;
+  background:linear-gradient(180deg,var(--stage-top) 0%,var(--stage-top) 6%,var(--stage-mid) 48%,var(--stage-bot) 94%,var(--stage-bot) 100%);
+}
+
+/* Розмита копія кадру заповнює поля навколо contain, тому межі
+   кадру не видно ні на широкому екрані, ні коли кадр сідає у фіналі.
+   Шар статичний, браузер малює його один раз. */
+/* Підкладка мусить лягати тією самою геометрією, що й відео, тобто
+   теж contain, і лише збільшуватись назовні. Розтяг на всю сцену
+   (`100% 100%`) був помилкою: на широкому невисокому вікні кадр
+   вписується по висоті, а підкладка розтягувалась по ширині, тож на
+   межі вони показували різні місця кадру, і поле збоку різко темніло. */
+.surround{position:absolute;inset:0;pointer-events:none}
+
+.stage-fill{
+  position:absolute;left:50%;top:50%;
+  translate:-50% -50%;
+  width:min(100%,calc(100vh * 1376 / 768));
+  aspect-ratio:1376 / 768;
+  max-height:100%;
+  background-position:center;background-size:cover;background-repeat:no-repeat;
+  filter:blur(46px) saturate(.94);
+  /* Той самий короб і той самий рух, що в кадру, тільки більший.
+     Поки підкладка стояла нерухомо, а кадр у фіналі зменшувався,
+     вони розходились, і межа проступала знову. */
+  /* Масштаб тут СТАЛИЙ, і це важливо. Поки він їхав разом із --zoom,
+     браузер перемальовував розмиття в 46px на кожному кадрі прокрутки:
+     замір показав 90 довгих задач із піком 726 мс. Зсув компонується
+     задарма, масштаб ні. Стиск кадру у фіналі всього 8 відсотків, тож
+     на розмитому тлі різниця непомітна. */
+  transform:translate3d(0,var(--lift,0%),0) scale(2);
+  will-change:transform;
+}
+.stage-fill-end{opacity:var(--fend,0);will-change:opacity}
+
+/* Плита має форму САМОГО кадру, а не всієї сцени.
+   Раніше вона лежала на всю сцену, відео сиділо в ній через contain
+   із полями, і маска підтирала краї елемента там, де кадру вже немає.
+   Тепер елемент і кадр це одне й те саме, тож маска бере справжній край.
+   Числа 1376 на 768 це розмір hero-scrub.mp4. */
+.plate{
+  position:absolute;left:50%;top:50%;
+  translate:-50% -50%;
+  width:min(100%,calc(100vh * 1376 / 768));
+  aspect-ratio:1376 / 768;
+  max-height:100%;
+  transform:translate3d(0,var(--lift,0%),0) scale(var(--zoom,1));
+  will-change:transform;
+  /* Розтушовка нерівна навмисно. По горизонталі дуга підходить до краю
+     впритул, лишаючи заледве два відсотки, тож там розтушовка вузька.
+     По вертикалі запас великий, зверху 22 відсотки і знизу 27, тому
+     там можна розмити широко. Саме вертикальні поля видно на високому
+     вузькому вікні, і саме вони кидались в око. */
+  -webkit-mask-image:
+    linear-gradient(to right,transparent 0,#000 3%,#000 97%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-image:
+    linear-gradient(to right,transparent 0,#000 3%,#000 97%,transparent 100%),
+    linear-gradient(to bottom,transparent 0,#000 7%,#000 93%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-composite:intersect;
+}
+/* Плита вже має форму кадру, тому тут cover і fill дають те саме,
+   що й contain, тільки без полів усередині елемента. */
+.poster{
+  position:absolute;inset:0;
+  background-position:center;background-size:cover;background-repeat:no-repeat;
+  transition:opacity .5s var(--ease);
+}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;
+  opacity:0;transition:opacity .5s var(--ease);
+  transform:translateZ(0);
+}
+.stage.video-ready .hero-video{opacity:1}
+.stage.video-ready .poster{opacity:0}
+.stage.video-failed .hero-video{display:none}
+
+/* 1. Глобальне висвітлення. Кадр світлий, тому текст рятує не
+   затемнення, а навпаки: смуги вгорі й унизу підсвічуються,
+   а середина, де лежать зуби, не чіпається взагалі. */
+.scrim{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(233,236,242,.70) 0%,
+    rgba(233,236,242,.20) 22%,
+    rgba(233,236,242,0) 38%,
+    rgba(233,236,242,0) 58%,
+    rgba(233,236,242,.28) 76%,
+    rgba(233,236,242,.78) 100%);
+}
+
+.ring{
+  position:absolute;left:50%;bottom:44px;width:34px;height:34px;
+  margin-left:-17px;color:var(--accent);opacity:.5;
+  transform:rotate(-90deg);
+}
+.stage.video-ready .ring,.stage.video-failed .ring,.stage.has-still .ring{display:none}
+
+.cue{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  font:400 10px/1 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--text-secondary);
+  opacity:.72;transition:opacity .4s var(--ease);
+}
+.cue i{
+  width:1px;height:26px;background:currentColor;
+  animation:cuepulse 2.8s var(--ease-soft) infinite;
+  transform-origin:top;
+}
+@keyframes cuepulse{0%,100%{transform:scaleY(.3);opacity:.3}50%{transform:scaleY(1);opacity:1}}
+.hero.scrolled .cue{opacity:0}
+
+/* ---- смуги ---- */
+.bands{position:absolute;inset:0;pointer-events:none}
+.band{
+  position:absolute;left:0;right:0;
+  padding:0 max(24px,env(safe-area-inset-left)) 0 max(24px,env(safe-area-inset-right));
+  opacity:0;text-shadow:var(--tshadow);
+}
+.band-hidden{visibility:hidden}
+.band .btn,.band a{pointer-events:auto}
+.band-in{max-width:var(--wrap);margin:0 auto;position:relative}
+
+/* 2. Посмугове висвітлення, що дихає разом із --k.
+   Воно висить на самому текстовому блоці, а не на смузі. Перша версія
+   центрувала еліпс по всій ширині смуги, і на краю тексту градієнт
+   уже згасав до нуля: аудит дав 1.29:1 там, де треба 3.5:1. */
+/* z-index тут додатний, а не -1. Липка сцена створює свій контекст
+   накладання, і від'ємний шар провалювався ПІД відео: аудит цього не
+   пробачив, бо міряв сирі пікселі кадру. */
+.band-in>*{position:relative;z-index:1}
+/* Радіуси 50% це рівно півширини й піввисоти блока, тому градієнт
+   встигає дійти до нуля саме на його краю. Перша версія мала 100%,
+   градієнт обривався на межі блока, і на кадрі стояв видимий
+   прямокутник із різкими кутами. */
+.band-in::before{
+  content:"";position:absolute;inset:-70% -26%;pointer-events:none;z-index:0;
+  opacity:calc(.30 + .70*var(--k,1));
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,
+    rgba(238,241,246,.96) 0%,
+    rgba(238,241,246,.92) 40%,
+    rgba(238,241,246,.66) 68%,
+    rgba(238,241,246,.28) 86%,
+    rgba(238,241,246,0) 100%);
+}
+
+.band-top{top:11vh}
+.band-top .band-in{max-width:min(760px,86vw)}
+.band-bot{bottom:13vh}
+.band-bot .band-in{max-width:min(720px,86vw);margin-left:auto;margin-right:auto;text-align:right}
+.band-bowl{
+  bottom:9vh;text-align:center;
+  /* три прибуття в одній смузі: спершу слова назви, потім підзаголовок,
+     потім кнопки. Усе рахується з --k, який пише привід. */
+  --ks:clamp(0,(var(--k,0) - .60)*3.4,1);
+  --kb:clamp(0,(var(--k,0) - .76)*4.2,1);
+}
+.band-bowl .band-in{max-width:min(680px,88vw)}
+.band-bowl .band-in::before{inset:-40% -34%}
+
+.kicker{
+  display:block;
+  font:500 11px/1.4 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text-secondary);
+  margin:0 0 14px;
+}
+.bh{
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:200;
+  font-size:clamp(34px,5.6vw,72px);
+  line-height:1.03;
+  letter-spacing:-.022em;
+  margin:0;
+  text-wrap:balance;
+}
+.bsub{
+  font-size:clamp(16px,1.5vw,20px);
+  line-height:1.5;
+  color:var(--text-secondary);
+  margin:16px 0 0;
+  max-width:46ch;
+  text-wrap:pretty;
+}
+.band-bot .bsub{margin-left:auto}
+.band-bowl .bsub{margin-left:auto;margin-right:auto}
+
+.settle-mark{
+  width:44px;height:44px;margin:0 auto 18px;display:block;overflow:visible;
+  opacity:clamp(0,var(--k,0)*2.4,1);
+}
+.band-bowl .bh{
+  font-weight:300;
+  font-size:clamp(40px,6.4vw,84px);
+  letter-spacing:.10em;
+}
+.settle-sub{opacity:var(--ks,0)}
+.settle-cta{
+  display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;
+  opacity:var(--kb,0);
+}
+.band-bowl .settle-cta{justify-content:center}
+
+/* ---- розбиття тексту і входи ---- */
+.vis{display:inline}
+.w{display:inline-block;white-space:nowrap}
+.c{display:inline-block;will-change:transform,opacity}
+
+/* (a) scatter: символи злітаються з розсипу, як зуби в кадрі */
+.e-scatter .c{
+  --kc:clamp(0,(var(--k,0) - var(--th,0))*2.6,1);
+  opacity:var(--kc);
+  transform:translate(calc((1 - var(--kc))*var(--jx,0px)),calc((1 - var(--kc))*var(--jy,0px)))
+            rotate(calc((1 - var(--kc))*var(--jr,0deg)));
+}
+/* (f) drift-down: слова спадають услід за зубами */
+.e-drift .w{
+  --kc:clamp(0,(var(--k,0) - var(--th,0))*2.8,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc))*-24px));
+}
+/* (d) word-punch: удар на наголошених словах */
+.e-punch .w{
+  --kc:clamp(0,(var(--k,0) - var(--th,0))*3,1);
+  --ks:clamp(0,(var(--k,0) - var(--th,0) - var(--sd,.1))*var(--ss,3.2),1);
+  opacity:var(--kc);
+  transform:scale(calc(0.62 + (0.38 + var(--ov,.12))*var(--kc) - var(--ov,.12)*var(--ks)));
+}
+.e-punch .w.em{--ov:.24;--sd:.16;--ss:2.6;color:var(--text-primary)}
+/* (e) rise: слова встають по черзі, потім підзаголовок, потім кнопки */
+.e-rise .w{
+  --kc:clamp(0,(var(--k,0) - var(--th,0))*3,1);
+  opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc))*18px));
+}
+
+/* ---- нерухомий герой ---- */
+.hero-static{display:none}
+.stage.has-still .hero-static{
+  display:flex;flex-direction:column;justify-content:center;
+  position:absolute;inset:0;
+  padding:calc(var(--nav-h) + 14px) max(22px,env(safe-area-inset-right)) 26px max(22px,env(safe-area-inset-left));
+  background:var(--canvas);
+  overflow-y:auto;
+}
+.stage.has-still .bands,.stage.has-still .scrim,.stage.has-still .surround,.stage.has-still .cue{display:none}
+.static-shot{
+  height:min(44vh,400px);flex:0 0 auto;border-radius:14px;margin-bottom:22px;
+  background:linear-gradient(180deg,var(--stage-top),var(--stage-bot));
+  background-size:cover;background-position:center 42%;
+}
+.static-in .bh{font-size:clamp(30px,7.6vw,44px)}
+.static-in .bsub{max-width:38ch}
+
+/* ===========================================================
+   ЗАГАЛЬНЕ ДЛЯ СЕКЦІЙ
+   =========================================================== */
+.sec{position:relative;z-index:1;padding:clamp(72px,10vw,132px) 0}
+.wrap{
+  width:min(var(--wrap),100% - 40px);
+  margin-inline:auto;
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+.sec>.wrap>.kicker{margin-bottom:16px}
+.h2{
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:200;
+  font-size:clamp(29px,4.1vw,54px);
+  line-height:1.08;letter-spacing:-.02em;
+  margin:0;
+  text-wrap:balance;
+}
+.lede{
+  font-size:clamp(17px,1.5vw,20px);
+  color:var(--text-secondary);
+  margin:18px 0 0;max-width:56ch;
+  text-wrap:pretty;
+}
+.body{
+  margin:12px 0 0;color:var(--text-secondary);
+  max-width:60ch;text-wrap:pretty;
+}
+.close-line{
+  margin:38px 0 0;
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:300;
+  font-size:clamp(19px,2.1vw,26px);
+  line-height:1.32;letter-spacing:-.012em;
+  color:var(--text-primary);max-width:34ch;
+  text-wrap:balance;
+}
+
+/* входи секцій */
+.reveal{opacity:0;transform:translateY(16px)}
+.in .reveal{
+  opacity:1;transform:none;
+  transition:opacity .66s var(--ease),transform .66s var(--ease);
+  transition-delay:calc(var(--i,0)*80ms);
+}
+/* Після приходу знімаємо сходинку, інакше кожне наведення на сусідні
+   картки запізнюється назавжди. Специфічність мусить бити правило вище. */
+.sec.settled .reveal,.foot.settled .reveal,.divider.settled .reveal{transition-delay:0ms}
+
+/* роздільник із самомальованою дугою */
+.divider{
+  position:relative;z-index:1;display:flex;justify-content:center;
+  padding:0 20px;
+}
+.divider svg{width:min(400px,70vw);height:auto;overflow:visible}
+.divider .dv{
+  fill:none;stroke:var(--line-strong);stroke-width:1.4;stroke-linecap:round;
+  stroke-dasharray:420;stroke-dashoffset:420;
+  transition:stroke-dashoffset 1.5s var(--ease-soft);
+}
+.divider.in .dv{stroke-dashoffset:0}
+
+/* ===========================================================
+   1. ЯК РУХАЄТЬСЯ ЗУБ
+   =========================================================== */
+.rail{position:relative;margin-top:clamp(40px,5vw,64px)}
+.rail-line{
+  position:absolute;top:5px;left:0;width:100%;height:22px;overflow:visible;
+}
+.rail-line .rl{
+  fill:none;stroke:var(--line-strong);stroke-width:1.4;
+  stroke-dasharray:1000;stroke-dashoffset:1000;
+  transition:stroke-dashoffset 1.9s var(--ease-soft) .15s;
+}
+.sec-rukh.in .rail-line .rl{stroke-dashoffset:0}
+.rail-items{
+  display:grid;gap:clamp(28px,4vw,52px);
+  grid-template-columns:repeat(3,1fr);
+}
+.rail-it{position:relative;padding-top:34px}
+.rail-dot{
+  position:absolute;top:0;left:0;width:11px;height:11px;border-radius:50%;
+  background:var(--canvas);border:1.4px solid var(--accent);
+}
+.num{
+  margin:0;
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:300;
+  font-size:clamp(26px,3vw,38px);
+  line-height:1.1;letter-spacing:-.02em;
+}
+.num i{
+  display:block;margin-top:7px;font-style:normal;
+  font:500 11px/1.4 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--text-secondary);
+}
+@media (max-width:820px){.rail-items{grid-template-columns:1fr}.rail-line{display:none}}
+
+/* ===========================================================
+   2. ІНТЕРАКТИВ: ВТРИМАЙТЕ РЯД
+   =========================================================== */
+.sec-hold{background:var(--canvas-2)}
+.hold{
+  margin-top:clamp(34px,4.5vw,54px);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:clamp(24px,4vw,44px);
+  display:grid;
+  grid-template-columns:1fr minmax(240px,320px);
+  grid-template-areas:
+    "stage read"
+    "stage marks"
+    "btn   marks"
+    "hint  marks";
+  gap:22px clamp(24px,4vw,48px);
+  align-items:start;
+}
+.hold-stage{grid-area:stage;align-self:center}
+.row{width:100%;height:auto;overflow:visible}
+.row .wire{
+  fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;
+  stroke-dashoffset:9999;
+}
+/* --drift пише привід на групі .teeth і успадковується сюди:
+   0 це рівний ряд, 1 це ряд, який роз'їхався назад. */
+.row .th{
+  fill:rgba(255,255,255,.92);
+  stroke:rgba(18,22,30,.42);stroke-width:2;stroke-linejoin:round;
+  transform:
+    translate(var(--x),var(--y))
+    translate(calc(var(--ox,0px)*var(--drift,0)),calc(var(--oy,0px)*var(--drift,0)))
+    rotate(calc(var(--br,0deg) + var(--or,0deg)*var(--drift,0)));
+  transition:fill .5s var(--ease),stroke .5s var(--ease);
+}
+.hold.locked .row .th{fill:rgba(75,76,230,.16);stroke:var(--accent)}
+
+.hold-read{grid-area:read}
+.hold-count{margin:0;display:flex;align-items:baseline;gap:12px}
+.hold-count b{
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:200;font-size:clamp(46px,6vw,74px);
+  line-height:1;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.hold-count i{
+  font-style:normal;
+  font:500 11px/1.5 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--text-secondary);
+  max-width:12ch;
+}
+.hold-state{
+  margin:10px 0 0;color:var(--text-secondary);min-height:3em;
+}
+.hold.locked .hold-state{color:var(--accent)}
+
+.hold-marks{
+  grid-area:marks;list-style:none;margin:0;padding:0;
+  display:flex;flex-direction:column;gap:16px;
+}
+.hold-marks li{
+  padding-left:16px;border-left:1.4px solid var(--line);
+  opacity:.28;transform:translateX(-4px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease),border-color .5s var(--ease);
+}
+.hold-marks li.on{opacity:1;transform:none;border-left-color:var(--accent)}
+.hold-marks b{
+  display:block;
+  font:500 12px/1.4 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.12em;
+}
+.hold-marks span{display:block;margin-top:5px;font-size:15px;color:var(--text-secondary)}
+
+.hold-btn{grid-area:btn;justify-self:start;min-width:190px;user-select:none}
+.hold-btn.pressing{background:var(--accent-hover)}
+.hold-hint{
+  grid-area:hint;margin:0;
+  font:400 12px/1.5 'Fira Code',ui-monospace,monospace;
+  color:var(--text-secondary);
+}
+@media (max-width:860px){
+  .hold{grid-template-columns:1fr;grid-template-areas:"stage" "read" "marks" "btn" "hint"}
+  .hold-btn{justify-self:stretch}
+}
+
+/* ===========================================================
+   3. КУРС
+   =========================================================== */
+.kurs-grid{display:grid;grid-template-columns:minmax(240px,360px) 1fr;gap:clamp(32px,5vw,72px)}
+.kurs-head{position:sticky;top:calc(var(--nav-h) + 28px);align-self:start}
+.stages{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(30px,4vw,52px)}
+.stage-it{position:relative;padding-left:60px}
+.stage-mark{
+  position:absolute;left:0;top:2px;width:38px;height:38px;overflow:visible;
+}
+/* Під дугою, що малюється, лежить бліда повна дуга. Без неї чверть
+   читалася не як чверть шляху, а як уламок знака. */
+.stage-mark .track{fill:none;stroke:var(--line);stroke-width:9;stroke-linecap:round}
+.stage-mark .arc{
+  fill:none;stroke:var(--accent);stroke-width:9;stroke-linecap:round;
+  stroke-dasharray:112;
+  stroke-dashoffset:calc(112 - 112*var(--draw,1));
+  transition:stroke-dashoffset 1.4s var(--ease-soft);
+}
+.sec-kurs .reveal .stage-mark .arc{stroke-dashoffset:112}
+.sec-kurs.in .reveal .stage-mark .arc{stroke-dashoffset:calc(112 - 112*var(--draw,1))}
+.st-n{
+  margin:0;
+  font:500 12px/1 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.18em;color:var(--accent);
+}
+.st-h{
+  margin:10px 0 0;
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:300;font-size:clamp(20px,2.3vw,28px);
+  line-height:1.22;letter-spacing:-.015em;
+}
+@media (max-width:900px){
+  .kurs-grid{grid-template-columns:1fr}
+  .kurs-head{position:static}
+}
+
+/* ===========================================================
+   4. РЕТЕНЦІЯ
+   =========================================================== */
+.sec-ret{padding:0;overflow:hidden}
+.ret-bg{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  z-index:-1;
+}
+.ret-wrap{padding-block:clamp(90px,12vw,170px)}
+.ret-card{
+  max-width:min(560px,100%);
+  background:rgba(251,252,254,.90);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.7);
+  border-radius:18px;
+  padding:clamp(26px,3.4vw,40px);
+}
+.ret-card .kicker{margin-bottom:14px}
+.ret-card .h2{font-size:clamp(25px,3.2vw,38px)}
+.ret-card .body{max-width:none}
+
+/* ===========================================================
+   5. НАПРЯМКИ
+   =========================================================== */
+.cards{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,2.6vw,34px);
+  margin-top:clamp(38px,5vw,60px);
+}
+.card{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;
+  padding-bottom:22px;
+  transition:transform .34s var(--ease),border-color .34s var(--ease);
+}
+.card:hover{transform:translateY(-3px);border-color:var(--line-strong)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.c-h{
+  margin:20px 22px 0;
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:300;font-size:22px;letter-spacing:-.012em;
+}
+.card .body{margin:10px 22px 0;font-size:16px}
+@media (max-width:860px){.cards{grid-template-columns:1fr}}
+
+/* ===========================================================
+   6. ВІДГУКИ
+   =========================================================== */
+.sec-quotes{background:var(--canvas-2)}
+.quotes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(24px,3.2vw,44px);
+  margin-top:clamp(38px,5vw,60px);
+}
+.q{margin:0}
+.q img{
+  width:76px;height:76px;border-radius:50%;object-fit:cover;
+  margin-bottom:16px;
+}
+.q-who{
+  font:500 12px/1.4 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.1em;
+}
+.q-who i{
+  display:block;margin-top:4px;font-style:normal;
+  color:var(--text-secondary);letter-spacing:.06em;
+}
+.q-t{
+  margin:14px 0 0;padding-top:16px;
+  border-top:1px solid var(--line);
+  font-size:16px;line-height:1.62;color:var(--text-secondary);
+  text-wrap:pretty;
+}
+@media (max-width:860px){.quotes{grid-template-columns:1fr}}
+
+/* ===========================================================
+   7. ЦІНИ
+   =========================================================== */
+.prices{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;margin-top:clamp(38px,5vw,60px);
+  border-top:1px solid var(--line-strong);
+}
+.price{
+  padding:26px clamp(16px,2vw,28px) 30px;
+  border-bottom:1px solid var(--line-strong);
+  border-right:1px solid var(--line);
+}
+.price:last-child{border-right:0}
+.p-h{
+  margin:0;
+  font:500 12px/1 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--text-secondary);
+}
+.p-v{
+  margin:14px 0 0;
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:200;font-size:clamp(30px,3.6vw,44px);
+  line-height:1;letter-spacing:-.028em;
+  font-variant-numeric:tabular-nums;
+}
+/* Manrope не має ₴ у наборі Google Fonts, і браузер мовчки підставляв
+   системний шрифт: знак виходив помітно жирнішим за надтонкі цифри.
+   Тому він свідомо йде мітковою гарнітурою, дрібніше і піднятий. */
+.uah{
+  font-family:'Fira Code',ui-monospace,monospace;
+  font-weight:400;font-size:.5em;
+  margin-left:.24em;vertical-align:.16em;
+  letter-spacing:0;color:var(--text-secondary);
+}
+.p-m{
+  margin:12px 0 0;
+  font:400 13px/1.5 'Fira Code',ui-monospace,monospace;
+  color:var(--accent);
+}
+.price .body{font-size:16px}
+@media (max-width:860px){
+  .prices{grid-template-columns:1fr}
+  .price{border-right:0}
+}
+
+.incl{
+  margin-top:clamp(34px,4vw,52px);
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:18px;padding:clamp(24px,3.2vw,38px);
+}
+.incl-h{
+  margin:0;
+  font:500 11px/1.4 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--text-secondary);
+}
+.incl-list{
+  list-style:none;margin:20px 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px 30px;
+}
+.incl-list li{position:relative;padding-left:26px;color:var(--text-secondary)}
+.incl-list li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:13px;height:2px;border-radius:1px;background:var(--accent);
+}
+.incl-list b{color:var(--text-primary);font-weight:700}
+.incl .close-line{margin-top:30px}
+.incl .btn{margin-top:26px}
+@media (max-width:700px){.incl-list{grid-template-columns:1fr}}
+
+/* ===========================================================
+   8. ПИТАННЯ
+   =========================================================== */
+.faq{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(26px,3.4vw,46px) clamp(30px,4vw,64px);
+  margin-top:clamp(38px,5vw,60px);
+}
+.fq-q{
+  margin:0;
+  font-family:'Manrope',system-ui,sans-serif;
+  font-weight:300;font-size:clamp(18px,2vw,23px);
+  line-height:1.28;letter-spacing:-.012em;
+}
+.fq .body{font-size:16px}
+@media (max-width:820px){.faq{grid-template-columns:1fr}}
+
+/* ===========================================================
+   9. ФОРМА
+   =========================================================== */
+.sec-book{background:var(--canvas-2);padding-bottom:0;overflow:hidden}
+.book-wrap{max-width:760px}
+.form{
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;
+  margin-top:clamp(32px,4vw,46px);
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:18px;padding:clamp(22px,3vw,34px);
+}
+.field{display:flex;flex-direction:column;gap:7px}
+.field-wide{grid-column:1 / -1}
+.field label{
+  font:500 12px/1.4 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.1em;
+}
+.field label i{font-style:normal;color:var(--text-secondary);letter-spacing:.04em}
+.field input,.field textarea{
+  font:400 16px/1.5 'Arsenal',Georgia,serif;
+  color:var(--text-primary);
+  background:var(--panel-2);
+  border:1px solid var(--line-strong);
+  border-radius:10px;padding:12px 14px;
+  transition:border-color .22s var(--ease),box-shadow .22s var(--ease);
+}
+.field input:focus,.field textarea:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-muted);
+}
+.field textarea{resize:vertical;min-height:88px}
+.field.invalid input,.field.invalid textarea{border-color:#B3261E}
+.err{margin:0;min-height:1.2em;font-size:13px;color:#B3261E}
+.err:empty{min-height:0}
+.form .btn{grid-column:1 / -1}
+.fine{
+  grid-column:1 / -1;margin:0;
+  font:400 12px/1.5 'Fira Code',ui-monospace,monospace;
+  color:var(--text-secondary);
+}
+.form-done{
+  grid-column:1 / -1;margin-top:4px;padding:16px 18px;
+  background:var(--accent-muted);border:1px solid var(--accent);
+  border-radius:12px;
+}
+.form-done-t{margin:0;font-size:16px}
+@media (max-width:640px){.form{grid-template-columns:1fr}}
+
+.contacts{
+  margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 32px;
+  font:400 14px/1.6 'Fira Code',ui-monospace,monospace;
+  color:var(--text-secondary);
+}
+.contacts p{margin:0}
+.contacts a{display:inline-block;padding:4px 0;color:var(--accent);text-decoration:none}
+.contacts a:hover{text-decoration:underline}
+
+.book-shot{
+  width:100%;height:clamp(200px,30vh,340px);object-fit:cover;
+  margin-top:clamp(52px,7vw,90px);
+}
+
+/* ===========================================================
+   ФУТЕР
+   =========================================================== */
+.foot{position:relative;z-index:1;padding:clamp(44px,6vw,72px) 0;background:var(--canvas)}
+.foot-in{display:flex;flex-direction:column;gap:22px}
+.foot-links{display:flex;flex-wrap:wrap;gap:10px 26px;list-style:none;margin:0;padding:0}
+.foot-links a{
+  display:inline-block;padding:5px 0;
+  text-decoration:none;color:var(--text-secondary);
+  font:500 13px/1.2 'Fira Code',ui-monospace,monospace;
+  transition:color .22s var(--ease);
+}
+.foot-links a:hover{color:var(--text-primary)}
+.foot-note{
+  margin:0;padding-top:20px;border-top:1px solid var(--line);
+  font-size:14px;color:var(--text-secondary);max-width:70ch;
+}
+
+/* ===========================================================
+   ЛИПКА НАВІГАЦІЯ НЕ НАКРИВАЄ ФОКУС
+   =========================================================== */
+:target,section[id],a[href^="#"]:focus{scroll-margin-top:calc(var(--nav-h) + 16px)}
+.sec,.hero,#main,.btn,input,textarea,a{scroll-margin-top:calc(var(--nav-h) + 16px)}
+
+/* короткі екрани: дрібним накладкам просто нема місця */
+@media (max-height:560px){.cue,.ring{display:none}}
+
+/* ===========================================================
+   П'ЯТЬ ВОРІТ НЕРУХОМОГО ГЕРОЯ
+   Ці запити мусять збігатися символ у символ зі списком GATES
+   в assets/app.js.
+   =========================================================== */
+@media (max-width: 720px),
+       (orientation: portrait) and (max-width: 1024px),
+       (orientation: portrait) and (pointer: coarse),
+       (orientation: landscape) and (pointer: coarse) and (max-height: 560px),
+       (prefers-reduced-motion: reduce){
+  .hero{height:auto}
+  .stage{position:static;height:auto;min-height:100vh;background:var(--canvas)}
+  .bands,.scrim,.surround,.cue,.ring{display:none !important}
+  .hero-static{display:flex !important}
+}
+
+/* ===========================================================
+   ЗМЕНШЕНИЙ РУХ
+   Кінцеві стани показані, приводи зупинені.
+   =========================================================== */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    transition-delay:0ms !important;
+  }
+  .reveal{opacity:1 !important;transform:none !important}
+  .divider .dv,.rail-line .rl{stroke-dashoffset:0 !important}
+  .stage-mark .arc{stroke-dashoffset:calc(112 - 112*var(--draw,1)) !important}
+  .hold-marks li{opacity:1;transform:none;border-left-color:var(--accent)}
+  .env{animation:none}
+}
+body.pinned .reveal{opacity:1;transform:none}
+body.pinned .divider .dv,body.pinned .rail-line .rl{stroke-dashoffset:0}
+body.pinned .hold-marks li{opacity:1;transform:none;border-left-color:var(--accent)}
+
+/* пауза на прихованій вкладці, разом із псевдоелементами */
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused !important}
