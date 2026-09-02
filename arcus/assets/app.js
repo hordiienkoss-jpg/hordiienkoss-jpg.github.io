@@ -616,11 +616,35 @@
       if (box) box.textContent = msg || '';
       return !msg;
     }
-    function show(msg) {
-      doneText.textContent = msg;
+    /* Успіх показуємо вікном, а не рядком під кнопкою: рядок легко
+       не помітити, надто коли поштова програма в ту саму мить забирає
+       увагу на себе. Заголовок і два абзаци різні для кожного режиму
+       форми, тому show бере їх параметрами. */
+    var dlg = $('#thanks'), dlgH = $('#thanks-h'), dlgP = $('#thanks-p'), dlgQ = $('#thanks-q');
+
+    function show(head, msg, quiet) {
+      if (dlg && dlg.showModal) {
+        if (dlgH) dlgH.textContent = head;
+        if (dlgP) dlgP.textContent = msg;
+        if (dlgQ) dlgQ.textContent = quiet || '';
+        try { dlg.showModal(); return; } catch (e) { /* нижче запасний варіант */ }
+      }
+      // Браузер без dialog. Сторінка не мовчить: лишається той самий
+      // блок під формою, що був тут раніше.
+      doneText.textContent = head + ' ' + msg + (quiet ? ' ' + quiet : '');
       done.hidden = false;
       done.setAttribute('tabindex', '-1');
       done.focus();
+    }
+
+    if (dlg) {
+      var dlgClose = $('#thanks-close');
+      if (dlgClose) dlgClose.addEventListener('click', function () { dlg.close(); });
+      // Ціль події збігається з самим dialog лише при натисканні в
+      // підкладку: вміст лежить у дочірніх вузлах.
+      dlg.addEventListener('click', function (ev) {
+        if (ev.target === dlg) dlg.close();
+      });
     }
 
     form.addEventListener('submit', function (e) {
@@ -646,7 +670,8 @@
         window.location.href = 'mailto:' + CONTACT.email +
           '?subject=' + encodeURIComponent('Запис на консультацію: ' + name) +
           '&body=' + encodeURIComponent(body);
-        show('Лист із заявкою відкрився у вашій поштовій програмі. Натисніть «надіслати», і ми його отримаємо.');
+        show('Лист відкрився у пошті.',
+              'Натисніть у поштовій програмі «надіслати», і заявка прийде нам.');
         return;
       }
       if (FORM_MODE === 'endpoint' && FORM_ENDPOINT) {
@@ -655,13 +680,17 @@
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         }).then(function () {
-          show('Записали. Передзвонимо протягом години, з 9:00 до 20:00.');
+          show('Дякуємо, записали.',
+            'Передзвонимо протягом години, з 9:00 до 20:00.');
         })['catch'](function () {
-          show('Заявка не пішла. Подзвоніть нам напряму, і ми вас запишемо.');
+          show('Заявка не пішла.',
+            'Зв’язок обірвався дорогою. Подзвоніть нам напряму, і ми вас запишемо.');
         });
         return;
       }
-      show('Це показовий макет вигаданої клініки, тому заявка нікуди не пішла. На справжньому сайті тут було б підтвердження і дзвінок протягом години.');
+      show('Дякуємо, записали.',
+          'Передзвонимо протягом години, з 9:00 до 20:00.',
+          'Це показовий макет вигаданої клініки, тому заявка нікуди не пішла. На справжньому сайті тут була б справжня заявка і справжній дзвінок.');
     });
   })();
 

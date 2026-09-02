@@ -499,6 +499,20 @@
   </div>
 </footer>
 
+<!-- Подяка після запису. Нативний dialog, як і в портфоліо: замикання
+     фокуса, Esc і підкладка вбудовані в браузер. Лежить поза формою. -->
+<dialog class="thanks" id="thanks" aria-labelledby="thanks-h">
+  <p class="thanks__k">Запис</p>
+  <h2 class="thanks__h" id="thanks-h">Дякуємо, записали.</h2>
+  <p class="thanks__p" id="thanks-p">Передзвонимо протягом години, з 9:00 до 20:00.</p>
+  <p class="thanks__p thanks__p--quiet" id="thanks-q"></p>
+  <div class="thanks__row">
+    <span>Або подзвоніть самі</span>
+    <a class="thanks__tel" href="tel:+380322450450">+380 32 245 04 50</a>
+  </div>
+  <button class="btn thanks__close" type="button" id="thanks-close" autofocus>Зрозуміло</button>
+</dialog>
+
 <script src="assets/media.js"></script>
 <script src="assets/app.js"></script>
 </body>

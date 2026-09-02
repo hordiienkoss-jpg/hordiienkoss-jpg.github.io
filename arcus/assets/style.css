@@ -904,6 +904,53 @@ button{font:inherit;color:inherit}
 }
 
 /* ===========================================================
+   ВІКНО ПОДЯКИ
+   Нативний dialog: замикання фокуса, Esc і підкладка вбудовані,
+   тому саморобної модалки тут немає.
+   =========================================================== */
+.thanks{
+  width:min(452px,calc(100vw - 28px));
+  margin:auto;padding:30px 28px 26px;
+  background:var(--panel);color:var(--text-primary);
+  border:1px solid var(--line-strong);border-radius:16px;
+  box-shadow:0 26px 70px rgba(18,22,30,.22);
+  font-family:'Arsenal',Georgia,serif;
+}
+.thanks::backdrop{background:rgba(18,22,30,.42)}
+.thanks__k{
+  margin:0 0 10px;
+  font:500 11px/1.4 'Fira Code',ui-monospace,monospace;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent);
+}
+.thanks__h{
+  margin:0 0 12px;
+  font-family:'Manrope',system-ui,sans-serif;font-weight:300;
+  font-size:27px;line-height:1.16;letter-spacing:-.018em;
+}
+.thanks__p{margin:0 0 12px;font-size:16px;line-height:1.6;color:var(--text-secondary)}
+.thanks__p--quiet{font-size:14px}
+.thanks__p:empty{display:none}
+.thanks__row{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin:18px 0 22px;padding:12px 14px;
+  background:var(--panel-2);border:1px solid var(--line);border-radius:10px;
+  font:400 13px/1.5 'Fira Code',ui-monospace,monospace;color:var(--text-secondary);
+}
+.thanks__tel{margin-left:auto;color:var(--accent);text-decoration:none;font-weight:500}
+.thanks__tel:hover{text-decoration:underline}
+.thanks__close{width:100%}
+@media (pointer:coarse),(max-width:720px){.thanks__tel{min-height:46px;display:inline-flex;align-items:center;padding:0 2px}}
+
+/* Вхід. Під зменшеним рухом глобальне правило нижче зводить його до нуля. */
+.thanks[open]{animation:thanksIn .34s var(--ease) both}
+.thanks[open]::backdrop{animation:thanksFade .34s var(--ease) both}
+@keyframes thanksIn{
+  from{opacity:0;transform:translateY(12px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+@keyframes thanksFade{from{opacity:0}to{opacity:1}}
+
+/* ===========================================================
    ФУТЕР
    =========================================================== */
 .foot{position:relative;z-index:1;padding:clamp(44px,6vw,72px) 0;background:var(--canvas)}
