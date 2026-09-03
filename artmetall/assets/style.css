@@ -1,0 +1,498 @@
+/* ==========================================================================
+   АРТМЕТАЛ УКРАЇНА — редизайн, показовий макет
+   Типографіка: Unbounded (дисплей) · Commissioner (текст) · IBM Plex Mono (дані)
+   ========================================================================== */
+
+/* --- Шрифти. Кирилиця й латиниця окремими підмножинами -------------------- */
+@font-face{font-family:Unbounded;font-style:normal;font-weight:600;font-display:swap;
+  src:url(fonts/unbounded-600-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-style:normal;font-weight:600;font-display:swap;
+  src:url(fonts/unbounded-600-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Unbounded;font-style:normal;font-weight:700;font-display:swap;
+  src:url(fonts/unbounded-700-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Unbounded;font-style:normal;font-weight:700;font-display:swap;
+  src:url(fonts/unbounded-700-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+@font-face{font-family:Commissioner;font-style:normal;font-weight:400;font-display:swap;
+  src:url(fonts/commissioner-400-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Commissioner;font-style:normal;font-weight:400;font-display:swap;
+  src:url(fonts/commissioner-400-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Commissioner;font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/commissioner-500-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Commissioner;font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/commissioner-500-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Commissioner;font-style:normal;font-weight:600;font-display:swap;
+  src:url(fonts/commissioner-600-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Commissioner;font-style:normal;font-weight:600;font-display:swap;
+  src:url(fonts/commissioner-600-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+@font-face{font-family:"Plex Mono";font-style:normal;font-weight:400;font-display:swap;
+  src:url(fonts/plex-mono-400-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Plex Mono";font-style:normal;font-weight:400;font-display:swap;
+  src:url(fonts/plex-mono-400-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Plex Mono";font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/plex-mono-500-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Plex Mono";font-style:normal;font-weight:500;font-display:swap;
+  src:url(fonts/plex-mono-500-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* --- Токени --------------------------------------------------------------- */
+:root{
+  --ink:#0F1417;
+  --paper:#ECEFF0;
+  --card:#FBFBFB;
+  --white:#fff;
+  --steel:#5F6E76;
+  --steel-2:#8B989F;
+  --rule:#D5DBDE;
+  --rule-2:#E4E8EA;
+
+  --accent:#C2571B;
+  --accent-hi:#E0762F;
+  --accent-soft:#F7E9DF;
+
+  --night:#11161A;
+  --night-2:#1A2126;
+  --night-3:#232C32;
+  --night-rule:#2C363D;
+  --night-ink:#E9EDEF;
+  --night-steel:#94A2A9;
+
+  --sp:clamp(64px,8vw,116px);
+  --pad:clamp(20px,4vw,40px);
+  --maxw:1280px;
+  --r:3px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:Commissioner,"Segoe UI",system-ui,sans-serif;
+  font-size:16.5px; line-height:1.62; font-weight:400;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{max-width:100%; display:block}
+a{color:inherit}
+button{font:inherit; color:inherit}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad)}
+.skip{position:absolute; left:-9999px; top:0; background:var(--accent); color:#fff; padding:10px 16px; z-index:200}
+.skip:focus{left:8px; top:8px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+
+/* --- Спільні типографічні класи ------------------------------------------ */
+.mono{font-family:"Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.label{
+  font-family:"Plex Mono",ui-monospace,monospace; font-size:11.5px; font-weight:500;
+  letter-spacing:.15em; text-transform:uppercase; color:var(--accent);
+}
+.label--muted{color:var(--steel-2)}
+.d1{font-family:Unbounded,Impact,sans-serif; font-weight:700; letter-spacing:-.035em; line-height:.98;
+  font-size:clamp(36px,6.4vw,78px); margin:0; text-wrap:balance}
+.d2{font-family:Unbounded,Impact,sans-serif; font-weight:700; letter-spacing:-.03em; line-height:1.04;
+  font-size:clamp(27px,3.9vw,50px); margin:0; text-wrap:balance}
+.d3{font-family:Unbounded,Impact,sans-serif; font-weight:600; letter-spacing:-.02em; line-height:1.16;
+  font-size:clamp(19px,2vw,25px); margin:0}
+.lede{font-size:clamp(17px,1.5vw,20px); line-height:1.55; color:var(--steel); max-width:60ch; margin:0}
+
+/* --- Кнопки --------------------------------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+  font-weight:600; font-size:15.5px; line-height:1; padding:16px 26px;
+  border:1px solid transparent; border-radius:var(--r); cursor:pointer;
+  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease), transform .18s var(--ease);
+}
+.btn:hover{transform:translateY(-1px)}
+.btn--go{background:var(--accent); color:#fff}
+.btn--go:hover{background:var(--accent-hi)}
+.btn--line{border-color:currentColor; background:transparent}
+.btn--line:hover{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.btn--onNight{color:var(--night-ink); border-color:#4A575E}
+.btn--onNight:hover{background:var(--night-ink); color:var(--night); border-color:var(--night-ink)}
+.btn .arw{font-family:"Plex Mono",monospace; opacity:.7}
+
+/* ==========================================================================
+   Навігація
+   ========================================================================== */
+.nav{
+  position:sticky; top:0; z-index:100; background:rgba(17,22,26,.92);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--night-rule); color:var(--night-ink);
+}
+.nav__in{display:flex; align-items:center; gap:22px; height:62px; max-width:var(--maxw); margin:0 auto;
+  padding-left:var(--pad); padding-right:var(--pad)}
+.brand{display:flex; align-items:baseline; gap:9px; text-decoration:none; margin-right:auto}
+.brand__mark{font-family:Unbounded,sans-serif; font-weight:700; font-size:17px; letter-spacing:-.02em}
+.brand__sub{font-family:"Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--night-steel)}
+.nav__links{display:none; gap:26px}
+.nav__links a{text-decoration:none; font-size:14.5px; color:var(--night-steel); transition:color .16s}
+.nav__links a:hover{color:var(--night-ink)}
+.nav__tel{display:none; text-decoration:none; font-family:"Plex Mono",monospace; font-size:14px;
+  font-weight:500; letter-spacing:.01em; white-space:nowrap}
+.nav__cta{padding:11px 18px; font-size:14px; white-space:nowrap}
+
+/* кнопка-бургер і висувна панель — тільки на вузьких екранах */
+.nav__burger{
+  display:inline-flex; flex-direction:column; justify-content:center; gap:5px;
+  width:40px; height:38px; padding:0 9px; background:transparent;
+  border:1px solid var(--night-rule); border-radius:var(--r); cursor:pointer;
+}
+.nav__burger i{display:block; height:1.5px; background:var(--night-ink); transition:transform .2s var(--ease), opacity .2s var(--ease)}
+.nav[data-open="1"] .nav__burger i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav[data-open="1"] .nav__burger i:nth-child(2){opacity:0}
+.nav[data-open="1"] .nav__burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav__panel{
+  display:none; background:var(--night); border-top:1px solid var(--night-rule);
+  padding:10px var(--pad) 22px;
+}
+.nav[data-open="1"] .nav__panel{display:block}
+.nav__panel a{
+  display:block; text-decoration:none; padding:13px 0; font-size:16px;
+  border-bottom:1px solid var(--night-rule);
+}
+.nav__panel a:last-child{border-bottom:0; font-family:"Plex Mono",monospace; font-weight:500; padding-top:18px}
+@media(min-width:900px){
+  .nav__links{display:flex} .nav__tel{display:block}
+  .nav__burger,.nav__panel{display:none!important}
+}
+@media(max-width:559px){.brand__sub{display:none}}
+
+/* ==========================================================================
+   Герой
+   ========================================================================== */
+.hero{position:relative; background:var(--night); color:var(--night-ink); overflow:hidden}
+.hero__media{position:absolute; inset:0}
+.hero__media img{width:100%; height:100%; object-fit:cover; object-position:34% 62%;
+  animation:heroDrift 26s var(--ease) forwards}
+@keyframes heroDrift{from{transform:scale(1.07)} to{transform:scale(1)}}
+.hero__scrim{position:absolute; inset:0;
+  background:
+    linear-gradient(100deg, rgba(11,15,18,.92) 0%, rgba(11,15,18,.78) 34%, rgba(11,15,18,.28) 62%, rgba(11,15,18,.42) 100%),
+    linear-gradient(to top, rgba(11,15,18,.85) 0%, rgba(11,15,18,0) 42%);
+}
+.hero__in{position:relative; max-width:var(--maxw); margin:0 auto;
+  padding:clamp(72px,11vw,120px) var(--pad) 0;
+  min-height:clamp(500px,74vh,700px); display:flex; flex-direction:column; justify-content:flex-end}
+.hero__eyebrow{margin:0 0 20px; color:var(--accent-hi)}
+.hero h1{max-width:16ch}
+.hero h1 em{font-style:normal; color:var(--accent-hi)}
+.hero__lede{margin:22px 0 0; max-width:50ch; font-size:clamp(16.5px,1.5vw,19px);
+  line-height:1.58; color:#C4CDD2}
+.hero__acts{display:flex; flex-wrap:wrap; gap:12px; margin:34px 0 clamp(38px,6vw,58px)}
+
+/* блок-штамп: як на кресленні — підпис до того, що на фото */
+.titleblock{
+  position:relative; border-top:1px solid rgba(255,255,255,.16);
+  display:grid; grid-template-columns:repeat(2,1fr); gap:0;
+  max-width:var(--maxw); margin:0 auto;
+}
+.titleblock__cell{padding:14px var(--pad); border-bottom:1px solid rgba(255,255,255,.1)}
+.titleblock__cell + .titleblock__cell{border-left:1px solid rgba(255,255,255,.1)}
+.titleblock dt{font-family:"Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:#7F8D95; margin:0 0 4px}
+.titleblock dd{margin:0; font-size:14.5px; font-weight:500; color:#DDE3E6}
+@media(min-width:760px){
+  .titleblock{grid-template-columns:repeat(4,1fr)}
+  .titleblock__cell{padding-left:24px; padding-right:24px}
+  .titleblock__cell:first-child{padding-left:var(--pad)}
+  .titleblock__cell:last-child{padding-right:var(--pad)}
+}
+
+/* ==========================================================================
+   Стрічка клієнтів
+   ========================================================================== */
+.clients{background:var(--night-2); color:var(--night-ink); padding:clamp(38px,5vw,54px) 0}
+.clients__head{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 18px; margin-bottom:24px}
+.clients__note{font-size:14px; color:var(--night-steel)}
+.clients__wall{display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+  background:var(--night-rule); border:1px solid var(--night-rule)}
+@media(min-width:520px){.clients__wall{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1080px){.clients__wall{grid-template-columns:repeat(8,1fr)}}
+.clients__wall span{
+  background:var(--night-2); padding:17px 14px; text-align:center;
+  font-family:Unbounded,sans-serif; font-weight:600; font-size:13px; letter-spacing:-.01em;
+  color:#9FADB4; transition:color .2s var(--ease), background .2s var(--ease);
+}
+.clients__wall span:hover{color:var(--night-ink); background:var(--night-3)}
+
+/* ==========================================================================
+   Цифри
+   ========================================================================== */
+.figs{background:var(--paper); padding:var(--sp) 0}
+.figs__grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin-top:38px}
+.fig{background:var(--paper); padding:26px 22px 24px}
+.fig__n{font-family:Unbounded,sans-serif; font-weight:700; letter-spacing:-.04em; line-height:1;
+  font-size:clamp(32px,4vw,46px); font-variant-numeric:tabular-nums; display:block}
+.fig__n small{font-size:.45em; letter-spacing:0; margin-left:5px; color:var(--steel)}
+.fig__t{display:block; margin-top:11px; font-size:14px; color:var(--steel); line-height:1.4}
+.fig--hi .fig__n{color:var(--accent)}
+
+/* ==========================================================================
+   Секції взагалі
+   ========================================================================== */
+.sec{padding:var(--sp) 0}
+.sec--night{background:var(--night); color:var(--night-ink)}
+.sec--night .lede{color:var(--night-steel)}
+.sec--paper{background:var(--paper)}
+.sec--card{background:var(--card)}
+.sec__head{max-width:66ch; margin-bottom:clamp(34px,4vw,52px)}
+.sec__head .label{display:block; margin-bottom:16px}
+.sec__head .lede{margin-top:18px}
+
+/* ==========================================================================
+   Каталог
+   ========================================================================== */
+.filters{
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  padding:20px 0; margin-bottom:34px;
+  display:flex; flex-wrap:wrap; gap:22px 34px; align-items:flex-end;
+}
+.fgroup{display:flex; flex-direction:column; gap:10px}
+.fgroup > .label{color:var(--steel-2)}
+.chips{display:flex; flex-wrap:wrap; gap:7px}
+.chip{
+  font-family:"Plex Mono",monospace; font-size:12.5px; letter-spacing:.03em;
+  padding:8px 13px; border:1px solid var(--rule); background:transparent;
+  border-radius:var(--r); cursor:pointer; white-space:nowrap;
+  transition:background .16s var(--ease), border-color .16s var(--ease), color .16s var(--ease);
+}
+.chip:hover{border-color:var(--steel-2)}
+.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+.frange{min-width:230px; flex:1 1 240px}
+.frange__row{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:6px}
+.frange__val{font-family:"Plex Mono",monospace; font-size:13.5px; font-weight:500; font-variant-numeric:tabular-nums}
+input[type=range]{
+  -webkit-appearance:none; appearance:none; width:100%; background:transparent; height:22px; cursor:pointer;
+}
+input[type=range]::-webkit-slider-runnable-track{height:2px; background:var(--rule)}
+input[type=range]::-moz-range-track{height:2px; background:var(--rule)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:16px; height:16px; margin-top:-7px;
+  background:var(--accent); border-radius:50%; border:0}
+input[type=range]::-moz-range-thumb{width:16px; height:16px; background:var(--accent); border-radius:50%; border:0}
+.fcount{margin-left:auto; font-family:"Plex Mono",monospace; font-size:13px; color:var(--steel); white-space:nowrap}
+.fcount b{color:var(--ink); font-weight:500}
+
+.grid{display:grid; gap:clamp(14px,1.6vw,22px);
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.pcard{
+  background:var(--card); border:1px solid var(--rule-2); border-radius:var(--r);
+  display:flex; flex-direction:column; text-decoration:none; overflow:hidden;
+  transition:border-color .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.pcard:hover{border-color:var(--steel-2); transform:translateY(-3px);
+  box-shadow:0 14px 34px -22px rgba(15,20,23,.5)}
+.pcard__fig{position:relative; aspect-ratio:16/10; background:var(--white); overflow:hidden}
+.pcard__fig img{position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+  padding:6px; transition:opacity .3s var(--ease)}
+.pcard__fig img.is-plan{opacity:0; background:var(--white)}
+.pcard.show-plan .pcard__fig img.is-view{opacity:0}
+.pcard.show-plan .pcard__fig img.is-plan{opacity:1}
+.pcard__area{
+  position:absolute; left:0; bottom:0; z-index:2;
+  font-family:"Plex Mono",monospace; font-size:12px; font-weight:500;
+  background:var(--ink); color:var(--paper); padding:5px 10px;
+}
+.pcard__plan{
+  position:absolute; right:8px; top:8px; z-index:3;
+  font-family:"Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  background:rgba(255,255,255,.9); border:1px solid var(--rule); color:var(--steel);
+  padding:13px 12px; border-radius:var(--r); cursor:pointer; line-height:1;
+}
+.pcard__plan:hover{color:var(--ink); border-color:var(--steel-2)}
+.pcard.show-plan .pcard__plan{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.pcard__body{padding:15px 16px 17px; display:flex; flex-direction:column; gap:9px; flex:1}
+.pcard__cat{font-family:"Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--accent)}
+.pcard__t{font-size:15.5px; font-weight:600; line-height:1.32; margin:0; text-wrap:balance}
+.pcard__specs{margin-top:auto; padding-top:11px; border-top:1px solid var(--rule-2);
+  display:flex; flex-wrap:wrap; gap:4px 14px;
+  font-family:"Plex Mono",monospace; font-size:11.5px; color:var(--steel)}
+.pcard__price{font-weight:500; color:var(--ink)}
+.empty{padding:50px 0; text-align:center; color:var(--steel); font-size:15px}
+.more{display:flex; justify-content:center; margin-top:clamp(22px,3vw,34px)}
+.more button{
+  font-family:"Plex Mono",monospace; font-size:13.5px; letter-spacing:.04em;
+  padding:15px 30px; border:1px solid var(--rule); background:transparent;
+  border-radius:var(--r); cursor:pointer; transition:border-color .16s, background .16s, color .16s;
+}
+.more button:hover{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+
+/* ==========================================================================
+   Калькулятор
+   ========================================================================== */
+.calc{display:grid; gap:clamp(24px,3vw,48px); align-items:start}
+@media(min-width:960px){.calc{grid-template-columns:1fr 1fr}}
+.calc__ctrl{display:flex; flex-direction:column; gap:26px}
+.calc__out{
+  background:var(--night-2); border:1px solid var(--night-rule); border-radius:var(--r);
+  padding:clamp(24px,3vw,34px); position:sticky; top:82px;
+}
+.calc__sum{font-family:Unbounded,sans-serif; font-weight:700; letter-spacing:-.035em;
+  font-size:clamp(38px,5.4vw,64px); line-height:1; font-variant-numeric:tabular-nums;
+  color:var(--accent-hi); margin:6px 0 0}
+.calc__sum small{font-size:.33em; letter-spacing:0; color:var(--night-steel); margin-left:8px; font-weight:600}
+.calc__break{margin:26px 0 0; padding:0; list-style:none; border-top:1px solid var(--night-rule)}
+.calc__break li{display:flex; justify-content:space-between; gap:16px; padding:11px 0;
+  border-bottom:1px solid var(--night-rule); font-size:14.5px}
+.calc__break dt,.calc__break span:first-child{color:var(--night-steel)}
+.calc__break b{font-family:"Plex Mono",monospace; font-weight:500; font-variant-numeric:tabular-nums}
+.calc__note{margin:20px 0 0; font-size:13px; line-height:1.55; color:var(--night-steel)}
+.calc__note b{color:#C7D0D5; font-weight:500}
+.calc__acts{display:flex; flex-wrap:wrap; gap:10px; margin-top:24px}
+.seg{display:grid; grid-template-columns:repeat(2,1fr); gap:7px}
+@media(min-width:560px){.seg{grid-template-columns:repeat(4,1fr)}}
+.seg button{
+  padding:13px 10px; border:1px solid var(--rule); background:transparent; border-radius:var(--r);
+  cursor:pointer; text-align:left; transition:border-color .16s, background .16s, color .16s;
+}
+.seg button:hover{border-color:var(--steel-2)}
+.seg button[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+/* на темних секціях активний стан має бути світлим, інакше він зливається з тлом */
+.sec--night .seg button{border-color:var(--night-rule)}
+.sec--night .seg button:hover{border-color:var(--night-steel)}
+.sec--night .seg button[aria-pressed="true"]{background:var(--night-ink); border-color:var(--night-ink); color:var(--night)}
+.sec--night .chip{border-color:var(--night-rule)}
+.sec--night .chip[aria-pressed="true"]{background:var(--night-ink); border-color:var(--night-ink); color:var(--night)}
+.calc__hint{margin:0; font-size:14px; line-height:1.6; color:var(--night-steel);
+  border-left:2px solid var(--night-rule); padding-left:16px; max-width:52ch}
+.calc__hint b{color:#C7D0D5; font-weight:600}
+.seg em{display:block; font-style:normal; font-weight:600; font-size:14.5px; line-height:1.25}
+.seg span{display:block; margin-top:4px; font-family:"Plex Mono",monospace; font-size:11px; opacity:.62}
+
+/* ==========================================================================
+   Технологія — розріз модуля
+   ========================================================================== */
+.tech{display:grid; gap:clamp(26px,3.4vw,54px); align-items:center}
+@media(min-width:940px){.tech{grid-template-columns:1.05fr .95fr}}
+.tech__stage{position:relative}
+.tech__svg{width:100%; height:auto; display:block}
+.tech__layers{list-style:none; margin:0; padding:0; border-top:1px solid var(--night-rule)}
+.tech__layers li{border-bottom:1px solid var(--night-rule)}
+.tech__layers button{
+  width:100%; display:grid; grid-template-columns:34px 1fr; gap:16px; align-items:baseline;
+  background:transparent; border:0; padding:17px 4px; text-align:left; cursor:pointer;
+  transition:background .18s var(--ease);
+}
+.tech__layers button:hover{background:var(--night-2)}
+.tech__layers li[data-on="1"] button{background:var(--night-2)}
+.tech__no{font-family:"Plex Mono",monospace; font-size:12px; color:var(--night-steel); padding-top:3px}
+.tech__layers li[data-on="1"] .tech__no{color:var(--accent-hi)}
+.tech__nm{display:block; font-family:Unbounded,sans-serif; font-weight:600; font-size:15.5px;
+  letter-spacing:-.015em; line-height:1.3}
+.tech__ds{display:block; margin-top:5px; font-size:14px; color:var(--night-steel); line-height:1.5}
+.tech__mm{font-family:"Plex Mono",monospace; font-size:12px; color:var(--accent-hi); margin-left:8px}
+
+/* ==========================================================================
+   Реалізовано
+   ========================================================================== */
+.cases{display:grid; gap:clamp(14px,1.6vw,20px); grid-template-columns:repeat(2,1fr)}
+@media(min-width:820px){.cases{grid-template-columns:repeat(6,1fr)}}
+.case{position:relative; overflow:hidden; border-radius:var(--r); background:var(--night-2);
+  grid-column:span 2; text-decoration:none; color:#fff; display:block}
+.case img{width:100%; height:100%; object-fit:cover; aspect-ratio:4/3;
+  transition:transform .7s var(--ease)}
+.case:hover img{transform:scale(1.045)}
+.case__cap{position:absolute; inset:auto 0 0 0; padding:44px 18px 16px;
+  background:linear-gradient(to top,rgba(9,12,14,.9),rgba(9,12,14,0))}
+.case__t{display:block; font-weight:600; font-size:15px; line-height:1.3; text-wrap:balance}
+.case__m{display:block; margin-top:5px; font-family:"Plex Mono",monospace; font-size:11.5px; color:#B4C0C6}
+@media(min-width:820px){
+  .case--wide{grid-column:span 4}
+  .case--wide img{aspect-ratio:16/9}
+  .case--tall{grid-column:span 2}
+}
+
+/* ==========================================================================
+   Процес
+   ========================================================================== */
+.steps{list-style:none; margin:0; padding:0; display:grid; gap:1px;
+  background:var(--rule); border:1px solid var(--rule)}
+@media(min-width:640px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.steps{grid-template-columns:repeat(3,1fr)}}
+.steps li{background:var(--paper); padding:26px 24px 28px}
+.steps__n{font-family:"Plex Mono",monospace; font-size:12px; letter-spacing:.1em; color:var(--accent);
+  display:block; margin-bottom:14px}
+.steps__t{font-family:Unbounded,sans-serif; font-weight:600; font-size:16px; letter-spacing:-.015em;
+  line-height:1.3; margin:0 0 9px}
+.steps__d{margin:0; font-size:14.5px; color:var(--steel); line-height:1.55}
+
+/* ==========================================================================
+   Контакти
+   ========================================================================== */
+.contact{display:grid; gap:clamp(30px,4vw,60px)}
+@media(min-width:940px){.contact{grid-template-columns:.9fr 1.1fr}}
+.offices{display:grid; gap:1px; background:var(--night-rule); border:1px solid var(--night-rule); margin-top:30px}
+.office{background:var(--night); padding:22px 24px}
+.office__c{font-family:Unbounded,sans-serif; font-weight:600; font-size:16px; letter-spacing:-.02em; margin:0 0 6px}
+.office__a{margin:0; font-size:14.5px; color:var(--night-steel); line-height:1.5}
+.tels{display:flex; flex-wrap:wrap; gap:10px 26px; margin:26px 0 0}
+.tels a{font-family:"Plex Mono",monospace; font-size:clamp(19px,2.4vw,26px); font-weight:500;
+  text-decoration:none; letter-spacing:-.01em; transition:color .16s}
+.tels a:hover{color:var(--accent-hi)}
+.mailto{display:inline-block; margin-top:14px; font-size:15px; color:var(--night-steel)}
+
+.form{background:var(--night-2); border:1px solid var(--night-rule); border-radius:var(--r);
+  padding:clamp(24px,3vw,36px)}
+.form__grid{display:grid; gap:16px}
+@media(min-width:600px){.form__grid{grid-template-columns:1fr 1fr}}
+.field{display:flex; flex-direction:column; gap:7px}
+.field--wide{grid-column:1/-1}
+.field label{font-family:"Plex Mono",monospace; font-size:11px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--night-steel)}
+.field input,.field textarea,.field select{
+  font:inherit; font-size:15.5px; color:var(--night-ink); background:var(--night);
+  border:1px solid var(--night-rule); border-radius:var(--r); padding:13px 14px; width:100%;
+  transition:border-color .16s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--accent); outline:none}
+.field textarea{resize:vertical; min-height:96px}
+.form__foot{display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:22px}
+.form__small{font-size:12.5px; color:var(--night-steel); max-width:38ch; line-height:1.5}
+.form__ok{margin:18px 0 0; padding:14px 16px; border:1px solid var(--accent);
+  background:rgba(194,87,27,.12); font-size:14.5px; border-radius:var(--r)}
+
+/* ==========================================================================
+   Підвал
+   ========================================================================== */
+.foot{background:var(--night); color:var(--night-steel); border-top:1px solid var(--night-rule);
+  padding:44px 0 54px; font-size:13.5px}
+.foot__in{display:flex; flex-wrap:wrap; gap:22px 40px; justify-content:space-between; align-items:flex-start}
+.foot a{color:var(--night-steel); text-decoration:none}
+.foot a:hover{color:var(--night-ink)}
+.foot__nav{display:flex; flex-wrap:wrap; gap:8px 22px; max-width:640px}
+.foot__cr{width:100%; border-top:1px solid var(--night-rule); padding-top:20px; margin-top:8px;
+  font-size:12.5px; line-height:1.6}
+.foot__demo{width:100%; margin:14px 0 0; padding:12px 14px; border-left:2px solid var(--accent);
+  background:var(--night-2); font-size:12.5px; line-height:1.6; max-width:78ch}
+.foot__demo a{text-decoration:underline; text-underline-offset:2px}
+
+/* --- Показ при скролі ------------------------------------------------------ */
+.rise{opacity:1; transform:none}
+@media(prefers-reduced-motion:no-preference){
+  .js .rise{opacity:0; transform:translateY(16px);
+    transition:opacity .6s var(--ease), transform .6s var(--ease)}
+  .js .rise.in{opacity:1; transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important; animation-iteration-count:1!important;
+    transition-duration:.001ms!important; scroll-behavior:auto!important}
+  .hero__media img{animation:none}
+}
