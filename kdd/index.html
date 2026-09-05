@@ -1,0 +1,1548 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDD Ukraine — девелоперська компанія повного циклу, Київ</title>
+<meta name="description" content="KDD Ukraine з 2003 року веде київські об'єкти від концепції до експлуатації: 10 об'єктів, житло преміум класу, бізнес-парки й торгові центри.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://hordiienkoss-jpg.github.io/kdd/">
+<meta name="theme-color" content="#f4f2ec">
+<link rel="icon" href="assets/img/kdd-mark.png">
+
+<link rel="preload" href="assets/fonts/geologica-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/martianmono-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Гарнітури. Geologica — інженерний гротеск зі змінною вагою
+   й віссю SHRP (гострота кутів). Martian Mono — поля штампа,
+   розміри, координати. Обидві мають кирилицю; підмножини
+   latin + cyrillic + cyrillic-ext, self-hosted.
+   ───────────────────────────────────────────────────────────── */
+@font-face{font-family:Geologica;font-weight:100 900;font-display:swap;
+  src:url(assets/fonts/geologica-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Geologica;font-weight:100 900;font-display:swap;
+  src:url(assets/fonts/geologica-cyrillic-ext.woff2) format('woff2');
+  unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:Geologica;font-weight:100 900;font-display:swap;
+  src:url(assets/fonts/geologica-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Martian Mono';font-weight:100 800;font-display:swap;
+  src:url(assets/fonts/martianmono-cyrillic.woff2) format('woff2');
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Martian Mono';font-weight:100 800;font-display:swap;
+  src:url(assets/fonts/martianmono-cyrillic-ext.woff2) format('woff2');
+  unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+@font-face{font-family:'Martian Mono';font-weight:100 800;font-display:swap;
+  src:url(assets/fonts/martianmono-latin.woff2) format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* ───────── Аркуш ───────── */
+:root{
+  --paper:#f4f2ec;
+  --paper-2:#eceae2;
+  --ink:#1a1c1e;
+  --ink-70:#4d5052;
+  --pencil:#b7b2a8;      /* лінії, а не текст */
+  --pencil-2:#d5d1c7;    /* тонкі лінії */
+  --label:#6e6a61;       /* дрібні підписи: 4.9:1 на папері */
+  --blue:#2e5fa3;
+  --blue-deep:#22497f;
+  --blue-ink:#e8eef7;
+
+  --rail:62px;
+  --head:78px;
+  --pad:28px;
+  --gut:clamp(18px,3.2vw,52px);
+
+  --w-hair:1px;
+  --w-med:1px;
+  --w-bold:2px;
+
+  --mono:'Martian Mono',ui-monospace,'Cascadia Mono',Consolas,monospace;
+  --sans:Geologica,'Segoe UI',system-ui,sans-serif;
+
+  --ease:cubic-bezier(.16,1,.3,1);
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.55;
+  font-variation-settings:'SHRP' 20;
+  font-feature-settings:'tnum' 1,'lnum' 1;
+  padding-left:var(--rail);
+  padding-top:var(--head);
+  overflow-x:hidden;
+}
+/* ледь помітна фактура ватману */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,rgba(26,28,30,.018) 0 1px,transparent 1px 3px),
+    radial-gradient(120% 80% at 20% 0%,rgba(255,255,255,.55),transparent 60%);
+  mix-blend-mode:multiply;
+}
+
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p,ul,ol,figure,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration-color:var(--pencil);text-underline-offset:.22em;text-decoration-thickness:1px}
+a:hover{text-decoration-color:var(--blue)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0}
+
+::selection{background:var(--blue);color:var(--paper)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+html{scrollbar-color:var(--pencil) var(--paper-2);scrollbar-width:thin}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--paper-2)}
+::-webkit-scrollbar-thumb{background:var(--pencil);border:3px solid var(--paper-2)}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-70)}
+
+.skip{
+  position:fixed;top:8px;left:8px;z-index:200;
+  background:var(--ink);color:var(--paper);
+  padding:10px 16px;font:600 12px/1 var(--mono);
+  transform:translateY(-160%);transition:transform .2s var(--ease);
+}
+.skip:focus{transform:none}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ───────── Поля аркуша: рамка, поле підшивки, штамп ───────── */
+.rail{
+  position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:50;
+  border-right:var(--w-med) solid var(--ink);
+  background:var(--paper);
+  display:flex;flex-direction:column;align-items:center;
+  padding:calc(var(--head) + 18px) 0 18px;
+}
+.rail__word{
+  writing-mode:vertical-rl;
+  font:500 10.5px/1 var(--mono);
+  font-variation-settings:'wdth' 87.5;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--ink-70);
+  margin-bottom:auto;
+}
+.rail__index{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+.rail__tick{
+  width:30px;height:2px;background:var(--pencil);display:block;
+  transform:scaleX(.6);transform-origin:0 50%;
+  transition:background .35s var(--ease),transform .35s var(--ease);
+}
+.rail__tick[data-on]{background:var(--blue);transform:none}
+.rail__foot{
+  writing-mode:vertical-rl;margin-top:22px;
+  font:500 10px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.2em;color:var(--label);
+}
+/* поле підшивки: отвори перфорації і мітка згину */
+.rail__punch{
+  position:absolute;left:calc(50% - 4px);width:9px;height:9px;border-radius:50%;
+  border:var(--w-med) solid var(--pencil);
+}
+.rail__punch--a{top:33%}
+.rail__punch--b{top:63%}
+.rail__fold{position:absolute;left:0;top:48%;width:13px;height:var(--w-med);background:var(--pencil)}
+
+.head{
+  position:fixed;top:0;left:var(--rail);right:0;height:var(--head);z-index:60;
+  background:var(--paper);
+  border-bottom:var(--w-med) solid var(--ink);
+  display:flex;align-items:center;gap:clamp(12px,2.4vw,40px);
+  padding:0 var(--pad) 0 var(--gut);
+}
+.brand{display:flex;align-items:center;gap:12px;flex:0 0 auto;text-decoration:none}
+.brand img{width:44px;height:auto;filter:contrast(1.12)}
+.brand b{
+  display:block;font:600 12.5px/1.15 var(--sans);letter-spacing:.11em;
+  font-variation-settings:'SHRP' 90;text-transform:uppercase;
+}
+.brand span{
+  display:block;font:400 9.5px/1.3 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.13em;color:var(--ink-70);text-transform:uppercase;margin-top:3px;
+}
+
+.axis{display:flex;gap:2px;margin:0 auto;flex:1 1 auto;min-width:0;justify-content:center}
+/* Коли смуга аркушів не влазить, її край розчиняється — обрив стає прокруткою, а не поламаним макетом */
+.axis.is-pannable{
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 16px,#000 calc(100% - 30px),transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 16px,#000 calc(100% - 30px),transparent 100%);
+}
+.axis a{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  text-decoration:none;padding:6px 8px 4px;min-width:64px;position:relative;
+}
+.axis .bub{
+  width:25px;height:25px;border-radius:50%;
+  border:var(--w-med) solid var(--ink);
+  display:grid;place-items:center;
+  font:500 11px/1 var(--mono);font-variation-settings:'wdth' 75;
+  transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
+}
+.axis .lbl{
+  font:500 9px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-70);
+  transition:color .3s var(--ease);
+}
+.axis a:hover .bub,.axis a:focus-visible .bub{background:var(--ink);color:var(--paper)}
+.axis a[aria-current='true'] .bub{background:var(--blue);border-color:var(--blue);color:#fff}
+.axis a[aria-current='true'] .lbl{color:var(--ink)}
+
+.head__tel{
+  flex:0 0 auto;text-decoration:none;text-align:right;
+  font:500 12.5px/1.2 var(--mono);font-variation-settings:'wdth' 87.5;letter-spacing:.02em;
+}
+.head__tel svg{display:none}
+.head__tel:hover{color:var(--blue)}
+
+.head__cta{
+  order:9;flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;
+  background:var(--ink);color:var(--paper);text-decoration:none;
+  padding:11px 15px;
+  font:500 10.5px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.14em;text-transform:uppercase;
+  transition:background .25s var(--ease);
+}
+.head__cta:hover,.head__cta:focus-visible{background:var(--blue)}
+.head__cta svg{flex:0 0 auto}
+.head__tel small{
+  display:block;font:400 9px/1.3 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin-bottom:3px;
+}
+
+/* права крайка аркуша + кутові засічки */
+.edge{position:fixed;top:var(--head);right:var(--pad);bottom:0;width:var(--w-hair);background:var(--pencil);z-index:45;pointer-events:none}
+.corner{position:fixed;z-index:45;pointer-events:none;width:13px;height:13px;border:0 solid var(--ink)}
+.corner--tl{top:calc(var(--head) + 7px);left:calc(var(--rail) + var(--gut) - 21px);border-left-width:var(--w-med);border-top-width:var(--w-med)}
+.corner--tr{top:calc(var(--head) + 7px);right:calc(var(--pad) + 7px);border-right-width:var(--w-med);border-top-width:var(--w-med)}
+
+/* Основний напис — у правому нижньому куті кожного аркуша, як у комплекті креслень */
+.stamp{
+  position:absolute;right:calc(var(--pad) + 6px);bottom:0;
+  width:min(510px,calc(100% - var(--gut) - var(--pad) - 6px));
+  background:var(--paper);
+  border:var(--w-med) solid var(--ink);
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) 62px minmax(0,1.3fr);
+}
+.stamp__c{padding:8px 11px 9px;border-right:var(--w-hair) solid var(--pencil);min-width:0}
+.stamp__c:last-child{border-right:0;padding:0}
+.stamp dt{
+  font:400 8.5px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--label);margin-bottom:5px;
+}
+.stamp dd{
+  font:500 12px/1.25 var(--sans);font-variation-settings:'SHRP' 90;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.stamp__c--n{display:grid;place-content:center;text-align:center}
+.stamp__sheet{font:500 19px/1 var(--mono);font-variation-settings:'wdth' 75;white-space:nowrap}
+.stamp__sheet span{font-size:11px;color:var(--label)}
+.stamp__cta{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;height:100%;
+  padding:0 13px;text-decoration:none;background:var(--ink);color:var(--paper);
+  font:500 10.5px/1.2 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.13em;text-transform:uppercase;
+  transition:background .25s var(--ease);
+}
+.stamp__cta:hover,.stamp__cta:focus-visible{background:var(--blue)}
+.stamp__cta svg{flex:0 0 auto}
+.blueprint .stamp{background:var(--blue-deep);border-color:var(--blue-ink);color:var(--blue-ink)}
+.blueprint .stamp .stamp__c{border-right-color:rgba(232,238,247,.45)}
+.blueprint .stamp dt{color:rgba(232,238,247,.8)}
+.blueprint .stamp .stamp__sheet span{color:rgba(232,238,247,.8)}
+.stamp--flow{position:static;margin:clamp(22px,3vw,38px) 0 0 auto;width:min(510px,100%)}
+.blueprint .stamp__cta{background:var(--blue-ink);color:var(--blue-deep)}
+.blueprint .stamp__cta:hover,.blueprint .stamp__cta:focus-visible{background:#fff}
+
+/* ───────── Загальні елементи креслення ───────── */
+.sheet{
+  position:relative;z-index:1;padding:0 calc(var(--pad) + 6px) 80px var(--gut);
+  scroll-margin-top:calc(var(--head) + 10px);
+}
+.sheet + .sheet{padding-top:clamp(44px,5.4vh,78px)}
+.sheet--flush{padding-bottom:0}
+
+.rule{height:var(--w-hair);background:var(--pencil-2)}
+.chain{
+  height:3px;
+  background-image:repeating-linear-gradient(to right,
+    var(--pencil) 0 22px,transparent 22px 28px,
+    var(--pencil) 28px 31px,transparent 31px 37px);
+  background-size:37px 1px;background-repeat:repeat-x;background-position:0 50%;
+}
+
+.sechead{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);
+  align-items:end;column-gap:clamp(24px,5vw,88px);row-gap:9px;
+  padding-bottom:13px;border-bottom:var(--w-bold) solid var(--ink);
+  margin-bottom:clamp(28px,4vw,52px);
+}
+.sechead h2{
+  grid-column:1;grid-row:1;
+  font:600 clamp(1.55rem,3.3vw,2.9rem)/1.02 var(--sans);
+  font-variation-settings:'SHRP' 100;letter-spacing:-.028em;
+}
+.sechead h2 .no{color:var(--label);font-weight:400;margin-right:.4em}
+.sechead p{
+  grid-column:2;grid-row:1/3;align-self:end;
+  max-width:44ch;color:var(--ink-70);
+  font-size:14.5px;line-height:1.5;
+}
+.sechead .scale{
+  grid-column:1;grid-row:2;justify-self:start;
+  font:500 10px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--label);
+  white-space:nowrap;
+}
+
+/* трикутник зміни — позначає позицію, дані якої не оприлюднені */
+.rev{
+  display:inline-grid;place-items:center;width:17px;height:15px;flex:0 0 auto;
+  font:500 8.5px/1 var(--mono);font-variation-settings:'wdth' 75;
+  color:var(--ink);vertical-align:-2px;
+  clip-path:polygon(50% 0,100% 100%,0 100%);
+  background:var(--pencil);padding-top:4px;
+}
+.rev--blue{background:rgba(232,238,247,.5);color:var(--blue-deep)}
+.legend{display:flex;gap:clamp(14px,2.4vw,34px);flex-wrap:wrap;align-items:center}
+.legend span{
+  display:flex;align-items:center;gap:8px;
+  font:400 10px/1.4 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--label);
+}
+.legend i{width:22px;height:13px;flex:0 0 auto;display:block;border:var(--w-med) solid var(--ink)}
+.legend .sw-hatch{background-image:repeating-linear-gradient(45deg,var(--ink) 0 1px,transparent 1px 5px)}
+.legend .sw-dash{border-style:dashed}
+.blueprint .legend span{color:rgba(232,238,247,.85)}
+.blueprint .legend i{border-color:var(--blue-ink)}
+.blueprint .legend .sw-hatch{background-image:repeating-linear-gradient(45deg,rgba(232,238,247,.55) 0 1px,transparent 1px 5px)}
+
+/* маркер розрізу — веде з об'єкта на аркуш 4 */
+.secmark{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font:500 10px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--label);
+}
+.secmark b{
+  width:23px;height:23px;border-radius:50%;border:var(--w-med) solid var(--ink);
+  display:grid;place-items:center;color:var(--ink);font-weight:500;letter-spacing:0;
+  transition:background .25s var(--ease),color .25s var(--ease);
+}
+.secmark:hover{color:var(--ink)}
+.secmark:hover b,.secmark:focus-visible b{background:var(--ink);color:var(--paper)}
+
+/* виноска-полиця */
+.shelf{
+  display:inline-block;background:var(--paper);
+  border-bottom:var(--w-med) solid var(--ink);
+  padding:5px 11px 6px;
+  font:500 11px/1.35 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.05em;
+}
+
+/* ───────── Аркуш 1 · Титул ───────── */
+.title-sheet{
+  min-height:calc(100svh - var(--head) - 6px);
+  display:flex;flex-direction:column;
+  padding-top:clamp(10px,1.5vh,18px);padding-bottom:74px;
+}
+.title-top{display:flex;gap:clamp(16px,4vw,64px);align-items:flex-start;flex-wrap:wrap;margin-bottom:clamp(12px,1.8vh,22px)}
+.title-lede{
+  font:500 clamp(1.05rem,2vw,1.72rem)/1.16 var(--sans);
+  font-variation-settings:'SHRP' 100;letter-spacing:-.022em;max-width:22ch;
+}
+.title-lede em{font-style:normal;color:var(--blue)}
+.title-claim{
+  margin-left:auto;max-width:40ch;
+  border-left:var(--w-med) solid var(--ink);padding-left:16px;
+  font-size:13.5px;line-height:1.5;color:var(--ink-70);
+}
+.title-claim b{display:block;color:var(--ink);font-weight:500;font-size:14.5px;margin-bottom:5px}
+
+.hero-body{
+  flex:1 1 auto;min-height:clamp(330px,46vh,620px);
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  gap:clamp(14px,2vw,30px);align-items:stretch;
+}
+
+.plate{position:relative;border:var(--w-med) solid var(--ink);overflow:hidden;background:var(--paper-2)}
+.plate img{width:100%;height:100%;object-fit:cover}
+.plate--hero{min-height:0}
+.plate--hero img{object-position:50% 58%}
+
+/* Вертикальний розмір: число читається знизу вгору, як на кресленні */
+.hero-dim{display:flex;align-items:stretch;align-self:center;gap:clamp(9px,1.1vw,16px);max-height:100%}
+.hero-h1{margin:0;display:flex}
+.figure{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  font:500 min(10.9vh,112px)/1 var(--sans);
+  font-variation-settings:'SHRP' 100;
+  letter-spacing:-.03em;font-feature-settings:'tnum' 1;
+  white-space:nowrap;
+}
+.figure .u{font-size:.26em;letter-spacing:.02em;font-weight:400;color:var(--ink-70);padding-block-start:.5em}
+
+.hero-rule{position:relative;flex:0 0 var(--w-med);background:var(--ink)}
+.hero-rule i{position:absolute;left:50%;width:var(--w-bold);height:20px;background:var(--ink);transform:translateX(-50%) rotate(45deg)}
+.hero-rule i:first-child{top:-1px}
+.hero-rule i:last-child{bottom:-1px}
+
+.hero-list{
+  display:flex;flex-direction:column;justify-content:space-between;
+  width:clamp(180px,20.5vw,308px);flex:0 0 auto;
+}
+.hero-list li{display:flex;align-items:center;gap:7px;min-width:0}
+.hero-list .tick{width:10px;height:var(--w-med);background:var(--ink);flex:0 0 auto}
+.hero-list .lab{
+  flex:1 1 auto;min-width:0;padding-bottom:3px;
+  border-bottom:var(--w-hair) solid var(--pencil-2);
+  font:400 10px/1.35 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.01em;color:var(--ink);
+}
+.hero-list .lab b{font-weight:500;color:var(--label);margin-right:.5em}
+.hero-list .lab i{font-style:normal;color:var(--label)}
+.hero-list li:hover .lab,.hero-list li:focus-within .lab{border-bottom-color:var(--blue);color:var(--blue)}
+
+.hero-src{
+  margin-top:clamp(9px,1.1vh,14px);
+  font:400 11px/1.5 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.03em;color:var(--label);max-width:96ch;
+}
+.hero-src a{color:var(--ink)}
+
+.datum{position:absolute;left:0;right:0;top:21%;display:flex;align-items:center;pointer-events:none}
+.datum__line{
+  flex:1;height:2px;
+  background-image:repeating-linear-gradient(to right,
+    var(--ink) 0 22px,transparent 22px 28px,var(--ink) 28px 31px,transparent 31px 37px);
+  filter:drop-shadow(0 0 2px rgba(255,255,255,.9)) drop-shadow(0 0 5px rgba(255,255,255,.6));
+}
+.datum__mark{display:flex;align-items:center;gap:7px;padding:0 12px;flex:0 0 auto}
+.datum__mark svg{display:block;filter:drop-shadow(0 0 2px rgba(255,255,255,.9))}
+.datum__mark span{
+  font:500 10.5px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.12em;color:var(--ink);
+  text-shadow:0 0 3px rgba(255,255,255,.95),0 0 7px rgba(255,255,255,.8);
+}
+.plate__note{position:absolute;left:0;top:calc(21% + 10px);display:flex;align-items:flex-start;max-width:min(560px,86%)}
+.plate__note .leg{width:34px;height:var(--w-med);background:var(--ink);margin-top:15px;flex:0 0 auto}
+.plate__note .shelf{border-top:var(--w-med) solid var(--ink);border-bottom:0;white-space:normal}
+
+h1{margin:0}
+
+/* ───────── Аркуш 2 · Проєкти ───────── */
+.flag{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.62fr);gap:0;align-items:stretch;border-top:var(--w-med) solid var(--ink)}
+.flag + .flag{margin-top:0}
+.flag:last-of-type{border-bottom:var(--w-med) solid var(--ink)}
+.flag--rev{direction:rtl}
+.flag--rev > *{direction:ltr}
+.flag__img{position:relative;overflow:hidden;width:100%;aspect-ratio:1.92;min-height:clamp(150px,30vw,300px);background:var(--paper-2)}
+.flag__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.flag:hover .flag__img img{transform:scale(1.028)}
+.flag__pos{
+  position:absolute;left:0;top:0;background:var(--paper);
+  padding:6px 12px 7px;border-right:var(--w-med) solid var(--ink);border-bottom:var(--w-med) solid var(--ink);
+  font:500 11px/1 var(--mono);font-variation-settings:'wdth' 75;letter-spacing:.12em;
+}
+.flag__body{padding:clamp(20px,2.4vw,38px) clamp(18px,2.2vw,34px);border-left:var(--w-med) solid var(--ink);display:flex;flex-direction:column}
+.flag--rev .flag__body{border-left:0;border-right:var(--w-med) solid var(--ink)}
+.flag__yr{
+  font:500 11px/1 var(--mono);font-variation-settings:'wdth' 87.5;letter-spacing:.2em;color:var(--blue);
+  display:block;margin-bottom:10px;
+}
+.flag__body h3{
+  font:600 clamp(1.35rem,2.5vw,2.05rem)/1.04 var(--sans);
+  font-variation-settings:'SHRP' 100;letter-spacing:-.028em;margin-bottom:9px;
+}
+.flag__type{color:var(--ink-70);font-size:15px;line-height:1.45;max-width:34ch}
+.flag__data{margin-top:auto;padding-top:22px;display:grid;gap:0}
+.flag__data div{display:flex;gap:14px;justify-content:space-between;align-items:baseline;padding:9px 0;border-top:var(--w-hair) solid var(--pencil-2)}
+.flag__data dt{
+  font:400 9.5px/1.4 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--label);flex:0 0 auto;
+}
+.flag__data dd{font:500 13.5px/1.35 var(--sans);text-align:right}
+.flag__data .big{font-size:clamp(1.5rem,2.6vw,2.1rem);font-variation-settings:'SHRP' 100;letter-spacing:-.03em;line-height:1}
+.flag__data .big i{font-style:normal;font-size:.42em;color:var(--ink-70);margin-left:.25em}
+.flag__body .secmark{margin-top:18px;align-self:flex-start}
+
+/* ───────── Аркуш 3 · Експертиза ───────── */
+.spec{display:grid;grid-template-columns:repeat(3,1fr);border:var(--w-med) solid var(--ink);border-right:0}
+.spec__col{border-right:var(--w-med) solid var(--ink);display:flex;flex-direction:column}
+.spec__hd{padding:16px clamp(14px,1.5vw,22px) 15px;border-bottom:var(--w-med) solid var(--ink);background:var(--paper-2)}
+.spec__no{
+  font:500 10.5px/1 var(--mono);font-variation-settings:'wdth' 75;letter-spacing:.2em;
+  color:var(--blue);display:block;margin-bottom:9px;
+}
+.spec__hd h3{font:600 clamp(1rem,1.35vw,1.22rem)/1.18 var(--sans);font-variation-settings:'SHRP' 100;letter-spacing:-.015em}
+.spec__col ol{flex:1}
+.spec__col li{
+  display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:baseline;
+  padding:12px clamp(14px,1.5vw,22px) 13px;border-bottom:var(--w-hair) solid var(--pencil-2);
+  font-size:14.5px;line-height:1.42;
+}
+.spec__col li:last-child{border-bottom:0}
+.spec__col li span{
+  font:400 10px/1.4 var(--mono);font-variation-settings:'wdth' 87.5;
+  color:var(--label);letter-spacing:.06em;
+}
+.spec__flow{
+  display:flex;align-items:center;gap:clamp(8px,1.4vw,20px);flex-wrap:wrap;
+  margin-top:clamp(22px,3vw,38px);padding-top:20px;border-top:var(--w-hair) solid var(--pencil);
+  font:500 11px/1 var(--mono);font-variation-settings:'wdth' 87.5;letter-spacing:.15em;text-transform:uppercase;
+}
+.spec__flow em{font-style:normal;color:var(--label)}
+.spec__aside{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:center;margin-top:clamp(30px,4vw,58px)}
+.spec__aside .plate{min-height:clamp(200px,24vw,320px)}
+.spec__aside p{font-size:16px;line-height:1.6;max-width:52ch;color:var(--ink-70)}
+.spec__aside p b{color:var(--ink);font-weight:500}
+
+/* ───────── Аркуш 4 · Інженерія (синька) ───────── */
+.blueprint{
+  position:relative;padding-bottom:96px;
+  background:var(--blue-deep);color:var(--blue-ink);
+  margin-left:calc(var(--gut) * -1);margin-right:calc((var(--pad) + 6px) * -1);
+  padding:clamp(36px,5vw,74px) calc(var(--pad) + 6px) clamp(34px,4.5vw,64px) var(--gut);
+  background-image:
+    linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:34px 34px,34px 34px;
+}
+.blueprint .sechead{border-bottom-color:var(--blue-ink)}
+.blueprint .sechead h2 .no,.blueprint .sechead .scale{color:rgba(232,238,247,.8)}
+.blueprint .sechead p{color:rgba(232,238,247,.9)}
+
+.section-chart{position:relative;margin-top:6px}
+.chart-scroll{position:relative}
+/* На вузьких екранах розріз прокручується по горизонталі, а не стискається до нечитабельного */
+@media (max-width:1020px){
+  .chart-scroll{
+    overflow-x:auto;overflow-y:hidden;padding-top:18px;padding-bottom:126px;
+    margin-bottom:clamp(18px,3vw,32px);
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent 100%);
+    mask-image:linear-gradient(to right,#000 calc(100% - 34px),transparent 100%);
+  }
+  .chart-scroll .chart{min-width:600px;margin-bottom:0;height:clamp(190px,26vw,240px)}
+  .chart-scroll::-webkit-scrollbar{height:8px}
+  .chart-scroll::-webkit-scrollbar-track{background:rgba(232,238,247,.14)}
+  .chart-scroll::-webkit-scrollbar-thumb{background:rgba(232,238,247,.5)}
+}
+.chart{
+  position:relative;height:clamp(230px,29vw,350px);
+  border-left:var(--w-med) solid rgba(232,238,247,.6);
+  margin-left:78px;margin-bottom:clamp(126px,14vw,190px);
+}
+.chart__grid{position:absolute;inset:0;pointer-events:none}
+.chart__grid i{position:absolute;left:0;right:0;height:1px;background:rgba(232,238,247,.24)}
+.chart__grid i b{
+  position:absolute;right:calc(100% + 12px);top:-.72em;
+  font:400 10px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.08em;color:rgba(232,238,247,.85);white-space:nowrap;font-weight:400;
+}
+.chart__base{position:absolute;left:-78px;right:0;bottom:0;height:var(--w-bold);background:var(--blue-ink)}
+.chart__cap{
+  margin:0 0 clamp(26px,3vw,42px);
+  font:400 10px/1.5 var(--mono);font-variation-settings:'wdth' 87.5;letter-spacing:.13em;
+  text-transform:uppercase;color:rgba(232,238,247,.85);
+}
+.chart__plot{position:absolute;inset:0}
+.col{
+  position:absolute;top:0;bottom:0;transform:translateX(-50%);
+  width:clamp(26px,3.6vw,52px);
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.col__bar{
+  position:relative;width:100%;
+  background-color:rgba(232,238,247,.16);
+  border:var(--w-med) solid var(--blue-ink);border-bottom:0;
+  background-image:repeating-linear-gradient(45deg,rgba(232,238,247,.28) 0 1px,transparent 1px 7px);
+  transition:background-color .3s var(--ease);
+  transform-origin:50% 100%;
+}
+.col--est .col__bar{border-style:dashed;background-image:none;background-color:rgba(232,238,247,.07)}
+.col__v{
+  text-align:center;margin-bottom:7px;
+  font:500 11px/1 var(--mono);font-variation-settings:'wdth' 75;
+  letter-spacing:.02em;white-space:nowrap;color:var(--blue-ink);
+}
+.col__yr{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);
+  font:400 10px/1 var(--mono);font-variation-settings:'wdth' 87.5;letter-spacing:.1em;
+  color:rgba(232,238,247,.85);
+}
+.col__nm{
+  position:absolute;top:calc(100% + 32px);left:50%;transform:translateX(-50%);
+  writing-mode:vertical-rl;white-space:nowrap;
+  font:500 11.5px/1 var(--sans);letter-spacing:.01em;color:var(--blue-ink);
+}
+.col:hover .col__bar,.col:focus-within .col__bar{background-color:rgba(232,238,247,.36)}
+.chart__note{
+  margin-top:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:clamp(16px,2.4vw,40px);padding-top:22px;border-top:var(--w-hair) solid rgba(232,238,247,.3);
+}
+.chart__note div dt{
+  font:400 9.5px/1.4 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.15em;text-transform:uppercase;color:rgba(232,238,247,.8);margin-bottom:7px;
+}
+.chart__note div dd{font-size:14.5px;line-height:1.5;color:rgba(232,238,247,.92)}
+.chart__note div dd b{
+  display:block;font:500 clamp(1.5rem,2.5vw,2.1rem)/1 var(--sans);
+  font-variation-settings:'SHRP' 100;letter-spacing:-.03em;color:#fff;margin-bottom:5px;
+}
+
+/* ───────── Аркуш 5 · Команда ───────── */
+.zones{display:grid;grid-template-columns:repeat(2,1fr);border-top:var(--w-med) solid var(--ink);border-left:var(--w-med) solid var(--ink)}
+.zone{border-right:var(--w-med) solid var(--ink);border-bottom:var(--w-med) solid var(--ink);padding:clamp(20px,2.3vw,34px);display:flex;flex-direction:column}
+.zone__no{
+  font:500 10.5px/1 var(--mono);font-variation-settings:'wdth' 75;letter-spacing:.2em;
+  color:var(--blue);margin-bottom:12px;
+}
+.zone h3{font:600 clamp(1.1rem,1.7vw,1.45rem)/1.12 var(--sans);font-variation-settings:'SHRP' 100;letter-spacing:-.022em;margin-bottom:12px}
+.zone ul{display:flex;flex-wrap:wrap;gap:6px 8px;margin-bottom:26px}
+.zone li{
+  font:400 11px/1 var(--mono);font-variation-settings:'wdth' 87.5;letter-spacing:.04em;
+  border:var(--w-hair) solid var(--pencil);padding:5px 9px 6px;color:var(--ink-70);
+}
+.sign{margin-top:auto;display:grid;grid-template-columns:1fr 92px 84px;border-top:var(--w-med) solid var(--ink)}
+.sign div{border-right:var(--w-hair) solid var(--pencil);padding:8px 10px 7px}
+.sign div:last-child{border-right:0}
+.sign dt{
+  font:400 8.5px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--label);
+}
+.sign dd{height:19px;border-bottom:var(--w-hair) solid var(--pencil);margin-top:7px}
+.team__foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.66fr);gap:clamp(20px,3vw,46px);align-items:center;margin-top:clamp(26px,3.4vw,46px)}
+.team__foot p{font-size:16px;line-height:1.6;max-width:56ch;color:var(--ink-70)}
+.team__foot p b{color:var(--ink);font-weight:500}
+.team__foot .plate{min-height:clamp(190px,20vw,260px)}
+
+/* ───────── Аркуш 6 · Приклади (відомість) ───────── */
+.filters{display:flex;gap:0;flex-wrap:wrap;border:var(--w-med) solid var(--ink);margin-bottom:22px;width:fit-content;max-width:100%}
+.filters button{
+  padding:9px 15px 10px;border-right:var(--w-hair) solid var(--pencil);cursor:pointer;
+  font:500 10.5px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.13em;text-transform:uppercase;
+  transition:background .25s var(--ease),color .25s var(--ease);
+}
+.filters button:last-child{border-right:0}
+.filters button:hover{background:var(--paper-2)}
+.filters button[aria-pressed='true']{background:var(--blue);color:#fff}
+.filters button b{font-weight:500;opacity:.55;margin-left:.5em}
+
+.reg{border-top:var(--w-bold) solid var(--ink)}
+.reg__hd,.reg__row{
+  display:grid;
+  grid-template-columns:38px 78px minmax(150px,1.15fr) 56px minmax(160px,1.35fr) 108px minmax(180px,1.4fr);
+  gap:clamp(8px,1.1vw,18px);align-items:center;
+}
+.reg__hd{
+  padding:9px 0 10px;border-bottom:var(--w-med) solid var(--ink);
+  font:400 9.5px/1.3 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--label);
+}
+.reg__row{padding:11px 0;border-bottom:var(--w-hair) solid var(--pencil-2);transition:background .25s var(--ease)}
+.reg__row:hover{background:var(--paper-2)}
+.reg__row[hidden]{display:none}
+.reg__n{font:400 12px/1 var(--mono);font-variation-settings:'wdth' 75;color:var(--label)}
+.reg__th{width:78px;height:52px;object-fit:cover;border:var(--w-hair) solid var(--pencil)}
+.reg__nm{font:500 15.5px/1.2 var(--sans);font-variation-settings:'SHRP' 90;letter-spacing:-.012em}
+.reg__yr{font:500 13px/1 var(--mono);font-variation-settings:'wdth' 75}
+.reg__ty{font-size:13.5px;line-height:1.35;color:var(--ink-70)}
+.reg__sz{font:500 14px/1.2 var(--mono);font-variation-settings:'wdth' 75;text-align:right;white-space:nowrap}
+.reg__sz em{font-style:normal;color:var(--label);font-size:11px;letter-spacing:.06em;margin-left:.25em}
+.reg__ad{font-size:13px;line-height:1.35;color:var(--ink-70)}
+.reg__total{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;
+  padding:20px 0 0;border-top:var(--w-bold) solid var(--ink);margin-top:-1px;
+}
+.reg__total p{max-width:52ch;font-size:13.5px;line-height:1.5;color:var(--ink-70)}
+.reg__total .sum{text-align:right}
+.reg__total .sum b{
+  display:block;font:500 clamp(1.7rem,3.4vw,2.8rem)/1 var(--sans);
+  font-variation-settings:'SHRP' 100;letter-spacing:-.032em;
+}
+.reg__total .sum span{
+  font:400 10px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--label);display:block;margin-bottom:8px;
+}
+.reg__empty{padding:34px 0;color:var(--ink-70);font-size:15px}
+
+/* ───────── Аркуш 7 · Контакти ───────── */
+.contact{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.85fr);border:var(--w-bold) solid var(--ink)}
+.contact__l{border-right:var(--w-med) solid var(--ink);display:flex;flex-direction:column}
+.contact__hd{padding:clamp(24px,3vw,44px) clamp(20px,2.4vw,38px) clamp(18px,2vw,28px)}
+.contact__hd h3{
+  font:600 clamp(1.5rem,3vw,2.5rem)/1.04 var(--sans);
+  font-variation-settings:'SHRP' 100;letter-spacing:-.03em;margin-bottom:12px;max-width:18ch;
+}
+.contact__hd p{color:var(--ink-70);font-size:15.5px;line-height:1.55;max-width:44ch}
+.cfields{border-top:var(--w-med) solid var(--ink);display:grid;grid-template-columns:1fr 1fr}
+.cfield{border-right:var(--w-hair) solid var(--pencil);border-bottom:var(--w-hair) solid var(--pencil);padding:14px clamp(20px,2.4vw,38px) 15px}
+.cfield:nth-child(2n){border-right:0}
+.cfield:nth-last-child(-n+2){border-bottom:0}
+.cfield dt{
+  font:400 9px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--label);margin-bottom:8px;
+}
+.cfield dd a,.cfield dd{font:500 15.5px/1.35 var(--sans);word-break:break-word}
+.cfield dd a{text-decoration-color:var(--pencil)}
+
+.contact__r{padding:clamp(22px,2.6vw,38px);display:flex;flex-direction:column}
+.contact__r h4{
+  font:500 10.5px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--label);margin-bottom:20px;
+}
+.f-row{margin-bottom:16px}
+.f-row label{
+  display:block;font:400 9.5px/1 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-70);margin-bottom:7px;
+}
+.f-row input,.f-row textarea{
+  width:100%;background:transparent;border:0;border-bottom:var(--w-med) solid var(--ink);
+  padding:7px 2px;font:400 15px/1.4 var(--sans);color:var(--ink);
+  caret-color:var(--blue);border-radius:0;
+}
+.f-row textarea{resize:vertical;min-height:64px}
+.f-row input::placeholder,.f-row textarea::placeholder{color:var(--label)}
+.f-row input:focus,.f-row textarea:focus{outline:0;border-bottom-color:var(--blue);border-bottom-width:var(--w-bold)}
+.btn{
+  margin-top:auto;display:inline-flex;align-items:center;justify-content:space-between;gap:16px;
+  background:var(--ink);color:var(--paper);padding:15px 18px;cursor:pointer;width:100%;
+  font:500 12px/1 var(--mono);font-variation-settings:'wdth' 87.5;letter-spacing:.13em;text-transform:uppercase;
+  transition:background .25s var(--ease);
+}
+.btn:hover{background:var(--blue)}
+.btn svg{flex:0 0 auto}
+.f-hint{margin-top:12px;font:400 11px/1.5 var(--mono);font-variation-settings:'wdth' 87.5;color:var(--label)}
+
+.foot{
+  display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:24px 0 44px;margin-top:26px;border-top:var(--w-hair) solid var(--pencil);
+  font:400 10.5px/1.6 var(--mono);font-variation-settings:'wdth' 87.5;
+  letter-spacing:.08em;color:var(--label);
+}
+.foot a{color:var(--ink-70)}
+
+/* ───────── Рух ─────────
+   Стан спокою — це фінальний стан. Анімація лише програється до нього від
+   прихованого кадру, і клас .play живе рівно стільки, скільки вона триває.
+   Тому ніщо не може лишитися невидимим: ні без скрипта, ні при вимкнених
+   анімаціях, ні якщо спостерігач не спрацював. */
+@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleY(.02)}to{transform:none}}
+@keyframes ink{from{opacity:0}to{opacity:1}}
+[data-reveal].play{animation:rise .8s var(--ease) both}
+.col.play .col__bar{animation:grow 1.05s var(--ease) both}
+.col.play .col__v{animation:ink .6s var(--ease) both}
+@media (prefers-reduced-motion:reduce){
+  [data-reveal].play,.col.play .col__bar,.col.play .col__v{animation:none}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* ───────── Адаптація ───────── */
+/* Вертикальний розмір тримається лише там, де є місце під полицях-виносках */
+@media (max-width:1179px){
+  .hero-body{grid-template-columns:1fr;grid-template-rows:auto auto;gap:0}
+  .plate--hero{order:1;width:100%;height:clamp(210px,40vh,400px);min-height:0}
+  .plate--hero img{object-position:50% 48%}
+  .hero-dim{
+    order:2;align-self:stretch;flex-direction:column;align-items:stretch;
+    background:var(--paper);border-top:var(--w-bold) solid var(--ink);
+    padding-top:clamp(12px,2vw,20px);margin-top:clamp(16px,2.4vw,28px);
+  }
+  .hero-h1{display:block}
+  .figure{
+    writing-mode:horizontal-tb;transform:none;display:block;
+    font-size:clamp(2.6rem,12.2vw,7rem);line-height:.86;word-spacing:-.03em;
+  }
+  .figure .u{font-size:.24em;vertical-align:.36em;margin-left:.16em;padding-block-start:0}
+  .hero-rule{flex:0 0 var(--w-med);height:var(--w-med);width:auto;margin:14px 0 0}
+  .hero-rule i{left:0;top:50%;width:var(--w-bold);height:20px;transform:translateY(-50%) rotate(45deg)}
+  .hero-rule i:first-child{top:50%;left:0}
+  .hero-rule i:last-child{top:50%;left:auto;right:0;bottom:auto}
+  .hero-list{
+    width:auto;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;
+    gap:0 clamp(14px,2.4vw,32px);margin-top:10px;
+  }
+  .hero-list li{flex:1 1 clamp(210px,27vw,290px);padding:5px 0}
+  .hero-list .tick{width:7px}
+  .title-sheet{min-height:auto;padding-bottom:104px}
+}
+@media (max-width:1180px){
+  .axis a{min-width:auto;padding:6px 4px 4px}
+  .head__tel small{display:none}
+  .brand span{display:none}
+  .head{gap:clamp(10px,1.4vw,20px)}
+  .axis{overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+  .axis::-webkit-scrollbar{display:none}
+  .stamp{grid-template-columns:minmax(0,1fr) 58px minmax(0,1.15fr)}
+  .stamp__c:first-child{display:none}
+}
+@media (max-width:1020px){
+  :root{--rail:0px;--head:66px;--pad:16px;--gut:18px}
+  .rail{display:none}
+  .head{padding-left:16px}
+  .brand img{width:38px}
+  .brand span{display:none}
+  .flag,.flag--rev{grid-template-columns:1fr;direction:ltr}
+  .flag__body{border-left:0;border-right:0;border-top:var(--w-med) solid var(--ink)}
+  .flag--rev .flag__body{border-right:0}
+  .spec{grid-template-columns:1fr;border-right:var(--w-med) solid var(--ink)}
+  .spec__col{border-right:0;border-bottom:var(--w-med) solid var(--ink)}
+  .spec__col:last-child{border-bottom:0}
+  .spec__aside,.team__foot{grid-template-columns:1fr}
+  .contact{grid-template-columns:1fr}
+  .contact__l{border-right:0;border-bottom:var(--w-med) solid var(--ink)}
+  .zones{grid-template-columns:1fr}
+  .corner{display:none}
+  .sheet{padding-bottom:78px}
+  .title-sheet{padding-bottom:96px}
+}
+@media (max-width:860px){
+  body{font-size:16px}
+  .axis{gap:0;overflow-x:auto;justify-content:flex-start;scrollbar-width:none;margin:0 6px;-webkit-overflow-scrolling:touch}
+  .axis::-webkit-scrollbar{display:none}
+  .head{gap:8px}
+  .head__cta{padding:10px 11px;gap:0;letter-spacing:.1em}
+  .head__cta svg{display:none}
+  .stamp{left:var(--gut);right:calc(var(--pad) + 6px);width:auto}
+  .head__tel{
+    width:38px;height:38px;display:grid;place-items:center;
+    border:var(--w-med) solid var(--ink);font-size:0;
+  }
+  .head__tel svg{display:block}
+  .sechead{grid-template-columns:1fr;row-gap:8px}
+  .sechead h2{grid-column:1;grid-row:1}
+  .sechead .scale{grid-column:1;grid-row:2}
+  .sechead p{grid-column:1;grid-row:3;max-width:none;margin-top:6px}
+  .filters{width:100%}
+  .filters button{flex:1 0 auto}
+  .stamp{grid-template-columns:minmax(0,1fr) 54px;left:var(--gut);right:calc(var(--pad) + 6px);width:auto}
+  .stamp__c--cta{grid-column:1/-1;border-top:var(--w-hair) solid var(--pencil)}
+  .stamp__cta{padding:11px 13px}
+  .reg__hd{display:none}
+  .reg__row{
+    grid-template-columns:78px 1fr;
+    gap:14px;padding:16px 0;align-items:start;
+  }
+  .reg__n{display:none}
+  .reg__row > .reg__nm{grid-column:2}
+  .reg__yr,.reg__ty,.reg__sz,.reg__ad{grid-column:2;text-align:left}
+  .reg__sz{text-align:left;font-size:16px;margin-top:2px}
+  .reg__sz em{display:inline;margin-left:.6em}
+  .reg__yr{color:var(--blue)}
+  .reg__th{width:78px;height:78px;grid-row:span 5}
+  .cfields{grid-template-columns:1fr}
+  .cfield{border-right:0}
+  .cfield:nth-last-child(-n+2){border-bottom:var(--w-hair) solid var(--pencil)}
+  .cfield:last-child{border-bottom:0}
+  .sign{grid-template-columns:1fr 74px}
+  .sign div:nth-child(3){display:none}
+  .chart{margin-left:62px}
+  .foot{padding-bottom:36px}
+}
+@media (max-width:560px){
+  .figure{font-size:clamp(2.1rem,13.4vw,3.6rem)}
+  .title-claim{margin-left:0;max-width:none}
+  .plate__note{max-width:90%}
+  .zone ul{margin-bottom:20px}
+  .hero-list li{flex:1 1 100%}
+  .sheet{padding-bottom:104px}
+  .title-sheet{padding-bottom:118px}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#sheet-1">До змісту</a>
+
+<aside class="rail" aria-hidden="true">
+  <span class="rail__word">KDD Ukraine · Київ · з 2003</span>
+  <span class="rail__index" id="railIndex">
+    <i class="rail__tick"></i><i class="rail__tick"></i><i class="rail__tick"></i><i class="rail__tick"></i>
+    <i class="rail__tick"></i><i class="rail__tick"></i><i class="rail__tick"></i>
+  </span>
+  <span class="rail__foot">Аркушів 7</span>
+  <span class="rail__punch rail__punch--a"></span>
+  <span class="rail__punch rail__punch--b"></span>
+  <span class="rail__fold"></span>
+</aside>
+
+<header class="head">
+  <a class="brand" href="#sheet-1">
+    <img src="assets/img/kdd-mark.png" alt="" width="366" height="240">
+    <span>
+      <b>KDD Ukraine</b>
+      <span>Девелоперська компанія</span>
+    </span>
+  </a>
+
+  <nav class="axis" aria-label="Аркуші">
+    <a href="#sheet-1"><span class="bub">1</span><span class="lbl">Титул</span></a>
+    <a href="#sheet-2"><span class="bub">2</span><span class="lbl">Проєкти</span></a>
+    <a href="#sheet-3"><span class="bub">3</span><span class="lbl">Експертиза</span></a>
+    <a href="#sheet-4"><span class="bub">4</span><span class="lbl">Інженерія</span></a>
+    <a href="#sheet-5"><span class="bub">5</span><span class="lbl">Команда</span></a>
+    <a href="#sheet-6"><span class="bub">6</span><span class="lbl">Приклади</span></a>
+    <a href="#sheet-7"><span class="bub">7</span><span class="lbl">Контакти</span></a>
+  </nav>
+
+  <a class="head__cta" href="#sheet-7">Запит<svg width="18" height="9" viewBox="0 0 18 9" fill="none" aria-hidden="true"><path d="M0 4.5h16M12 1l4 3.5L12 8" stroke="currentColor" stroke-width="1.4"/></svg></a>
+
+  <a class="head__tel" href="tel:+380444958384" aria-label="Зателефонувати: +38 044 495 83 84">
+    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><path d="M5.4 1.6 7 4.9 5.3 6.6c.6 1.7 2.4 3.5 4.1 4.1l1.7-1.7 3.3 1.6v3.1c0 .7-.6 1.3-1.3 1.3C6.8 15 2 10.2 1.6 3.9c0-.7.6-1.3 1.3-1.3h2.5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+    <small>Відділ розвитку</small>
+    +38 044 495 83 84
+  </a>
+</header>
+
+<span class="edge" aria-hidden="true"></span>
+<span class="corner corner--tl" aria-hidden="true"></span>
+<span class="corner corner--tr" aria-hidden="true"></span>
+
+<main>
+
+<!-- ══════════ Аркуш 1 · Титул ══════════ -->
+<section class="sheet title-sheet" id="sheet-1">
+
+  <div class="title-top">
+    <p class="title-lede">Девелоперська компанія повного&nbsp;циклу.<br>Київ, <em>з 2003 року</em>.</p>
+    <p class="title-claim">
+      <b>«Розвиваємо об’єкти тільки з гарантованим зростанням ринкової вартості»</b>
+      Концепція → генеральний підряд → експлуатація. Об’єкт не передається третій стороні після здачі.
+    </p>
+  </div>
+
+  <div class="hero-body">
+  <!-- ЄДИНА ЦИФРА ПОЗА kdd.ua: дані замовника, підтверджені 2026-09-05.
+       Решта чисел на сторінці — з їхнього ж сайту. Публічне портфоліо дає
+       ≈311 547 м² по 7 об’єктах із зазначеною площею; за рішенням замовника
+       ця менша сума на сторінці не показується. Щоб замінити цифру в герої —
+       правити рядок .figure нижче. -->
+  <div class="hero-dim">
+    <h1 class="hero-h1"><span class="figure">1&nbsp;200&nbsp;000<span class="u">м²</span></span></h1>
+    <div class="hero-rule" aria-hidden="true"><i></i><i></i></div>
+    <ol class="hero-list">
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>01</b>Vedenskiy <i>2003 · 33 000 м²</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>02</b>Diplomat Hall <i>2005 · 78 000 м²</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>03</b>PecherSKY <i>2013 · 80 000 м²</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>04</b>DOMA Center <i>2014 · 8 147 м²</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>05</b>NOVUS <i>2016 · 14 650 м²</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>06</b>Terminal Food <i>2017 · 7 750 м²</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>07</b>Standard One ВДНГ <i>2019 · 24 поверхи</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>08</b>Nuvo <i>2020 · 90 000 м²</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>09</b>Standard One Terminal <i>2022 · 24 поверхи</i></span></li>
+      <li><span class="tick" aria-hidden="true"></span><span class="lab"><b>10</b>Standard One Obolon <i>2022 · 16 поверхів</i></span></li>
+    </ol>
+  </div>
+
+  <figure class="plate plate--hero">
+    <img src="assets/img/pecherskiy.webp" alt="Аерозйомка житлового комплексу PecherSKY на Печерську, Київ, на світанку — півтонова плита" width="1150" height="766" fetchpriority="high" decoding="async">
+    <div class="datum" aria-hidden="true">
+      <span class="datum__mark">
+        <svg width="15" height="13" viewBox="0 0 15 13" fill="none"><path d="M1 1h13L7.5 12z" stroke="#1a1c1e" stroke-width="1.4"/></svg>
+        <span>+0.000</span>
+      </span>
+      <span class="datum__line"></span>
+    </div>
+    <figcaption class="plate__note">
+      <span class="leg"></span>
+      <span class="shelf">PecherSKY&nbsp;· 2013 · 80&nbsp;000&nbsp;м² · Київ, Печерськ, Болсуновська,&nbsp;2</span>
+    </figcaption>
+  </figure>
+  </div>
+
+  <p class="hero-src">Побудовано з 2003 року. Дані компанії; перелік об’єктів — <a href="#sheet-6">відомість на аркуші 6</a>.</p>
+
+  <dl class="stamp">
+    <div class="stamp__c"><dt>Об’єкт</dt><dd>KDD Ukraine · Київ</dd></div>
+    <div class="stamp__c"><dt>Розділ</dt><dd>Титул</dd></div>
+    <div class="stamp__c stamp__c--n"><dt class="vh">Аркуш</dt><dd class="stamp__sheet">1<span>/7</span></dd></div>
+    <div class="stamp__c stamp__c--cta"><a class="stamp__cta" href="#sheet-7">Запит на розгляд<svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+  </dl>
+</section>
+
+<!-- ══════════ Аркуш 2 · Проєкти ══════════ -->
+<section class="sheet" id="sheet-2">
+  <div class="sechead">
+    <h2><span class="no">02</span>Проєкти</h2>
+    <span class="scale">Флагмани 4/10</span>
+    <p>Чотири об’єкти, що тримають лінію від першого року компанії до останнього зданого. Повна відомість — на аркуші 6.</p>
+  </div>
+
+  <article class="flag" data-reveal>
+    <figure class="flag__img">
+      <img src="assets/img/vedenskiy.webp" alt="Цегляний фасад житлового комплексу Vedenskiy на Печерську" loading="lazy" width="900" height="600" decoding="async">
+      <figcaption class="flag__pos">Поз. 01</figcaption>
+    </figure>
+    <div class="flag__body">
+      <span class="flag__yr">2003 · перший об’єкт компанії</span>
+      <h3>Vedenskiy</h3>
+      <p class="flag__type">Житловий комплекс преміум класу. Печерськ, на перетині вулиць Панаса Мирного та Гусовського.</p>
+      <dl class="flag__data">
+        <div><dt>Площа</dt><dd class="big">33&nbsp;000<i>м²</i></dd></div>
+        <div><dt>Тип</dt><dd>Житло преміум</dd></div>
+        <div><dt>Адреса</dt><dd>Панаса Мирного, 12 / Гусовського, 11</dd></div>
+      </dl>
+      <a class="secmark" href="#sheet-4"><b>4</b>Розріз по портфелю</a>
+    </div>
+  </article>
+
+  <article class="flag flag--rev" data-reveal>
+    <figure class="flag__img">
+      <img src="assets/img/diplomat-hall.webp" alt="Житловий комплекс Diplomat Hall на Жилянській у центрі Києва" loading="lazy" width="900" height="600" decoding="async">
+      <figcaption class="flag__pos">Поз. 02</figcaption>
+    </figure>
+    <div class="flag__body">
+      <span class="flag__yr">2005</span>
+      <h3>Diplomat Hall</h3>
+      <p class="flag__type">Житловий комплекс преміум класу в центрі. Найбільший житловий об’єкт компанії першого десятиліття.</p>
+      <dl class="flag__data">
+        <div><dt>Площа</dt><dd class="big">78&nbsp;000<i>м²</i></dd></div>
+        <div><dt>Тип</dt><dd>Житло преміум</dd></div>
+        <div><dt>Адреса</dt><dd>Київ, центр, Жилянська, 59</dd></div>
+      </dl>
+      <a class="secmark" href="#sheet-4"><b>4</b>Розріз по портфелю</a>
+    </div>
+  </article>
+
+  <article class="flag" data-reveal>
+    <figure class="flag__img">
+      <img src="assets/img/nuvo.webp" alt="Бізнес-парк Nuvo на Жилянській, скляні корпуси й озеленені тераси" loading="lazy" width="900" height="600" decoding="async">
+      <figcaption class="flag__pos">Поз. 03</figcaption>
+    </figure>
+    <div class="flag__body">
+      <span class="flag__yr">2020 · найбільший об’єкт</span>
+      <h3>Nuvo</h3>
+      <p class="flag__type">Бізнес-парк у центрі міста. Найбільша заявлена площа в портфелі компанії.</p>
+      <dl class="flag__data">
+        <div><dt>Площа</dt><dd class="big">90&nbsp;000<i>м²</i></dd></div>
+        <div><dt>Тип</dt><dd>Бізнес-парк</dd></div>
+        <div><dt>Адреса</dt><dd>Київ, центр, Жилянська, 47</dd></div>
+      </dl>
+      <a class="secmark" href="#sheet-4"><b>4</b>Розріз по портфелю</a>
+    </div>
+  </article>
+
+  <article class="flag flag--rev" data-reveal>
+    <figure class="flag__img">
+      <img src="assets/img/obolon.webp" alt="Комплекс Standard One Obolon уздовж набережної на Оболоні" loading="lazy" width="900" height="600" decoding="async">
+      <figcaption class="flag__pos">Поз. 04</figcaption>
+    </figure>
+    <div class="flag__body">
+      <span class="flag__yr">2022 · останній зданий</span>
+      <h3>Standard One Obolon</h3>
+      <p class="flag__type">Житловий комплекс з апартаментами та квартирами з ремонтом. Оболонський проспект, уздовж набережної.</p>
+      <dl class="flag__data">
+        <div><dt>Поверховість</dt><dd class="big">16<i>поверхів</i></dd></div>
+        <div><dt>Тип</dt><dd>Апартаменти й квартири</dd></div>
+        <div><dt>Адреса</dt><dd>Київ, Оболонський проспект, 18</dd></div>
+      </dl>
+      <a class="secmark" href="#sheet-4"><b>4</b>Розріз по портфелю</a>
+    </div>
+  </article>
+  <dl class="stamp">
+    <div class="stamp__c"><dt>Об’єкт</dt><dd>KDD Ukraine · Київ</dd></div>
+    <div class="stamp__c"><dt>Розділ</dt><dd>Проєкти</dd></div>
+    <div class="stamp__c stamp__c--n"><dt class="vh">Аркуш</dt><dd class="stamp__sheet">2<span>/7</span></dd></div>
+    <div class="stamp__c stamp__c--cta"><a class="stamp__cta" href="#sheet-7">Запит на розгляд<svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+  </dl>
+</section>
+
+<!-- ══════════ Аркуш 3 · Експертиза ══════════ -->
+<section class="sheet" id="sheet-3">
+  <div class="sechead">
+    <h2><span class="no">03</span>Експертиза</h2>
+    <span class="scale">Специфікація 15 позицій</span>
+    <p>Три напрями, які компанія веде послідовно на одному й тому самому об’єкті. Формулювання — власні, з чинного сайту KDD.</p>
+  </div>
+
+  <div class="spec" data-reveal>
+    <div class="spec__col">
+      <div class="spec__hd">
+        <span class="spec__no">Стадія 01</span>
+        <h3>Розробка концепції проєкту</h3>
+      </div>
+      <ol>
+        <li><span>1.1</span>Підбір майданчика і земельної ділянки</li>
+        <li><span>1.2</span>Зонування і впорядкування об’єкта</li>
+        <li><span>1.3</span>Архітектурна функціональність проєкту</li>
+        <li><span>1.4</span>Графік реалізації</li>
+        <li><span>1.5</span>Розробка комплексної бізнес-стратегії</li>
+      </ol>
+    </div>
+    <div class="spec__col">
+      <div class="spec__hd">
+        <span class="spec__no">Стадія 02</span>
+        <h3>Послуги генерального підрядника</h3>
+      </div>
+      <ol>
+        <li><span>2.1</span>Розробка технічного завдання</li>
+        <li><span>2.2</span>Підбір концепції управління об’єкта</li>
+        <li><span>2.3</span>Дозвільна містобудівна документація</li>
+        <li><span>2.4</span>Аналіз поточного стану, прогноз результатів, звітність</li>
+        <li><span>2.5</span>Швидке реагування та контроль якості</li>
+      </ol>
+    </div>
+    <div class="spec__col">
+      <div class="spec__hd">
+        <span class="spec__no">Стадія 03</span>
+        <h3>Ефективне управління нерухомістю</h3>
+      </div>
+      <ol>
+        <li><span>3.1</span>Підбір концепції управління</li>
+        <li><span>3.2</span>Технічне обслуговування та експлуатація</li>
+        <li><span>3.3</span>Матеріально-технічне забезпечення</li>
+        <li><span>3.4</span>Комплексний маркетинг</li>
+        <li><span>3.5</span>Контроль та регулярна звітність</li>
+      </ol>
+    </div>
+  </div>
+
+  <p class="spec__flow">
+    Ділянка <em>→</em> Концепція <em>→</em> Дозволи <em>→</em> Будівництво <em>→</em> Здача <em>→</em> Експлуатація
+  </p>
+
+  <div class="spec__aside">
+    <figure class="plate">
+      <img src="assets/img/drawing.webp" alt="Робота над планом поверху: креслення, лінійка й нотатки на столі" loading="lazy" width="760" height="505" decoding="async">
+    </figure>
+    <p><b>Один підрядник на всі три стадії.</b> Компанія організовує повний комплекс будівельних послуг, які відповідають затвердженій раніше проєктній документації, і не виходить з об’єкта після введення в експлуатацію — далі йде управління, обслуговування й регулярна звітність власникові.</p>
+  </div>
+  <dl class="stamp">
+    <div class="stamp__c"><dt>Об’єкт</dt><dd>KDD Ukraine · Київ</dd></div>
+    <div class="stamp__c"><dt>Розділ</dt><dd>Експертиза</dd></div>
+    <div class="stamp__c stamp__c--n"><dt class="vh">Аркуш</dt><dd class="stamp__sheet">3<span>/7</span></dd></div>
+    <div class="stamp__c stamp__c--cta"><a class="stamp__cta" href="#sheet-7">Запит на розгляд<svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+  </dl>
+</section>
+
+<!-- ══════════ Аркуш 4 · Інженерія (синька) ══════════ -->
+<section class="sheet" id="sheet-4">
+  <div class="blueprint">
+    <div class="sechead">
+      <h2><span class="no">04</span>Інженерія</h2>
+      <span class="scale">Розріз по портфелю 2003—2022</span>
+      <p>Кожен об’єкт — стовпчик від нульової відмітки. По горизонталі — рік здачі, по вертикалі — заявлена площа. Пунктир означає, що площа не оприлюднена й на її місці стоїть поверховість.</p>
+    </div>
+
+    <div class="section-chart" data-reveal>
+      <div class="chart-scroll">
+      <div class="chart">
+        <div class="chart__grid" aria-hidden="true">
+          <i style="bottom:100%"><b>90 000</b></i>
+          <i style="bottom:66.7%"><b>60 000</b></i>
+          <i style="bottom:33.3%"><b>30 000</b></i>
+        </div>
+        <div class="chart__plot">
+          <div class="col" style="left:3.4%"><span class="col__v">33 000</span><span class="col__bar" style="height:36.7%"></span><span class="col__yr">2003</span><span class="col__nm">Vedenskiy</span></div>
+          <div class="col" style="left:13.6%"><span class="col__v">78 000</span><span class="col__bar" style="height:86.7%"></span><span class="col__yr">2005</span><span class="col__nm">Diplomat Hall</span></div>
+          <div class="col" style="left:54.5%"><span class="col__v">80 000</span><span class="col__bar" style="height:88.9%"></span><span class="col__yr">2013</span><span class="col__nm">PecherSKY</span></div>
+          <div class="col" style="left:59.6%"><span class="col__v">8 147</span><span class="col__bar" style="height:9.1%"></span><span class="col__yr">2014</span><span class="col__nm">DOMA Center</span></div>
+          <div class="col" style="left:69.8%"><span class="col__v">14 650</span><span class="col__bar" style="height:16.3%"></span><span class="col__yr">2016</span><span class="col__nm">NOVUS</span></div>
+          <div class="col" style="left:74.9%"><span class="col__v">7 750</span><span class="col__bar" style="height:8.6%"></span><span class="col__yr">2017</span><span class="col__nm">Terminal Food</span></div>
+          <div class="col col--est" style="left:82.6%"><span class="col__v"><span class="rev rev--blue">1</span> 24 пов.</span><span class="col__bar" style="height:24%"></span><span class="col__yr">2019</span><span class="col__nm">Standard One ВДНГ</span></div>
+          <div class="col" style="left:88.4%"><span class="col__v">90 000</span><span class="col__bar" style="height:100%"></span><span class="col__yr">2020</span><span class="col__nm">Nuvo</span></div>
+          <div class="col col--est" style="left:94.6%"><span class="col__v"><span class="rev rev--blue">1</span> 24/16 пов.</span><span class="col__bar" style="height:24%"></span><span class="col__yr">2022</span><span class="col__nm">Standard One ×2</span></div>
+        </div>
+        <div class="chart__base"></div>
+      </div>
+      </div>
+
+      <p class="legend chart__cap">
+        <span><i class="sw-hatch"></i>Заявлена площа, м²</span>
+        <span><i class="sw-dash"></i><span class="rev rev--blue">1</span>&nbsp;Площу не оприлюднено — висота умовна</span>
+        <span>±0.000 — нульова відмітка</span>
+      </p>
+
+      <dl class="chart__note">
+        <div><dt>Найбільший об’єкт</dt><dd><b>90 000 м²</b>Бізнес-парк Nuvo, зданий 2020 року</dd></div>
+        <div><dt>Найвищі об’єкти</dt><dd><b>24 поверхи</b>Standard One ВДНГ і Standard One Terminal</dd></div>
+        <div><dt>Безперервність</dt><dd><b>22 роки</b>Від першої здачі 2003-го до останньої 2022-го</dd></div>
+        <div><dt>Типи об’єктів</dt><dd><b>4</b>Житло преміум, бізнес-парк, торгівля, апартаменти</dd></div>
+      </dl>
+    </div>
+
+    <dl class="stamp">
+      <div class="stamp__c"><dt>Об’єкт</dt><dd>KDD Ukraine · Київ</dd></div>
+      <div class="stamp__c"><dt>Розділ</dt><dd>Інженерія</dd></div>
+      <div class="stamp__c stamp__c--n"><dt class="vh">Аркуш</dt><dd class="stamp__sheet">4<span>/7</span></dd></div>
+      <div class="stamp__c stamp__c--cta"><a class="stamp__cta" href="#sheet-7">Запит на розгляд<svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ══════════ Аркуш 5 · Команда ══════════ -->
+<section class="sheet" id="sheet-5">
+  <div class="sechead">
+    <h2><span class="no">05</span>Команда</h2>
+    <span class="scale">Структура відповідальності</span>
+    <p>Чотири зони, між якими об’єкт передається всередині компанії, а не назовні. Поля підписів лишаються порожніми, доки склад не підтверджено.</p>
+  </div>
+
+  <div class="zones" data-reveal>
+    <section class="zone">
+      <span class="zone__no">Зона 01</span>
+      <h3>Девелопмент і концепція</h3>
+      <ul>
+        <li>Підбір ділянки</li><li>Зонування</li><li>Бізнес-стратегія</li><li>Графік реалізації</li>
+      </ul>
+      <dl class="sign">
+        <div><dt>Керівник напряму</dt><dd></dd></div>
+        <div><dt>Підпис</dt><dd></dd></div>
+        <div><dt>Дата</dt><dd></dd></div>
+      </dl>
+    </section>
+    <section class="zone">
+      <span class="zone__no">Зона 02</span>
+      <h3>Проєктування і дозволи</h3>
+      <ul>
+        <li>Технічне завдання</li><li>Містобудівна документація</li><li>Архітектурна функціональність</li>
+      </ul>
+      <dl class="sign">
+        <div><dt>Керівник напряму</dt><dd></dd></div>
+        <div><dt>Підпис</dt><dd></dd></div>
+        <div><dt>Дата</dt><dd></dd></div>
+      </dl>
+    </section>
+    <section class="zone">
+      <span class="zone__no">Зона 03</span>
+      <h3>Генеральний підряд</h3>
+      <ul>
+        <li>Контроль якості</li><li>Швидке реагування</li><li>Матеріально-технічне забезпечення</li><li>Звітність</li>
+      </ul>
+      <dl class="sign">
+        <div><dt>Керівник напряму</dt><dd></dd></div>
+        <div><dt>Підпис</dt><dd></dd></div>
+        <div><dt>Дата</dt><dd></dd></div>
+      </dl>
+    </section>
+    <section class="zone">
+      <span class="zone__no">Зона 04</span>
+      <h3>Експлуатація і управління</h3>
+      <ul>
+        <li>Концепція управління</li><li>Технічне обслуговування</li><li>Комплексний маркетинг</li><li>Регулярна звітність</li>
+      </ul>
+      <dl class="sign">
+        <div><dt>Керівник напряму</dt><dd></dd></div>
+        <div><dt>Підпис</dt><dd></dd></div>
+        <div><dt>Дата</dt><dd></dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <div class="team__foot">
+    <p><b>Персональний склад надається на запит.</b> KDD Ukraine ніде не публікує імен і посад, тому цей аркуш описує зони відповідальності, а не людей: хто відповідає за ділянку, хто за дозволи, хто за майданчик і хто за об’єкт після здачі.</p>
+    <figure class="plate">
+      <img src="assets/img/engineer.webp" alt="Інженерка в захисній касці з робочою текою на об’єкті" loading="lazy" width="760" height="505" decoding="async">
+    </figure>
+  </div>
+  <dl class="stamp">
+    <div class="stamp__c"><dt>Об’єкт</dt><dd>KDD Ukraine · Київ</dd></div>
+    <div class="stamp__c"><dt>Розділ</dt><dd>Команда</dd></div>
+    <div class="stamp__c stamp__c--n"><dt class="vh">Аркуш</dt><dd class="stamp__sheet">5<span>/7</span></dd></div>
+    <div class="stamp__c stamp__c--cta"><a class="stamp__cta" href="#sheet-7">Запит на розгляд<svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+  </dl>
+</section>
+
+<!-- ══════════ Аркуш 6 · Приклади ══════════ -->
+<section class="sheet" id="sheet-6">
+  <div class="sechead">
+    <h2><span class="no">06</span>Приклади</h2>
+    <span class="scale">Повний перелік</span>
+    <p>Усі об’єкти, що їх KDD Ukraine показує публічно, з роком здачі, типом, масштабом і адресою.</p>
+  </div>
+
+  <div class="filters" role="group" aria-label="Фільтр за типом об’єкта">
+    <button type="button" data-filter="all" aria-pressed="true">Усі <b>10</b></button>
+    <button type="button" data-filter="housing" aria-pressed="false">Житло <b>3</b></button>
+    <button type="button" data-filter="retail" aria-pressed="false">Торгівля <b>3</b></button>
+    <button type="button" data-filter="office" aria-pressed="false">Офіс <b>1</b></button>
+    <button type="button" data-filter="apart" aria-pressed="false">Апартаменти <b>3</b></button>
+  </div>
+
+  <div class="reg" id="reg">
+    <div class="reg__hd" aria-hidden="true">
+      <span>Поз.</span><span></span><span>Об’єкт</span><span>Рік</span><span>Тип</span><span>Масштаб</span><span>Адреса</span>
+    </div>
+
+    <div class="reg__row" data-cat="housing">
+      <span class="reg__n">01</span>
+      <img class="reg__th" src="assets/img/t-vedenskiy.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">Vedenskiy</span>
+      <span class="reg__yr">2003</span>
+      <span class="reg__ty">Житловий комплекс преміум класу</span>
+      <span class="reg__sz">33 000 <em>м²</em></span>
+      <span class="reg__ad">Київ, Печерськ, Панаса Мирного 12 / Гусовського 11</span>
+    </div>
+
+    <div class="reg__row" data-cat="housing">
+      <span class="reg__n">02</span>
+      <img class="reg__th" src="assets/img/t-diplomat-hall.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">Diplomat Hall</span>
+      <span class="reg__yr">2005</span>
+      <span class="reg__ty">Житловий комплекс преміум класу</span>
+      <span class="reg__sz">78 000 <em>м²</em></span>
+      <span class="reg__ad">Київ, центр, Жилянська, 59</span>
+    </div>
+
+    <div class="reg__row" data-cat="housing">
+      <span class="reg__n">03</span>
+      <img class="reg__th" src="assets/img/t-pecherskiy.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">PecherSKY Luxury Apartments</span>
+      <span class="reg__yr">2013</span>
+      <span class="reg__ty">Житловий комплекс преміум класу</span>
+      <span class="reg__sz">80 000 <em>м²</em></span>
+      <span class="reg__ad">Київ, Печерськ, вул. Болсуновська, 2</span>
+    </div>
+
+    <div class="reg__row" data-cat="retail">
+      <span class="reg__n">04</span>
+      <img class="reg__th" src="assets/img/t-doma-center.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">DOMA Center</span>
+      <span class="reg__yr">2014</span>
+      <span class="reg__ty">Торговий центр</span>
+      <span class="reg__sz">8 147 <em>м²</em></span>
+      <span class="reg__ad">Київ, вул. Будівельників, 40</span>
+    </div>
+
+    <div class="reg__row" data-cat="retail">
+      <span class="reg__n">05</span>
+      <img class="reg__th" src="assets/img/t-novus.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">NOVUS</span>
+      <span class="reg__yr">2016</span>
+      <span class="reg__ty">Торговий центр open air</span>
+      <span class="reg__sz">14 650 <em>м²</em></span>
+      <span class="reg__ad">Київ, вул. Святошинська, 3</span>
+    </div>
+
+    <div class="reg__row" data-cat="retail">
+      <span class="reg__n">06</span>
+      <img class="reg__th" src="assets/img/t-terminal-food.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">Terminal Food</span>
+      <span class="reg__yr">2017</span>
+      <span class="reg__ty">Перша ресторанна вулиця в Києві</span>
+      <span class="reg__sz">7 750 <em>м²</em></span>
+      <span class="reg__ad">Київ, центр, вул. Ползунова, 1Б</span>
+    </div>
+
+    <div class="reg__row" data-cat="apart">
+      <span class="reg__n">07</span>
+      <img class="reg__th" src="assets/img/t-vdng.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">Standard One ВДНГ</span>
+      <span class="reg__yr">2019</span>
+      <span class="reg__ty">Квартири з інтер’єром, меблями та сервісом</span>
+      <span class="reg__sz"><span class="rev">1</span> 24 <em>поверхи</em></span>
+      <span class="reg__ad">Київ, Голосієво, Васильківська, 100-А</span>
+    </div>
+
+    <div class="reg__row" data-cat="office">
+      <span class="reg__n">08</span>
+      <img class="reg__th" src="assets/img/t-nuvo.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">Nuvo</span>
+      <span class="reg__yr">2020</span>
+      <span class="reg__ty">Бізнес-парк</span>
+      <span class="reg__sz">90 000 <em>м²</em></span>
+      <span class="reg__ad">Київ, центр, вул. Жилянська, 47</span>
+    </div>
+
+    <div class="reg__row" data-cat="apart">
+      <span class="reg__n">09</span>
+      <img class="reg__th" src="assets/img/t-terminal.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">Standard One Terminal</span>
+      <span class="reg__yr">2022</span>
+      <span class="reg__ty">Апарт-готель</span>
+      <span class="reg__sz"><span class="rev">1</span> 24 <em>поверхи</em></span>
+      <span class="reg__ad">Київ, Солом’янський район, вул. Ползунова, 1Б</span>
+    </div>
+
+    <div class="reg__row" data-cat="apart">
+      <span class="reg__n">10</span>
+      <img class="reg__th" src="assets/img/t-obolon.webp" alt="" loading="lazy" width="200" height="134" decoding="async">
+      <span class="reg__nm">Standard One Obolon</span>
+      <span class="reg__yr">2022</span>
+      <span class="reg__ty">Житловий комплекс з апартаментами та квартирами з ремонтом</span>
+      <span class="reg__sz"><span class="rev">1</span> 16 <em>поверхів</em></span>
+      <span class="reg__ad">Київ, проспект Оболонський, 18</span>
+    </div>
+  </div>
+
+  <p class="reg__empty" id="regEmpty" hidden>За цим типом об’єктів у переліку немає.</p>
+
+  <div class="reg__total">
+    <p><span class="rev">1</span> Площу не оприлюднено: три позиції показані поверховістю. Решта семи — з даними, які KDD Ukraine публікує сама.</p>
+    <span class="sum">
+      <span>У переліку</span>
+      <b>10 об’єктів</b>
+    </span>
+  </div>
+  <dl class="stamp">
+    <div class="stamp__c"><dt>Об’єкт</dt><dd>KDD Ukraine · Київ</dd></div>
+    <div class="stamp__c"><dt>Розділ</dt><dd>Приклади</dd></div>
+    <div class="stamp__c stamp__c--n"><dt class="vh">Аркуш</dt><dd class="stamp__sheet">6<span>/7</span></dd></div>
+    <div class="stamp__c stamp__c--cta"><a class="stamp__cta" href="#sheet-7">Запит на розгляд<svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+  </dl>
+</section>
+
+<!-- ══════════ Аркуш 7 · Контакти ══════════ -->
+<section class="sheet sheet--flush" id="sheet-7">
+  <div class="sechead">
+    <h2><span class="no">07</span>Контакти</h2>
+    <span class="scale">Основний напис</span>
+  </div>
+
+  <div class="contact" data-reveal>
+    <div class="contact__l">
+      <div class="contact__hd">
+        <h3>Маєте ділянку або об’єкт?</h3>
+        <p>Напишіть, що саме є на руках — ділянка, недобудова чи готовий об’єкт в експлуатації, — і ми скажемо, з якої стадії заходимо.</p>
+      </div>
+      <dl class="cfields">
+        <div class="cfield"><dt>Компанія</dt><dd>ТОВ «КДД Юкрейн» · KDD Ukraine</dd></div>
+        <div class="cfield"><dt>Адреса</dt><dd>Київ, вул. Володимирська, 61 Б</dd></div>
+        <div class="cfield"><dt>Телефон</dt><dd><a href="tel:+380444958384">+38 044 495 83 84</a></dd></div>
+        <div class="cfield"><dt>Пошта</dt><dd><a href="mailto:office@kdd.ua">office@kdd.ua</a></dd></div>
+        <div class="cfield"><dt>Рік заснування</dt><dd>2003</dd></div>
+        <div class="cfield"><dt>Facebook</dt><dd><a href="https://www.facebook.com/kdd.ukraine" rel="noopener">kdd.ukraine</a></dd></div>
+      </dl>
+    </div>
+
+    <form class="contact__r" id="cform" novalidate>
+      <h4>Запит на розгляд</h4>
+      <div class="f-row">
+        <label for="f-name">Хто пише</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Ім’я та компанія" required>
+      </div>
+      <div class="f-row">
+        <label for="f-contact">Зворотний зв’язок</label>
+        <input id="f-contact" name="contact" type="text" autocomplete="email" placeholder="Пошта або телефон" required>
+      </div>
+      <div class="f-row">
+        <label for="f-obj">Об’єкт</label>
+        <textarea id="f-obj" name="object" rows="3" placeholder="Адреса, площа, стадія"></textarea>
+      </div>
+      <button class="btn" type="submit">
+        Скласти листа
+        <svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg>
+      </button>
+      <p class="f-hint">Кнопка відкриє поштову програму з готовим листом на office@kdd.ua. Нічого не надсилається без вашого підтвердження.</p>
+    </form>
+  </div>
+
+  <dl class="stamp stamp--flow">
+    <div class="stamp__c"><dt>Об’єкт</dt><dd>KDD Ukraine · Київ</dd></div>
+    <div class="stamp__c"><dt>Розділ</dt><dd>Контакти</dd></div>
+    <div class="stamp__c stamp__c--n"><dt class="vh">Аркуш</dt><dd class="stamp__sheet">7<span>/7</span></dd></div>
+    <div class="stamp__c stamp__c--cta"><a class="stamp__cta" href="mailto:office@kdd.ua">office@kdd.ua<svg width="20" height="9" viewBox="0 0 20 9" fill="none" aria-hidden="true"><path d="M0 4.5h18M14 1l4 3.5L14 8" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+  </dl>
+
+  <div class="foot">
+    <span>KDD Ukraine · девелоперська компанія · Київ, з 2003</span>
+    <span>Концептуальний редизайн. Дані об’єктів — з <a href="https://kdd.ua/" rel="noopener">kdd.ua</a></span>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  'use strict';
+  document.documentElement.classList.add('js');
+
+  var sheets  = Array.prototype.slice.call(document.querySelectorAll('.sheet'));
+  var links   = Array.prototype.slice.call(document.querySelectorAll('.axis a'));
+  var axis    = document.querySelector('.axis');
+  var ticks   = Array.prototype.slice.call(document.querySelectorAll('#railIndex .rail__tick'));
+  var reduce  = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ── Вісь і поле підшивки стежать за поточним аркушем ── */
+  var current = -1;
+  function setSheet(i){
+    if(i === current) return;
+    current = i;
+    links.forEach(function(a,n){ a.setAttribute('aria-current', n === i ? 'true' : 'false'); });
+    ticks.forEach(function(t,n){ if(n === i) t.setAttribute('data-on',''); else t.removeAttribute('data-on'); });
+    if(axis && axis.classList.contains('is-pannable')){
+      var a = links[i];
+      var left = a.offsetLeft - axis.offsetLeft;
+      axis.scrollLeft = Math.max(0, left - (axis.clientWidth - a.offsetWidth) / 2);
+    }
+  }
+  function measureAxis(){
+    if(!axis) return;
+    axis.classList.toggle('is-pannable', axis.scrollWidth > axis.clientWidth + 4);
+  }
+  measureAxis();
+  window.addEventListener('resize', measureAxis);
+  setSheet(0);
+
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting) setSheet(sheets.indexOf(e.target));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sheets.forEach(function(s){ spy.observe(s); });
+
+    /* ── Один рух, і лише як надбудова: анімуємо те, що входить у поле зору ── */
+    if(!reduce.matches){
+      var below = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'))
+        .filter(function(el){ return el.getBoundingClientRect().top > window.innerHeight * 0.85; });
+
+      var reveal = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(!e.isIntersecting) return;
+          reveal.unobserve(e.target);
+          e.target.classList.add('play');
+          Array.prototype.forEach.call(e.target.querySelectorAll('.col'), function(c,n){
+            c.querySelector('.col__bar').style.animationDelay = (60 + n * 55) + 'ms';
+            c.querySelector('.col__v').style.animationDelay  = (360 + n * 55) + 'ms';
+            c.classList.add('play');
+          });
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+      below.forEach(function(el){ reveal.observe(el); });
+    }
+  }
+
+  /* ── Відомість: фільтр за типом ── */
+  var rows    = Array.prototype.slice.call(document.querySelectorAll('#reg .reg__row'));
+  var btns    = Array.prototype.slice.call(document.querySelectorAll('.filters button'));
+  var empty   = document.getElementById('regEmpty');
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.dataset.filter, shown = 0;
+      btns.forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+      rows.forEach(function(r){
+        var on = (f === 'all' || r.dataset.cat === f);
+        r.hidden = !on;
+        if(on) shown++;
+      });
+      empty.hidden = shown > 0;
+    });
+  });
+
+  /* ── Форма складає листа; нічого не надсилається без підтвердження ── */
+  var form = document.getElementById('cform');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var g = function(id){ return (document.getElementById(id).value || '').trim(); };
+    var body = 'Хто пише: ' + (g('f-name') || '—')
+             + '\nЗворотний зв’язок: ' + (g('f-contact') || '—')
+             + '\nОб’єкт: ' + (g('f-obj') || '—');
+    window.location.href = 'mailto:office@kdd.ua'
+      + '?subject=' + encodeURIComponent('Запит на розгляд об’єкта')
+      + '&body=' + encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
