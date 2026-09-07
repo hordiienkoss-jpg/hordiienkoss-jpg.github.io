@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Одноповерховий Київ — 106 будинків, дуплексів і таунхаусів із цінами</title>
+<meta name="description" content="Каталог готових будинків, дуплексів і таунхаусів у Київській області, на Львівщині, Дніпропетровщині та в Польщі. Ціна, площа й статус видно одразу.">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/firasans-700-cyrillic.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/firamono-500-cyrillic.woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="home">
+
+<header class="head">
+  <div class="wrap head__in">
+    <span class="head__name">Одноповерховий Київ</span>
+    <nav class="head__nav" aria-label="Основне">
+      <a href="katalog.html">Каталог</a>
+      <a href="#yak">Як це відбувається</a>
+      <a href="#zbudovane">Збудоване</a>
+      <a href="#kontakty">Контакти</a>
+    </nav>
+    <a class="head__tel" href="tel:+380737477931">0 (73) 747 79 31</a>
+  </div>
+</header>
+
+<main>
+
+<section class="summary">
+  <div class="wrap summary__grid">
+
+    <div class="summary__left">
+      <h1 class="lede">106 позицій. Ціни <em>тут</em>, а не після дзвінка.</h1>
+      <p class="note">
+        Готові будинки, дуплекси й таунхауси в Київській області, на Львівщині,
+        Дніпропетровщині та в Польщі. У 77 позицій ціна вказана просто в таблиці,
+        26 уже продані, ще 3 продаються під замовлення. Нічого не сховано за формою заявки.
+      </p>
+
+      <div class="total">
+        <div class="total__label">
+          <span data-scope data-scope-all="Разом у каталозі" data-scope-sel="Разом у вибірці">Разом у каталозі</span>
+          <span class="num" data-sum="builtAt">—</span>
+        </div>
+        <p class="total__fig">
+          <span id="sum-lo">$54 000</span>
+          <s id="sum-dash" aria-hidden="true">—</s>
+          <span id="sum-hi">$396 000</span>
+          <span id="sum-none" hidden>ціни немає в жодній позиції</span>
+        </p>
+        <p class="sr" id="sum-live" aria-live="polite"></p>
+      </div>
+
+      <dl class="tally">
+        <div><dt data-scope data-scope-all="Позицій у каталозі" data-scope-sel="Позицій у вибірці">Позицій у каталозі</dt><dd id="sum-n">106</dd></div>
+        <div><dt>У продажу</dt><dd data-count="у продажу">77</dd></div>
+        <div><dt>Продано</dt><dd data-count="продано">26</dd></div>
+        <div><dt>Під замовлення</dt><dd data-count="під замовлення">3</dd></div>
+      </dl>
+
+      <div class="range">
+        <div class="range__row">
+          <label for="in-lo">Ваш діапазон, $</label>
+          <input id="in-lo" inputmode="numeric" autocomplete="off" placeholder="54 000" aria-label="Ціна від, доларів">
+          <span aria-hidden="true">—</span>
+          <input id="in-hi" inputmode="numeric" autocomplete="off" placeholder="396 000" aria-label="Ціна до, доларів">
+        </div>
+        <p class="range__hint">
+          Підсумок і таблиця перераховуються, поки ви друкуєте.
+          <button id="reset" class="range__reset" type="button" hidden>Скинути</button>
+        </p>
+      </div>
+    </div>
+
+    <div class="summary__right">
+      <div class="ledger__scroll">
+        <table class="ledger">
+          <caption>Позиції каталогу. Натисніть рядок, щоб відкрити лот.</caption>
+          <thead>
+            <tr>
+              <th scope="col">№</th>
+              <th scope="col">Об'єкт</th>
+              <th scope="col">Населений пункт</th>
+              <th scope="col">Кімнат</th>
+              <th scope="col">Ділянка, м²</th>
+              <th scope="col">Статус</th>
+              <th scope="col">Ціна</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <p class="empty" id="empty" hidden>За цим діапазоном нічого немає. Спробуйте ширший.</p>
+      </div>
+      <p class="ledger__more" id="more" hidden></p>
+    </div>
+
+  </div>
+</section>
+
+<section class="sec" id="typy">
+  <div class="wrap">
+    <h2>Три формати, з яких складається каталог</h2>
+    <p class="sub">Натисніть формат, щоб залишити в таблиці вгорі тільки його.</p>
+    <div class="split">
+      <dl class="line">
+        <dt>Будинок</dt>
+        <dd><a href="#" data-filter="kind:будинок">37 позицій</a></dd>
+        <dd class="line__note">Окремий одноповерховий будинок на власній ділянці.</dd>
+      </dl>
+      <dl class="line">
+        <dt>Дуплекс</dt>
+        <dd><a href="#" data-filter="kind:дуплекс">35 позицій</a></dd>
+        <dd class="line__note">Дві половини під одним дахом, у кожної свій вхід і своя ділянка.</dd>
+      </dl>
+      <dl class="line">
+        <dt>Таунхаус</dt>
+        <dd><a href="#" data-filter="kind:таунхаус">34 позиції</a></dd>
+        <dd class="line__note">Секція в ряду, найдоступніший вхід у власний дім із землею.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="zbudovane">
+  <div class="wrap">
+    <h2>Збудоване й продане</h2>
+    <p class="sub">
+      Це фотографії з 26 позицій, які вже мають власників. Не візуалізації —
+      знімки готових будинків із їхнього ж каталогу.
+    </p>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<section class="sec" id="yak">
+  <div class="wrap">
+    <h2>Як це відбувається</h2>
+    <p class="sub">Сім кроків від першої розмови до переїзду. Жоден із них не починається з передоплати за проєкт.</p>
+    <div class="steps">
+      <div><b>01</b><p>Консультація: ви називаєте діапазон і район, ми — що в ньому є сьогодні.</p></div>
+      <div><b>02</b><p>Вибір будинку з каталогу або з того, що будується.</p></div>
+      <div><b>03</b><p>Огляд ділянки на місці, разом із відділом продажу.</p></div>
+      <div><b>04</b><p>Договір із зафіксованою сумою й строком.</p></div>
+      <div><b>05</b><p>Будівництво: фундамент М200, газоблок 375 мм, цегла ручної формовки.</p></div>
+      <div><b>06</b><p>Приймання будинку з перевіркою комунікацій.</p></div>
+      <div><b>07</b><p>Переїзд.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="kontakty">
+  <div class="wrap">
+    <h2>Назвіть діапазон — покажемо, що в ньому є.</h2>
+    <p class="note">Відділ продажу працює щодня, 9:00 – 20:00.</p>
+    <p>
+      <a class="cta" href="tel:+380737477931"><span class="num">0 (73) 747 79 31</span></a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><b>Показовий макет редизайну.</b> Зроблений для розмови з компанією «Одноповерховий Київ»,
+       не є її офіційним сайтом. Чинний сайт: odnopoverkhovyikyiv.com.</p>
+    <p>Дані каталогу, фотографії, ціни й контакти взяті з чинного сайту компанії
+       <span class="num" data-sum="builtAt"></span>. У 12 позицій зі 106 назву населеного пункту
+       в їхніх даних не вдалося підтвердити — у таблиці такі рядки стоять із прочерком,
+       а не з вигаданою назвою.</p>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

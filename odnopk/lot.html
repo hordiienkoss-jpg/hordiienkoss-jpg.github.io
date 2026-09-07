@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Лот — Одноповерховий Київ</title>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/firamono-500-cyrillic.woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap head__in">
+    <a class="head__name" href="index.html">Одноповерховий Київ</a>
+    <nav class="head__nav" aria-label="Основне">
+      <a href="katalog.html">Каталог</a>
+      <a href="index.html#yak">Як це відбувається</a>
+      <a href="index.html#kontakty">Контакти</a>
+    </nav>
+    <a class="head__tel" href="tel:+380737477931">0 (73) 747 79 31</a>
+  </div>
+</header>
+
+<main id="lot">
+  <p class="empty" id="empty" hidden>Такого лота в каталозі немає. <a href="katalog.html">Відкрити каталог</a>.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><b>Показовий макет редизайну.</b> Не є офіційним сайтом компанії.
+       Усі характеристики, ціни й фотографії взято зі сторінки лота на odnopoverkhovyikyiv.com.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const money = (n) => '$' + n.toLocaleString('uk-UA').replace(/ /g, ' ');
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const slug = new URLSearchParams(location.search).get('slug');
+
+  const stampOf = (s) => s === 'продано' ? '<span class="stamp stamp--sold">продано</span>'
+    : s === 'під замовлення' ? '<span class="stamp stamp--order">під замовлення</span>'
+    : '<span class="stamp stamp--sale">у продажу</span>';
+
+  Promise.all([
+    fetch('data/catalog.json').then((r) => r.json()),
+    fetch('data/gallery.json').then((r) => r.json()),
+  ]).then(([cat, gal]) => {
+    const idx = cat.lots.findIndex((x) => x.slug === slug);
+    const l = cat.lots[idx];
+    if (!l) { $('#empty').hidden = false; return; }
+    const position = String(idx + 1).padStart(3, '0');
+
+    document.title = `${l.kind ? l.kind[0].toUpperCase() + l.kind.slice(1) : 'Лот'} ${l.area} м² — Одноповерховий Київ`;
+    const pics = gal[l.slug] || [];
+    const lead = pics[0];
+
+    // Рядок специфікації: показуємо тільки те, що є в їхніх даних.
+    const spec = [
+      ['Формат', l.kind ? l.kind[0].toUpperCase() + l.kind.slice(1) : null],
+      ['Площа будинку', l.area != null ? l.area + ' м²' : null],
+      ['Площа ділянки', l.plot != null
+        ? String(l.plot).replace('.', ',') + ' м²' + (l.plotSuspect ? ' *' : '')
+        : null],
+      ['Кімнат', l.rooms],
+      ['Площа кухні', l.kitchen],
+      ['Поверховість', l.floors],
+      ['Населений пункт', l.place],
+      ['Область', l.region],
+    ].filter(([, v]) => v != null && v !== '');
+
+    $('#lot').innerHTML = `
+      <section class="summary">
+        <div class="wrap summary__grid">
+          <div class="summary__left">
+            <p class="crumb"><a href="katalog.html">Каталог</a> · позиція <span class="num">${position}</span></p>
+            <h1 class="lede">${esc(l.kind ? l.kind[0].toUpperCase() + l.kind.slice(1) : 'Лот')} ${l.area ?? ''} м²</h1>
+            <p class="lot__place">${l.place ? esc(l.place) + (l.region ? ', ' + esc(l.region) : '')
+              : '<span title="Назву населеного пункту в даних компанії не підтверджено">населений пункт не підтверджено</span>'}</p>
+
+            <div class="total">
+              <!-- Штамп потрібен саме там, де ціни немає: для проданого й замовного
+                   статус і є вся відповідь. -->
+              <div class="total__label"><span>Ціна</span><span>${stampOf(l.status)}</span></div>
+              <!-- Слово статусу несе штамп у рядку вище. Тут — порожня графа
+                   закритої позиції, а не другий раз те саме слово. -->
+              <p class="total__fig${l.price == null ? ' total__fig--nopr' : ''}">${l.price != null ? money(l.price) : '—'}</p>
+            </div>
+
+            <dl class="spec">
+              ${spec.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}
+            </dl>
+
+            ${l.plotSuspect ? `<p class="lot__flag">* У джерелі площа ділянки вказана як
+              «${String(l.plot).replace('.', ',')} м²». Для будинку ${l.area} м² це майже напевно сотки.
+              Чуже число не переписуємо — показуємо як є й позначаємо.</p>` : ''}
+
+            <p class="lot__cta">
+              <a class="cta" href="tel:+380737477931"><span class="num">0 (73) 747 79 31</span></a>
+            </p>
+            <p class="lot__src">Джерело даних: <a href="${esc(l.source)}" rel="nofollow noopener">сторінка лота на чинному сайті</a></p>
+          </div>
+
+          <div class="summary__right">
+            ${lead ? `<img class="lot__lead" src="assets/img/${esc(lead.wide || lead.card)}"
+                 width="1280" height="${Math.round(1280 * lead.h / lead.w)}" decoding="async" fetchpriority="high"
+                 alt="${esc(l.kind || 'Будинок')} ${l.area ?? ''} м²${l.place ? ', ' + esc(l.place) : ''}">` : ''}
+          </div>
+        </div>
+      </section>
+
+      ${pics.length > 1 ? `<section class="sec">
+        <div class="wrap">
+          <h2>Ще ${pics.length - 1} ${pics.length - 1 === 1 ? 'кадр' : pics.length - 1 < 5 ? 'кадри' : 'кадрів'} цього лота</h2>
+          <div class="shots">
+            ${pics.slice(1).map((p) => `<figure><img loading="lazy" decoding="async" width="640" height="480"
+               src="assets/img/${esc(p.card)}" alt=""></figure>`).join('')}
+          </div>
+        </div>
+      </section>` : ''}
+    `;
+  }).catch(() => { $('#empty').hidden = false; });
+})();
+</script>
+</body>
+</html>

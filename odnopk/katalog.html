@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Каталог — Одноповерховий Київ</title>
+<meta name="description" content="Усі 106 позицій каталогу: тип, населений пункт, площа, ділянка, статус і ціна в одній таблиці.">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/firamono-500-cyrillic.woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap head__in">
+    <a class="head__name" href="index.html">Одноповерховий Київ</a>
+    <nav class="head__nav" aria-label="Основне">
+      <a href="katalog.html" aria-current="page">Каталог</a>
+      <a href="index.html#yak">Як це відбувається</a>
+      <a href="index.html#zbudovane">Збудоване</a>
+      <a href="index.html#kontakty">Контакти</a>
+    </nav>
+    <a class="head__tel" href="tel:+380737477931">0 (73) 747 79 31</a>
+  </div>
+</header>
+
+<main>
+<section class="summary">
+  <div class="wrap">
+    <h1 class="katalog__h1">Каталог: 106 позицій із цінами й статусами</h1>
+    <div class="filters">
+      <div class="filters__block">
+        <span class="filters__label">Формат</span>
+        <div class="chips">
+          <button type="button" data-filter="kind:будинок">Будинок</button>
+          <button type="button" data-filter="kind:дуплекс">Дуплекс</button>
+          <button type="button" data-filter="kind:таунхаус">Таунхаус</button>
+        </div>
+      </div>
+      <div class="filters__block">
+        <span class="filters__label">Статус</span>
+        <div class="chips">
+          <button type="button" data-filter="status:у продажу">У продажу</button>
+          <button type="button" data-filter="status:під замовлення">Під замовлення</button>
+          <button type="button" data-filter="status:продано">Продано</button>
+        </div>
+      </div>
+      <div class="filters__block">
+        <label class="filters__label" for="places">Населений пункт</label>
+        <select id="places"><option value="">Усі</option></select>
+      </div>
+      <div class="filters__block">
+        <span class="filters__label">Ціна, $</span>
+        <div class="range__row">
+          <input id="in-lo" inputmode="numeric" autocomplete="off" placeholder="54 000" aria-label="Ціна від, доларів">
+          <span aria-hidden="true">—</span>
+          <input id="in-hi" inputmode="numeric" autocomplete="off" placeholder="396 000" aria-label="Ціна до, доларів">
+        </div>
+      </div>
+      <div class="filters__block filters__block--sum">
+        <span class="filters__label" data-scope data-scope-all="Разом у каталозі" data-scope-sel="Разом у вибірці">Разом у каталозі</span>
+        <p class="filters__fig">
+          <span id="sum-lo">$54 000</span><s id="sum-dash" aria-hidden="true">—</s><span id="sum-hi">$396 000</span>
+          <span id="sum-none" hidden>ціни немає</span>
+        </p>
+        <p class="sr" id="sum-live" aria-live="polite"></p>
+        <p class="range__hint"><span id="sum-n">106</span> позицій.
+          <button id="reset" class="range__reset" type="button" hidden>Скинути все</button></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <table class="ledger">
+      <caption>Натисніть рядок, щоб відкрити лот. <span class="wide-only">Прочерк у населеному пункті означає, що назву в даних компанії не вдалося підтвердити.</span></caption>
+      <thead>
+        <tr>
+          <th scope="col">№</th>
+          <th scope="col">Об'єкт</th>
+          <th scope="col">Населений пункт</th>
+          <th scope="col">Кімнат</th>
+          <th scope="col">Ділянка, м²</th>
+          <th scope="col">Статус</th>
+          <th scope="col">Ціна</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>За цими умовами нічого немає.</p>
+    <p class="ledger__more" id="more" hidden></p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><b>Показовий макет редизайну.</b> Не є офіційним сайтом компанії.
+       Дані взято з odnopoverkhovyikyiv.com <span class="num" data-sum="builtAt"></span>.</p>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

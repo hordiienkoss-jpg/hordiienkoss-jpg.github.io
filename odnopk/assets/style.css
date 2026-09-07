@@ -1,0 +1,271 @@
+@font-face{font-family:'Fira Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/firasans-400-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Fira Sans';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/firasans-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2010-2027,U+2030-205E,U+20A0-20BF}
+@font-face{font-family:'Fira Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/firasans-500-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Fira Sans';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/firasans-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2010-2027,U+2030-205E,U+20A0-20BF}
+@font-face{font-family:'Fira Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/firasans-700-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Fira Sans';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/firasans-700-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2010-2027,U+2030-205E,U+20A0-20BF}
+@font-face{font-family:'Fira Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/firamono-400-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Fira Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/firamono-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2010-2027,U+2030-205E,U+20A0-20BF}
+@font-face{font-family:'Fira Mono';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/firamono-500-cyrillic.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Fira Mono';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/firamono-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2010-2027,U+2030-205E,U+20A0-20BF}
+
+:root{
+  --paper:#f6f5f1;
+  --band:#edebe4;
+  --ink:#16181a;
+  --ink-2:#5b574d;
+  --rule:#cfcabd;          /* лінії, ніколи не текст: на полотні дає 1,5:1 */
+  --rule-hair:#e0dcd1;
+  --muted:#6f6a5c;         /* найсвітліше, що ще дає 4,5:1 на полотні */
+  --total:#2f6b4f;
+  --stamp:#b4342a;
+  --sans:'Fira Sans',system-ui,sans-serif;
+  --mono:'Fira Mono','Courier New',monospace;
+  --gut:clamp(16px,3vw,40px);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.5 var(--sans);
+  font-variant-numeric:tabular-nums lining-nums;
+}
+::selection{background:var(--total);color:var(--paper)}
+:focus-visible{outline:2px solid var(--total);outline-offset:2px}
+a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1px}
+img{max-width:100%;display:block}
+button,input,select{font:inherit;color:inherit}
+
+/* Смуга прокрутки — теж поверхня документа, не браузерна за замовчуванням. */
+*{scrollbar-width:thin;scrollbar-color:var(--rule) transparent}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-thumb{background:var(--rule)}
+*::-webkit-scrollbar-track{background:transparent}
+
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding:0 var(--gut)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* ── Шапка: рядок реєстру, не панель ─────────────────────────── */
+.head{border-bottom:1px solid var(--ink);position:sticky;top:0;background:var(--paper);z-index:20}
+/* Відступи беремо з .wrap — переписувати тут padding цілком означало б
+   притиснути шапку до країв екрана. */
+.head__in{display:flex;align-items:baseline;gap:clamp(16px,3vw,36px);padding-top:10px;padding-bottom:10px}
+/* На головній це <span>, на решті сторінок — посилання додому.
+   Підкреслення знімається тут, а не вбудованим style у розмітці. */
+.head__name{font-weight:700;letter-spacing:-.02em;white-space:nowrap;text-decoration:none}
+.head__nav{display:flex;gap:clamp(12px,2vw,26px);margin-left:auto;flex-wrap:wrap}
+.head__nav a{text-decoration:none;font-size:14px;padding-bottom:2px;border-bottom:1px solid transparent}
+.head__nav a:hover,.head__nav a[aria-current]{border-bottom-color:var(--ink)}
+.head__tel{font-family:var(--mono);font-size:14px;white-space:nowrap}
+
+/* ── Підсумковий блок: перший екран ──────────────────────────── */
+.summary{border-bottom:1px solid var(--ink)}
+.summary__grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,9fr);gap:0}
+/* Порядок читання зліва: підсумок, лічильники, тоді заголовок. Сума —
+   головний елемент екрана за контрактом, тож вона стоїть першою й найбільша,
+   а h1 лишається першим у розмітці. */
+.summary__left{padding:clamp(24px,4vw,56px) clamp(20px,3vw,44px) clamp(24px,3vw,40px) 0;border-right:1px solid var(--ink);
+  display:flex;flex-direction:column}
+/* Тільки на головній: там сума — теза сторінки. На картці лота спершу
+   треба знати, який це лот, тож там порядок лишається розмітковий. */
+.home .summary__left .total{order:-3;margin-top:0}
+.home .summary__left .tally{order:-2}
+.home .summary__left .lede{order:-1;margin-top:clamp(22px,2.6vw,34px)}
+.summary__right{min-width:0;display:flex;flex-direction:column}
+
+.lede{
+  font-size:clamp(21px,2.3vw,32px);line-height:1.15;letter-spacing:-.02em;
+  font-weight:700;margin:0 0 clamp(14px,1.6vw,20px);text-wrap:balance;max-width:26ch;
+}
+.lede em{font-style:normal;color:var(--total)}
+.note{max-width:52ch;color:var(--ink-2);font-size:15px;line-height:1.6;margin:0 0 clamp(22px,2.6vw,34px)}
+
+.total{border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:14px 0 12px}
+.total__label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--ink-2);letter-spacing:.02em}
+.total__fig{
+  font-family:var(--mono);font-weight:500;color:var(--total);
+  font-size:clamp(30px,4vw,56px);line-height:1.04;letter-spacing:-.045em;
+  margin-top:6px;display:flex;align-items:baseline;gap:.28em;flex-wrap:wrap;
+}
+.total__fig s{text-decoration:none;color:var(--muted)}
+/* Зелений у цьому світі означає суму, яку можна заплатити. Проданий лот
+   і лот під замовлення суми не мають, тож і кольору грошей не носять. */
+/* Закрита позиція не тримає порожню графу в масштабі суми: прочерк
+   опускається до масштабу специфікації, інакше під ним лишається діра,
+   яка читається як несправджений рендер, а не як закритий рядок. */
+.total__fig--nopr{color:var(--ink-2);font-size:clamp(17px,1.5vw,21px);line-height:1.3;margin-top:4px}
+
+.tally{display:flex;flex-wrap:wrap;gap:0;margin-top:18px;border-top:1px solid var(--rule-hair)}
+.tally div{flex:1 1 88px;padding:10px 12px 10px 0;border-bottom:1px solid var(--rule-hair)}
+.tally dt{font-size:12px;color:var(--ink-2);margin:0 0 3px}
+.tally dd{margin:0;font-family:var(--mono);font-size:19px;font-weight:500}
+
+/* Первинна дія — поле діапазону в підсумку, не кнопка */
+.range{margin-top:22px;border-top:1px solid var(--rule);padding-top:14px}
+.range__row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.range__row label{font-size:13px;color:var(--ink-2)}
+.range__row input{
+  width:8.5ch;background:transparent;border:0;border-bottom:1.5px solid var(--ink);
+  font-family:var(--mono);font-size:17px;padding:2px 0;text-align:right;
+}
+.range__row input::placeholder{color:var(--muted)}
+.range__row input:focus{outline:0;border-bottom-color:var(--total)}
+.range__hint{font-size:13px;color:var(--ink-2);margin-top:9px}
+.range__reset{background:none;border:0;padding:0;font-size:13px;color:var(--total);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+.katalog__h1{font-size:clamp(19px,2vw,26px);letter-spacing:-.02em;margin:clamp(16px,2vw,24px) 0 0;font-weight:700}
+
+/* ── Панель фільтрів каталогу ────────────────────────────────── */
+.filters{display:flex;flex-wrap:wrap;gap:0 clamp(20px,3vw,44px);padding:clamp(14px,2vw,22px) 0 4px}
+.filters__block{padding:8px 0 14px;min-width:0}
+.filters__label{display:block;font-size:12px;color:var(--ink-2);letter-spacing:.03em;margin-bottom:7px}
+.filters__block--sum{margin-left:auto;text-align:right}
+.filters__fig{margin:0;font-family:var(--mono);font-weight:500;color:var(--total);
+  font-size:clamp(17px,1.7vw,23px);letter-spacing:-.03em;display:flex;gap:.3em;justify-content:flex-end}
+.filters__fig s{text-decoration:none;color:var(--muted)}
+.filters__block--sum .range__hint{margin-top:4px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{
+  background:transparent;border:1px solid var(--rule);padding:5px 11px;
+  font-size:14px;cursor:pointer;color:var(--ink);
+}
+.chips button:hover{border-color:var(--ink)}
+.chips button[aria-pressed]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+#places{color:var(--ink);
+  background:transparent;border:0;border-bottom:1.5px solid var(--ink);
+  padding:4px 0;font-size:15px;max-width:24ch;
+}
+#places:focus{outline:0;border-bottom-color:var(--total)}
+
+/* ── Таблиця позицій ─────────────────────────────────────────── */
+.ledger{width:100%;border-collapse:collapse;font-size:15px}
+.ledger caption{text-align:left;font-size:13px;color:var(--ink-2);padding:14px clamp(16px,2vw,24px) 10px}
+.ledger th{
+  text-align:left;font-weight:500;font-size:12px;color:var(--ink-2);letter-spacing:.03em;
+  padding:8px clamp(8px,1vw,14px);border-bottom:1px solid var(--ink);white-space:nowrap;
+  position:sticky;top:0;background:var(--paper);
+}
+/* Відступи живуть на клітинці, а не на посиланні: посилання в рядку тепер
+   одне, і якби padding лишився на ньому, решта колонок злиплася б. */
+.ledger td{padding:9px clamp(8px,1vw,14px);border-bottom:1px solid var(--rule-hair);vertical-align:middle}
+.ledger tbody tr:nth-child(even){background:var(--band)}
+.ledger tbody tr:hover{background:#e4e1d6}
+.ledger a.cell{display:block;text-decoration:none;color:inherit}
+.ledger .c-num{font-family:var(--mono);font-size:12px;color:var(--ink-2);width:1%}
+.ledger .c-name{min-width:12ch}
+.ledger .c-place{color:var(--ink-2);font-size:14px}
+.ledger .c-fig{font-family:var(--mono);text-align:right;white-space:nowrap;width:1%}
+.ledger .c-price{font-family:var(--mono);text-align:right;white-space:nowrap;font-weight:500;width:1%}
+/* Закрита позиція в кошторисі викреслюється, а не притлумлюється.
+   Лінія йде кольором штампа, щоб було видно, чим саме її закрито. */
+.ledger tr[data-status='продано'] .c-name a,
+.ledger tr[data-status='продано'] .c-price{
+  color:var(--ink-2);text-decoration:line-through;
+  text-decoration-color:color-mix(in srgb,var(--stamp) 70%,transparent);
+  text-decoration-thickness:1px;text-underline-offset:0;
+}
+.ledger tr[data-status='продано'] .c-place,
+.ledger tr[data-status='продано'] .c-fig{color:var(--ink-2)}
+
+.stamp{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid currentColor;padding:2px 5px;white-space:nowrap;display:inline-block;
+}
+/* Штамп проданого ставиться поверх рядка, з нахилом, як відбиток печатки:
+   він перекриває сусідні клітинки, а не сидить у своїй колонці. */
+.stamp--sold{
+  color:var(--stamp);border-width:1.5px;font-weight:500;
+  transform:rotate(-3.5deg);transform-origin:center;
+  box-shadow:0 0 0 3px var(--paper);position:relative;z-index:2;
+}
+.ledger tbody tr:nth-child(even) .stamp--sold{box-shadow:0 0 0 3px var(--band)}
+.ledger .c-fig{overflow:visible}
+.stamp--order{color:var(--ink-2)}
+.stamp--sale{color:var(--total);border-color:transparent;padding-left:0}
+
+.ledger__more{padding:14px clamp(16px,2vw,24px);border-top:1px solid var(--ink);font-size:14px}
+.ledger__scroll{overflow:auto;max-height:min(66vh,760px);border-top:0}
+.empty{padding:40px clamp(16px,2vw,24px);color:var(--ink-2);font-size:15px}
+
+/* ── Сторінка лота ───────────────────────────────────────────── */
+.crumb{font-size:13px;color:var(--ink-2);margin:0 0 14px}
+.lot__place{margin:-14px 0 22px;color:var(--ink-2);font-size:16px}
+.spec{margin:22px 0 0;border-top:1px solid var(--rule)}
+.spec div{display:flex;justify-content:space-between;gap:16px;align-items:baseline;
+  padding:9px 0;border-bottom:1px solid var(--rule-hair)}
+.spec dt{margin:0;font-size:14px;color:var(--ink-2)}
+.spec dd{margin:0;font-family:var(--mono);font-size:15px;font-weight:500;text-align:right}
+.lot__flag{margin:16px 0 0;font-size:13px;line-height:1.55;color:var(--ink-2);
+  border-left:1px solid var(--stamp);padding-left:12px;max-width:46ch}
+.lot__cta{margin:26px 0 14px}
+.lot__src{margin:0;font-size:13px;color:var(--ink-2)}
+.lot__lead{width:100%;height:100%;max-height:min(78vh,820px);object-fit:cover;background:var(--band)}
+
+/* ── Секції ──────────────────────────────────────────────────── */
+.sec{border-bottom:1px solid var(--ink);padding:clamp(38px,6vw,84px) 0}
+.sec h2{font-size:clamp(21px,2.5vw,32px);line-height:1.15;letter-spacing:-.025em;margin:0 0 8px;max-width:22ch}
+.sec .sub{color:var(--ink-2);font-size:15px;max-width:62ch;margin:0 0 clamp(22px,3vw,38px);line-height:1.6}
+
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 clamp(24px,3vw,48px)}
+.line{border-top:1px solid var(--ink);padding:14px 0 16px}
+.line dt{font-size:13px;color:var(--ink-2);margin-bottom:6px}
+.line dd{margin:0;font-family:var(--mono);font-size:clamp(20px,2.4vw,28px);font-weight:500;letter-spacing:-.03em}
+.line .line__note{margin:8px 0 0;font-family:var(--sans);font-size:14px;font-weight:400;
+  line-height:1.55;color:var(--ink-2);max-width:38ch;letter-spacing:0}
+
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px}
+.shots figure{margin:0;position:relative;background:var(--band)}
+.shots img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.shots figcaption{
+  position:absolute;left:0;bottom:0;background:var(--paper);
+  font-family:var(--mono);font-size:11px;padding:4px 8px;
+}
+
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 clamp(20px,2.5vw,40px)}
+.steps div{border-top:1px solid var(--ink);padding:12px 0 18px}
+.steps b{display:block;font-family:var(--mono);font-size:13px;color:var(--total);margin-bottom:6px}
+.steps p{margin:0;font-size:14.5px;line-height:1.5}
+
+.close{padding:clamp(44px,7vw,96px) 0}
+.close h2{font-size:clamp(26px,4vw,50px);letter-spacing:-.03em;line-height:1.08;max-width:18ch;margin:0 0 20px}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);
+  text-decoration:none;padding:13px 22px;font-weight:500}
+.cta:hover{background:var(--total)}
+.cta .num{font-size:15px}
+
+.foot{border-top:1px solid var(--ink);padding:22px 0 40px;font-size:13px;color:var(--ink-2)}
+.foot p{margin:0 0 6px;max-width:74ch;line-height:1.6}
+
+/* ── Планшет і телефон ───────────────────────────────────────── */
+@media (max-width:1080px){
+  .summary__grid{grid-template-columns:1fr}
+  .summary__left{border-right:0;border-bottom:1px solid var(--ink);padding-right:0}
+  .ledger__scroll{max-height:none}
+}
+@media (max-width:640px){
+  /* Назва й телефон в один рядок, навігація під ними окремою смугою,
+     яка за потреби прокручується вбік замість того, щоб ламатись. */
+  .head__in{flex-wrap:wrap;gap:6px 16px}
+  .head__tel{order:2;margin-left:auto}
+  .head__nav{order:3;width:100%;margin-left:0;flex-wrap:nowrap;overflow-x:auto;
+    gap:16px;padding-bottom:2px;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);
+    mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+  .head__nav::-webkit-scrollbar{display:none}
+  .head__nav a{white-space:nowrap}
+  .lede{max-width:none}
+  .ledger{font-size:14px}
+  /* Ховаємо колонки цілком — і клітинку, і заголовок. За класами не можна:
+     їх мають лише td, і заголовок лишався б над чужим стовпцем. */
+  .ledger tr > :nth-child(1),
+  .ledger tr > :nth-child(3),
+  .ledger tr > :nth-child(5){display:none}
+  /* Пояснення до колонок, яких на цій ширині вже немає. */
+  .wide-only{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .total__fig{transition:color .25s cubic-bezier(.16,1,.3,1)}
+  .total__fig[data-tallying]{color:var(--ink)}
+}
